@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
   resources :developers
   resources :users
   resources :apps
@@ -7,7 +9,17 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
    root :to  => redirect('/users')
+   
+   #root             'static_pages#home'
+   #get 'help'    => 'static_pages#help'
+   #get 'about'   => 'static_pages#about'
+   #get 'contact' => 'static_pages#contact'
+   get 'signup'  => 'users#new'
+   get    'login'   => 'sessions#new'
+   post   'login'   => 'sessions#create'
+   get 'logout'  => 'sessions#destroy'
 
+   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
