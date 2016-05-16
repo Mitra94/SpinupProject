@@ -1,5 +1,5 @@
 class App < ActiveRecord::Base
 
-    belong_to :developer
+    belongs_to :developer
 
 end

@@ -3,14 +3,15 @@ Rails.application.routes.draw do
 
   resources :developers
   resources :users
+  resources :static_pages
   resources :apps
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root :to  => redirect('/users')
+   #root :to  => redirect('/home')
    
-   #root             'static_pages#home'
+   root             'static_pages#home'
    #get 'help'    => 'static_pages#help'
    #get 'about'   => 'static_pages#about'
    #get 'contact' => 'static_pages#contact'
