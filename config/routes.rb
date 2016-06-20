@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'developer/new'
+
   get 'sessions/new'
 
   resources :developers
@@ -15,10 +17,16 @@ Rails.application.routes.draw do
    #get 'help'    => 'static_pages#help'
    #get 'about'   => 'static_pages#about'
    #get 'contact' => 'static_pages#contact'
-   get 'signup'  => 'users#new'
+   get  'spinin'  => 'static_pages#spinin'
+   get  'signup'  => 'static_pages#spinup'
+   get 'signup/user'  => 'users#new'
+   get 'signup/developer'  => 'developers#new'
    get    'login'   => 'sessions#new'
    post   'login'   => 'sessions#create'
+   get    'logindev'   => 'sessions#newdev'
+   post   'logindev'   => 'sessions#createdev'
    get 'logout'  => 'sessions#destroy'
+   get 'logoutdev'  => 'sessions#destroydev'
 
    
   # Example of regular route:

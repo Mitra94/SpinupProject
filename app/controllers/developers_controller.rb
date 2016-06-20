@@ -1,5 +1,5 @@
 class DevelopersController < ApplicationController
-  before_action :set_developer, only: [:show, :edit, :update, :destroy]
+  before_action :set_developer, only: [:show, :edit, :update]
 
   # GET /developers
   # GET /developers.json
@@ -10,6 +10,7 @@ class DevelopersController < ApplicationController
   # GET /developers/1
   # GET /developers/1.json
   def show
+    @developer = Developer.find(params[:id])
   end
 
   # GET /developers/new
@@ -28,6 +29,8 @@ class DevelopersController < ApplicationController
 
     respond_to do |format|
       if @developer.save
+        log_in_dev @developer
+        remember_dev @developer
         format.html { redirect_to @developer, notice: 'Developer was successfully created.' }
         format.json { render :show, status: :created, location: @developer }
       else
@@ -69,6 +72,6 @@ class DevelopersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def developer_params
-      params.require(:developer).permit(:skill, :age, :city)
+      params.require(:developer).permit(:name, :surname, :age, :city, :email, :password, :password_confirmation)
     end
 end

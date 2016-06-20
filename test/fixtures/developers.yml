@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  skill: MyString
-  age: 1
+  surname: MyString
   city: MyString
+  age: 1
 
 two:
-  skill: MyString
-  age: 1
+  surname: MyString
   city: MyString
+  age: 1

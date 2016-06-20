@@ -10,19 +10,42 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div class="field">
-    <%= f.label :skill %><br>
-    <%= f.text_field :skill %>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
   </div>
+  
   <div class="field">
-    <%= f.label :age %><br>
-    <%= f.number_field :age %>
+    <%= f.label :surname %><br>
+    <%= f.text_field :surname %>
   </div>
+  
   <div class="field">
     <%= f.label :city %><br>
     <%= f.text_field :city %>
   </div>
+  
+  <div class="field">
+    <%= f.label :age %><br>
+    <%= f.number_field :age %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password, class: 'form-control'  %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirmation" %><br>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
