@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Type</th>
+      <th>Platform</th>
       <th>Category</th>
       <th colspan="3"></th>
     </tr>
@@ -16,7 +16,7 @@
     <% @apps.each do |app| %>
       <tr>
         <td><%= app.name %></td>
-        <td><%= app.type %></td>
+        <td><%= app.platform %></td>
         <td><%= app.category %></td>
         <td><%= link_to 'Show', app %></td>
         <td><%= link_to 'Edit', edit_app_path(app) %></td>

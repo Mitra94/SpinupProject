@@ -1,29 +1,13 @@
-<p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag "application.css" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @developer.name %>
-</p>
-
-<p>
-  <strong>Surname:</strong>
-  <%= @developer.surname %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @developer.email %>
-</p>
-
-<p>
-  <strong>Age:</strong>
-  <%= @developer.age %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @developer.city %>
-</p>
-
-<%= link_to 'Edit', edit_developer_path(@developer) %> |
-<%= link_to 'Back', root_path %>
+<div id="container">
+	<div id="left_side">
+		<div class="dropdown">
+		<button class="dropbtn">Dropdown</button>
+			<div class="dropdown-content">
+				<a href="#">My Profile</a><br>
+				<a href="/apps/new">Create App</a><br>
+			</div>
+		</div>
+	</div>
+</div>

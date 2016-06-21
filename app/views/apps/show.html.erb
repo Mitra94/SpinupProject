@@ -1,19 +1,24 @@
 <p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag "application.css" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @app.name %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @app.type %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @app.category %>
-</p>
-
-<%= link_to 'Edit', edit_app_path(@app) %> |
-<%= link_to 'Back', apps_path %>
+<div id="container">
+	<div class="left_side">
+		<div class="dropdown">
+			<button class="dropbtn">Dropdown</button>
+				<div class="dropdown-content">
+					<a href="/apps/edit">App's Settings</a><br>
+					<%= link_to 'Back To Home', current_dev %><br>
+				</div>
+		</div>
+	</div>
+	<div class="general">
+		<div class="photo">
+			Qui va inserita la foto
+		</div>
+		<div class="information">
+			<p>
+				<strong>Name:</strong>
+				<%= @app.name %>
+			</p>
+	</div>
+</div>
