@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spinup</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
+</head>
+
+<body>
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "Spinup", home_path %>
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+    
+    
+        <li><%= link_to "Home", home_path %></li>
+        <% if logged_in? %>
+            <div class="left_side">
+                <div class="dropdown">
+                    <button class="dropbtn"> <%= current_user.username%> </button>
+                        <div class="dropdown-content">
+                            <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+                            <%= link_to "Log out", logout_path, method: "get" %>
+                        </div>
+                </div>
+            </div>
+        <% elsif logged_in_dev? %>
+            <div class="left_side">
+                <div class="dropdown">
+                    <button class="dropbtn"> <%=current_dev.name %> </button>
+                        <div class="dropdown-content">
+                            <li><%= link_to "My profile", developer_path(current_dev) %></li>
+                            <li><%= link_to "Settings", edit_developer_path(current_dev) %></li>
+                            <a href="/apps/new">Create App</a><br>
+                            <%= link_to "Log out", logoutdev_path, method: "get" %>
+                        </div>
+                </div>
+            </div>
+        <% else %>
+          <li><%= link_to "Log in", spinin_path %></li>
+          New user? [<%= link_to 'Signup',
+          signup_path, :method => :get%>]
+        <% end %>
+  </div>
+</header>
+<%= yield %>
+
+</body>
+</html>
