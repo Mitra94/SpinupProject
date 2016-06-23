@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'developer/new'
 
   get 'sessions/new'
@@ -7,6 +8,8 @@ Rails.application.routes.draw do
   resources :users
   resources :static_pages
   resources :apps
+  resources :microposts,	only: [:new, :create, :edit, :destroy]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

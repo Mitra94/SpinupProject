@@ -10,11 +10,18 @@ class AppsController < ApplicationController
   # GET /apps/1
   # GET /apps/1.json
   def show
+     @app = App.find(params[:id])
+     #@developers = @app.developers
+     #@developers.each do |developer|
+	#	developer.microposts.paginate(page: params[:page])
+	#end
+	 @microposts = @app.microposts.paginate(page: params[:page])
+
   end
 
   # GET /apps/new
   def new
-    @app = App.new
+    @app = App.new(params[:app])
   end
 
   # GET /apps/1/edit
@@ -25,7 +32,12 @@ class AppsController < ApplicationController
   # POST /apps.json
   def create
     @app = App.new(app_params)
+    #added code for realizers list
+	@developers = Developer.where(:id => params[:realizers])
+	@app.developers << @developers 
+	#end code
 
+	
     respond_to do |format|
       if @app.save
         format.html { redirect_to @app, notice: 'App was successfully created.' }
@@ -69,6 +81,6 @@ class AppsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:app).permit(:name, :type, :category)
+      params.require(:app).permit(:name, :platform, :category)
     end
 end
