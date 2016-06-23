@@ -1,0 +1,23 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <%= gravatar_for @user %>
+      <h1><%= @user.username %></h1>
+    </section>
+    <section class="stats">
+    </section>
+  </aside>
+    <div class="col-md-8">
+    <h3><%= @title %></h3>
+    <% if @apps.any? %>
+        <div class="user_avatars">
+          <% @apps.each do |app| %>
+            <%= link_to app.name, app %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    
+
+</div>
