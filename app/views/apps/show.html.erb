@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag "application.css" %>
+
+<div id="container">
+	<div class="left_side">
+		<div class="dropdown">
+			<button class="dropbtn">Menu</button>
+				<div class="dropdown-content">
+					<%= link_to 'Back To Home', current_dev %><br>
+					<%= link_to 'Modify Settings', edit_app_path %><br>
+				</div>
+		</div><br><br>
+		<div class="Realizers">
+			Lista dei realizzatori :
+			<% @app.developers.each do |developer| %>
+			<ul><%= developer.name + " " + developer.surname%></ul>
+			<% end %>
+		</div>
+	</div>
+	<div class="general">
+		<div class="photo">
+			Qui va inserita la foto
+		</div>
+		<div class="information">
+			<p>
+				<strong>Name:</strong>
+				<%= @app.name %>
+			</p>
+		</div>
+	</div>
+	<br><br><br><br><br><br><br><br><br><br><br><br>
+	
+	<% @app.developers.each do |developer| %>
+		<% if developer.id == current_dev.id %>
+		POSSO CREARE UN MICROPOST
+		<div class="col-md-8">
+		VISUALIZZAZIONE DEI MICROPOST
+		<%= current_dev.microposts.each do |micro|%>
+			<%= micro.content%>
+		<%end%>
+		<% if current_dev.microposts.any? %>
+		<% end %>
+		</div>
+		<% end%> 
+	<% end %>
+	
+	<%= link_to 'Create Post', new_micropost_path(:app_id => @app.id)%>
+	<br><br><br><br><br>
+	<% provide(:title, @app.name) %>
+	<div class="row">
+		maialone<br><br>
+		<div class="col-md-8">
+		SECONDO IL LIBRO DI MERDA QUI DOVREBBERO ESSERE STAMPATI I MICROPOST
+			<% if current_dev.microposts.any? %>
+				<h3>Microposts </h3>
+				<% @app.developers.each do  | developer| %>
+				    
+					<% developer.microposts.each do  |micropost| %>
+					<li id="micropost-<%= micropost.id %>">
+					  <span class="app"><%= link_to micropost.developer.name, micropost.developer %></span>
+					  <span class="content"><%= micropost.content %></span>
+					  <span class="timestamp">
+					   Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+                  </span>
+                 </li>
+                 <% end %>
+                 <% end %>
+			<% end %>
+		</div>
+	</div>
+
+  </div>
+  <a href="/microposts/new?app_id=<%=@app.id%>">Create Post</a>
+</div>
