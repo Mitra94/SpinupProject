@@ -1,0 +1,35 @@
+<%= form_for(@app) do |f| %>
+  <% if @app.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@app.errors.count, "error") %> prohibited this app from being saved:</h2>
+      <ul>
+      <% @app.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	
+  <br>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label :platform %>
+    <%= f.text_field :platform %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label :category %>
+    <%= f.text_field :category %>
+  </div>
+  <div class="hidden">
+	<%= f.label :realizer %>
+	<%= select_tag "realizers", options_from_collection_for_select(Developer.all, 'id', 'name',@app.developers.map{ |j| j.id }), :multiple => false %>
+  </div>
+  <div class="actions"><br>
+    <%= f.submit %>
+  </div>
+<% end %>

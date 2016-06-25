@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag "application.css" %>
+
+<div id="container">
+	<div class="left_side">
+		<div class="dropdown">
+			<button class="dropbtn">Menu</button>
+				<div class="dropdown-content">
+					<%= link_to 'Back To Home', current_dev %><br>
+					<%= link_to 'Modify Settings', edit_app_path %><br>
+				</div>
+		</div><br><br>
+		<div class="Realizers">
+			Lista dei realizzatori :
+			<% @app.developers.each do |developer| %>
+			<ul><%= developer.name + " " + developer.surname%></ul>
+			<% end %>
+		</div>
+	</div>
+	<div class="general">
+		<div class="photo">
+			Qui va inserita la foto
+		</div>
+		<div class="information">
+			<p>
+				<strong>Name:</strong>
+				<%= @app.name %>
+			</p>
+		</div>
+	</div>
+	<br><br><br><br><br><br><br><br>
+	
+	<% @app.developers.each do |developer| %>
+		<% if developer.id == current_dev.id %>
+        <h1>New Post</h1>
+        <% @micropost = Micropost.new %>
+        <% @micropost.app = @app %>
+        <section class="micropost_form">
+        <%= render 'shared/micropost_form' %>
+        </section>
+    <% end %>
+
+		
+        <div class="col-md-8">
+        
+          <div class="col-md-8">
+            <% if @app.microposts.any? %>
+              <h3>Microposts (<%= @app.microposts.count %>)</h3>
+              <ol class="microposts">
+                <%= render @microposts %>
+              </ol>
+              <%= will_paginate @microposts %>
+            <% end %>
+          </div>
+
+		</div>
+	<% end %>
+	
+  </div>
+</div>
