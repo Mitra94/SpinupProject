@@ -5,7 +5,11 @@ class DevelopersController < ApplicationController
   # GET /developers
   # GET /developers.json
   def index
-    @developers = Developer.all
+    #@developers = Developer.all
+    @developers = Developer.search(params[:search])
+    if @developers.nil?
+        flash[:ris] = "No Results fot that params"
+    end
   end
 
   # GET /developers/1

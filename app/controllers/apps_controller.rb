@@ -5,7 +5,8 @@ class AppsController < ApplicationController
   # GET /apps
   # GET /apps.json
   def index
-    @apps = App.all
+    #@apps = App.all
+    @apps = App.search(params[:search])
   end
 
   # GET /apps/1
@@ -64,8 +65,6 @@ class AppsController < ApplicationController
     @apps = App.order("created_at").last(5).reverse
   end
   
-
-    
   # GET /apps/1/edit
   def edit
   end
@@ -75,6 +74,10 @@ class AppsController < ApplicationController
   # POST /apps.json
   def create
     @app = App.new(app_params)
+    #added code for realizers list
+	@developers = Developer.where(:id => params[:realizers])
+	@app.developers << @developers 
+	#end code
 
     respond_to do |format|
       if @app.save

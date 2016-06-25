@@ -1,6 +1,6 @@
 class App < ActiveRecord::Base
 
-    belongs_to :developer
+    has_and_belongs_to_many :developers
     
     ratyrate_rateable "vote"
     
@@ -10,4 +10,13 @@ class App < ActiveRecord::Base
 
     has_many :followers, through: :passive_relationships, source: :follower
     
+    
+    def self.search(search)
+        if search
+            search.downcase!
+            where('LOWER(name) LIKE ?', "%#{search}%")
+        else
+            all
+        end
+    end
 end

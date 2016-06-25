@@ -48,5 +48,14 @@ class Developer < ActiveRecord::Base
       def forget
         update_attribute(:remember_digest, nil)
       end
+      
+    def self.search(search)
+        if search
+            search.downcase!
+            where('LOWER(name) LIKE ?', "%#{search}%")
+        else
+            all
+        end
+    end
   
 end

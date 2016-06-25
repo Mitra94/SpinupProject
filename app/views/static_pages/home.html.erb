@@ -7,5 +7,22 @@
   <%= link_to 'Fresh apps', freshapps_path %>
   <%= link_to 'App of the day', appoftheday_path %>
   <%= link_to 'Must have', musthave_path %>
+  
+  <%= form_tag apps_path, :method => 'get', :id => 'apps_search' do %>
+    <p>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "Search App", :name => nil %>
+    </p>
+  <% end %>
+  
+  <% if logged_in_dev? %>
+  <%= form_tag developers_path, :method => 'get', :id => 'developers_search' do %>
+    <p>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "Search Developer", :name => nil %>
+    </p>
+  <% end %>
+  <% end %>
+  
 </div>
 
