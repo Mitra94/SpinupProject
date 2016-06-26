@@ -1,0 +1,29 @@
+<%= form_for(@approval) do |f| %>
+  <% if @approval.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@approval.errors.count, "error") %> prohibited this approval from being saved:</h2>
+
+      <ul>
+      <% @approval.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :skill %><br>
+    <%= f.text_field :skill %>
+  </div>
+  <div class="field">
+    <%= f.label :voted %><br>
+    <%= f.number_field :voted %>
+  </div>
+  <div class="field">
+    <%= f.label :voter %><br>
+    <%= f.text_field :voter %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

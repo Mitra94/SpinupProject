@@ -17,6 +17,33 @@ Rails.application.routes.draw do
   resources :relationships,       only: [:create, :destroy]
   resources :microposts,          only: [:create, :destroy]
 
+  resources :approvals
+  resources :skills
+
+  get 'skills/:id/show_htmlcss' => 'skills#show_htmlcss'
+  get 'skills/:id/show_java' => 'skills#show_java'
+  get 'skills/:id/show_javascript' => 'skills#show_javascript'
+  get 'skills/:id/show_c' => 'skills#show_c'
+  get 'skills/:id/show_c_plus_plus' => 'skills#show_c_plus_plus'
+  get 'skills/:id/show_nodejs' => 'skills#show_nodejs'
+  get 'skills/:id/show_database' => 'skills#show_database'
+  get 'skills/:id/show_algorithms' => 'skills#show_algorithms'
+  get 'skills/:id/show_android' => 'skills#show_android'
+  get 'skills/:id/show_ios' => 'skills#show_ios'
+
+  get 'skills/:id/edit_htmlcss' => 'skills#edit_htmlcss'
+  get 'skills/:id/edit_java' => 'skills#edit_java'
+  get 'skills/:id/edit_javascript' => 'skills#edit_javascript'
+  get 'skills/:id/edit_c' => 'skills#edit_c'
+  get 'skills/:id/edit_cplus' => 'skills#edit_cplus'
+  get 'skills/:id/edit_nodejs' => 'skills#edit_nodejs'
+  get 'skills/:id/edit_database' => 'skills#edit_database'
+  get 'skills/:id/edit_algorithms' => 'skills#edit_algorithms'
+  get 'skills/:id/edit_android' => 'skills#edit_android'
+  get 'skills/:id/edit_ios' => 'skills#edit_ios'
+
+  get 'skills/search' => 'skills#search'
+  get 'results' => 'skills#results'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

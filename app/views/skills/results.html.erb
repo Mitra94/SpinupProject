@@ -1,0 +1,120 @@
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+
+<p> According to your search these are the developers we found: </p>
+
+<table>
+
+	<tr>
+		<th> Developer </th>
+		<th> Developer Skill </th>
+		<th> Developer Profile </th>
+	</tr>
+
+<% @range.each do |s| %>
+
+	<% if (params[:commit] == 'Search HTML+CSS' and Skill.find(s).html_css >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).html_css %></td>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+	</tr>	
+	
+	<% end %>
+
+	<% if (params[:commit] == 'Search Java' and Skill.find(s).java >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).java %></td>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+	</tr>	
+	
+	<% end %>
+
+	<% if (params[:commit] == 'Search Javascript' and Skill.find(s).javascript >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).javascript %></td>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+	</tr>	
+	
+	<% end %>
+
+	<% if (params[:commit] == 'Search C' and Skill.find(s).c >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).c %></td>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %><td>
+	</tr>	
+	
+	<% end %>
+
+	<% if (params[:commit] == 'Search C++' and Skill.find(s).c_plus_plus >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).c_plus_plus %></td>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+	</tr>	
+	
+	<% end %>
+
+	<% if (params[:commit] == 'Search Nodejs' and Skill.find(s).nodejs >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).nodejs %>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+	</tr>	
+	
+	<% end %>
+
+	<% if (params[:commit] == 'Search Database' and Skill.find(s).database >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).database %></td>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+	</tr>	
+	
+	<% end %>
+
+	<% if (params[:commit] == 'Search Algorithms' and Skill.find(s).algorithms >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).algorithms %></td>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+	</tr>	
+	
+	<% end %>
+
+	<% if (params[:commit] == 'Search Android' and Skill.find(s).android >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).android %></td>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+	</tr>	
+	
+	<% end %>
+
+	<% if (params[:commit] == 'Search iOS' and Skill.find(s).ios >= params[:q].to_i and Developer.find(s).name != current_dev.name) %>
+	
+	<tr>		
+		<td><%= @dev = Developer.find(s).name %></td>
+		<td><%= Skill.find(s).ios %></td>
+		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+	</tr>	
+	
+	<% end %>
+
+<% end %>

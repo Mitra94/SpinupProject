@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Skill:</strong>
+  <%= @approval.skill %>
+</p>
+
+<p>
+  <strong>Voted:</strong>
+  <%= @approval.voted %>
+</p>
+
+<p>
+  <strong>Voter:</strong>
+  <%= @approval.voter %>
+</p>
+
+<%= link_to 'Edit', edit_approval_path(@approval) %> |
+<%= link_to 'Back', approvals_path %>

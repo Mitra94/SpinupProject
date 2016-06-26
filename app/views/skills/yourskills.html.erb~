@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Html+css:</strong>
+  <%= @skill.html_css %>
+
+</p>
+
+<p>
+  <strong>Java:</strong>
+  <%= @skill.java %>
+
+</p>
+
+<p>
+  <strong>Javascript:</strong>
+  <%= @skill.javascript %>
+	
+</p>
+
+<p>
+  <strong>C:</strong>
+  <%= @skill.c %>
+
+</p>
+
+<p>
+  <strong>C++:</strong>
+  <%= @skill.c_plus_plus %>
+
+</p>
+
+<p>
+  <strong>Nodejs:</strong>
+  <%= @skill.nodejs %>
+
+</p>
+
+<p>
+  <strong>Database:</strong>
+  <%= @skill.database %>
+
+  <%= link_to 'Approve', controller: 'skills', action: 'edit_database' %>
+</p>
+
+<p>
+  <strong>Algorithms:</strong>
+  <%= @skill.algorithms %>
+
+  <%= link_to 'Approve', controller: 'skills', action: 'edit_algorithms' %>
+</p>
+
+<p>
+  <strong>Android:</strong>
+  <%= @skill.android %>
+
+  <%= link_to 'Approve', controller: 'skills', action: 'edit_android' %>
+</p>
+
+<p>
+  <strong>Ios:</strong>
+  <%= @skill.ios %>
+
+  <%= link_to 'Approve', controller: 'skills', action: 'edit_ios' %>
+</p>

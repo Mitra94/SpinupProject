@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Skills</h1>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>HTML+CSS</th>
+      <th>Java</th>
+      <th>Javascript</th>
+      <th>C</th>
+      <th>C++</th>
+      <th>Nodejs</th>
+      <th>Database</th>
+      <th>Algorithms</th>
+      <th>Android</th>
+      <th>Ios</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @skills.each do |skill| %>
+      <tr>
+        <td><%= skill.html_css %></td>
+        <td><%= skill.java %></td>
+        <td><%= skill.javascript %></td>
+        <td><%= skill.c %></td>
+        <td><%= skill.c_plus_plus %></td>
+        <td><%= skill.nodejs %></td>
+        <td><%= skill.database %></td>
+        <td><%= skill.algorithms %></td>
+        <td><%= skill.android %></td>
+        <td><%= skill.ios %></td>
+        <td><%= link_to 'Show', skill %></td>
+        <td><%= link_to 'Edit', edit_skill_path(skill) %></td>
+        <td><%= link_to 'Destroy', skill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Skill', new_skill_path %>

@@ -1,0 +1,74 @@
+<p> Here you can look for a developer with the skills you need for your next killer app! </p>
+
+<p> First select what kind of skill level you need for your developer </p>  
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "HTML+CSS: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "Java: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "Javascript: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "C: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "C++: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "Nodejs: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "Database: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "Algorithms: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "Android: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<%= form_tag("/results", method: "get") do %>
+  <%= label_tag(:q, "iOS: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+

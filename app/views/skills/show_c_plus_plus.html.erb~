@@ -1,0 +1,59 @@
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+<p> Listing voters </p>
+
+<% if (Developer.find(params[:id]).name != current_dev.name) %>
+<table>
+
+			<tr>
+				<th> Developer </th>
+				<th> Developer Profile </th>
+			</tr>
+	
+	<% Approval.all.each do |v| %>
+
+
+		<% if (v.voted == params[:id].to_i and v.skill == 'cplus') %>
+			
+			<tr>
+				<td> <%= v.voter %> </td>
+				<td> <%= link_to 'Profilo', Developer.find_by(name: v.voter)  %> </td>
+			</tr>
+
+		<% end %>
+
+	<% end %>
+
+<% end %>
+
+</table>
+
+<% if (Developer.find(params[:id]).name == current_dev.name) %>
+
+<table>
+
+			<tr>
+				<th> Developer </th>
+				<th> Developer Profile </th>
+			</tr>
+
+
+	<% Approval.all.each do |v| %>
+
+		<% if (Developer.find_by(id: v.voted).name == current_dev.name and v.skill == 'cplus') %>
+
+			<tr>
+				<td><%= v.voter %></td>
+				<td><%= link_to 'Profilo', Developer.find_by(name: v.voter)  %></td>
+			</tr>
+
+	<% end %>		
+<% end %>
+
+</table>
+
+<% end %>

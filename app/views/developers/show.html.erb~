@@ -34,3 +34,5 @@
 					<p><%= link_to 'Approve Skills For This Developer', controller: 'skills', action: 'show'  %>
 				<% end %>
 					</p>
+				<p><%= link_to 'Search Dev With Skills', controller: 'skills', action: 'search' %>
+				</
