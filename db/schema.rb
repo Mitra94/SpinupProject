@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621080622) do
+ActiveRecord::Schema.define(version: 20160623085458) do
+
+  create_table "approvals", force: :cascade do |t|
+    t.string   "skill"
+    t.integer  "voted"
+    t.string   "voter"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "apps", force: :cascade do |t|
     t.string   "name"
@@ -80,6 +88,21 @@ ActiveRecord::Schema.define(version: 20160621080622) do
     t.integer  "followed_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.integer  "html_css",    default: 0
+    t.integer  "java",        default: 0
+    t.integer  "javascript",  default: 0
+    t.integer  "c",           default: 0
+    t.integer  "c_plus_plus", default: 0
+    t.integer  "nodejs",      default: 0
+    t.integer  "database",    default: 0
+    t.integer  "algorithms",  default: 0
+    t.integer  "android",     default: 0
+    t.integer  "ios",         default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "users", force: :cascade do |t|
