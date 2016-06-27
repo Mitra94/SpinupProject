@@ -14,19 +14,17 @@
 <body>
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "Spinup", home_path %>
     <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>"><%= value %></div>
       <% end %>
-    
-    
-        <li><%= link_to "Home", home_path %></li>
+        <%= link_to "Home", home_path %>
+        <br>
         <% if logged_in? %>
             <div class="left_side">
                 <div class="dropdown">
                     <button class="dropbtn"> <%= current_user.username%> </button>
                         <div class="dropdown-content">
-                            <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+                            <%= link_to "Settings", edit_user_path(current_user) %><br>
                             <%= link_to "Log out", logout_path, method: "get" %>
                         </div>
                 </div>
@@ -39,18 +37,18 @@
                 <div class="dropdown">
                     <button class="dropbtn"> <%=current_dev.name %> </button>
                         <div class="dropdown-content">
-                            <li><%= link_to "My profile", developer_path(current_dev) %></li>
-                            <li><%= link_to "Settings", edit_developer_path(current_dev) %></li>
+                            <%= link_to "My profile", developer_path(current_dev) %>
+                            <%= link_to "Settings", edit_developer_path(current_dev) %><br>
                             <a href="/apps/new">Create App</a><br>
                             <%= link_to "Log out", logoutdev_path, method: "get" %>
                         </div>
                 </div>
             </div>
         <% else %>
-          <li><%= link_to "Log in as a User", login_path %></li>
-          <li><%= link_to "Log in as a Developer", logindev_path %></li>
-          New user? [<%= link_to 'Signup as a User',
-          signup_user_path, :method => :get%>]
+          <%= link_to "Log in as a User", login_path %><br>
+          <%= link_to "Log in as a Developer", logindev_path %><br>
+          New user? <br>[<%= link_to 'Signup as a User',
+          signup_user_path, :method => :get%>]<br>
           [<%= link_to 'Signup as a Developer',
           signup_developer_path, :method => :get%>]
         <% end %>

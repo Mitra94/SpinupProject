@@ -220,3 +220,7 @@ div.information {
     display: block;
   }
 }
+
+.hidden{
+    display:none;
+}

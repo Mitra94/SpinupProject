@@ -7,10 +7,12 @@
     <% if micropost.updated_at != micropost.created_at %>
       Modified <%= time_ago_in_words(micropost.updated_at) %> ago.
     <% end %>
+    <% if logged_in_dev?%>
     <% if current_dev.id == (micropost.developer.id) %>
       <%= link_to 'Edit', [:edit, @micropost.app, micropost] %>
       <%= link_to "delete", [@app, micropost], method: :delete,
                                        data: { confirm: "You sure?" } %>
+    <% end %>
     <% end %>
   </span>
 </li>
