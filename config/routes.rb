@@ -45,6 +45,9 @@ Rails.application.routes.draw do
   get 'skills/:id/search' => 'skills#search'
   get 'results' => 'skills#results'
 
+  get 'home/search' => 'developers#search'
+  get 'dev_results' => 'developers#dev_results'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

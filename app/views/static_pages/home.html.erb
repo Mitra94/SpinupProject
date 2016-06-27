@@ -16,12 +16,9 @@
   <% end %>
   
   <% if logged_in_dev? %>
-  <%= form_tag developers_path, :method => 'get', :id => 'developers_search' do %>
     <p>
-        <%= text_field_tag :search, params[:search] %>
-        <%= submit_tag "Search Developer", :name => nil %>
+      <%= link_to "Search Dev", controller: 'developers', action: 'search' %>
     </p>
-  <% end %>
 	<p><%= link_to 'Search Dev With Skills', controller: 'skills', action: 'search', :id => 1 %>
 	</p>
   <% end %>

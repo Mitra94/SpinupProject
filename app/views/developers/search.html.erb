@@ -1,0 +1,31 @@
+<p> Here you can search a developer according to name,surname,email,city and age. If you need to search for a dev with a particular skill level, go back and click on: Search Dev With Skills </p>
+
+<%= form_tag("/dev_results", method: "get") do %>
+  <%= label_tag(:q, "Name: ") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search by Name") %>
+<% end %>
+
+<%= form_tag("/dev_results", method: "get") do %>
+  <%= label_tag(:q, "Surname: ") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search by Surname") %>
+<% end %>
+
+<%= form_tag("/dev_results", method: "get") do %>
+  <%= label_tag(:q, "Email: ") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search by Email") %>
+<% end %>
+
+<%= form_tag("/dev_results", method: "get") do %>
+  <%= label_tag(:q, "City: ") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search by City") %>
+<% end %>
+
+<%= form_tag("/dev_results", method: "get") do %>
+  <%= label_tag(:q, "Age: ") %>
+  <%= number_field_tag(:q) %>
+  <%= submit_tag("Search by Age") %>
+<% end %>

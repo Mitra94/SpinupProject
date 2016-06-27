@@ -27,6 +27,12 @@ class DevelopersController < ApplicationController
   def edit
   end
 
+  def search
+  end
+
+  def results
+  end
+
   # POST /developers
   # POST /developers.json
   def create

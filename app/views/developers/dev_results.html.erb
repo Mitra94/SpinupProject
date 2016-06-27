@@ -1,0 +1,59 @@
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+<table>
+
+	<tr>
+		<th> Developer </th>
+		<th> Developer Profile </th>
+	</tr>
+
+
+<p> According to your search these are the developers we found: </p>
+
+<% Developer.all.each do |d| %>
+
+	<% if params[:commit] == 'Search by Name' and d.name == params[:q] %>
+
+		<tr>
+			<td><%= d.name %></td>
+			<td><%= link_to "Profile", Developer.find_by(name: d.name) %></td>
+		</tr>	
+	<% end %>
+
+	<% if params[:commit] == 'Search by Surname' and d.surname == params[:q] %>
+
+		<tr>	
+			<td><%= d.name %></td>
+			<td><%= link_to "Profile", Developer.find_by(surname: d.name) %></td>
+		</tr>
+	<% end %>
+
+	<% if params[:commit] == 'Search by Email' and d.email == params[:q] %>
+
+		<tr>	
+			<td><%= d.name %></td>
+			<td><%= link_to "Profile", Developer.find_by(name: d.name) %></td>
+		</tr>
+	<% end %>
+
+	<% if params[:commit] == 'Search by City' and d.city == params[:q] %>
+
+		<tr>	
+			<td><%= d.name %></td>
+			<td><%= link_to "Profile", Developer.find_by(name: d.name) %></td>
+		</tr>
+	<% end %>
+
+	<% if params[:commit] == 'Search by Age' and d.age == params[:q].to_i %>
+
+		<tr>	
+			<td><%= d.name %></td>
+			<td><%= link_to "Profile", Developer.find_by(name: d.name) %></td>
+		</tr>
+	<% end %>
+
+<% end %>
