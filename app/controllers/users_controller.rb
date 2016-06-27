@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
-  before_action :set_user, only: [:show, :edit, :update, :following]
+  before_action :set_user, only: [:show, :edit, :update, :following, :likes]
   before_action :admin_user,     only: :destroy
   
   # GET /users
@@ -25,6 +25,15 @@ class UsersController < ApplicationController
     @apps = @user.following.paginate(page: params[:page])
     render 'show_follow'
   end
+  
+  #Likes Code
+  def likes
+    @title = "Likes"
+    @user  = User.find(params[:id])
+    @microposts = @user.likes.paginate(page: params[:page])
+    render 'show_follow'
+  end
+  #End Likes Code
 
   # GET /users/1/edit
   def edit
