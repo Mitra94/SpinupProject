@@ -25,14 +25,3 @@
   <strong>City:</strong>
   <%= @developer.city %>
 </p>
-
-<% if current_dev.name == Developer.find(params[:id]).name %>
-				<p><%= link_to 'Take A Look At Your Skills', controller: 'skills', action: 'show'  %>
-				<% end %>
-				</p>
-				<% if current_dev.name != Developer.find(params[:id]).name %>
-					<p><%= link_to 'Approve Skills For This Developer', controller: 'skills', action: 'show'  %>
-				<% end %>
-					</p>
-				<p><%= link_to 'Search Dev With Skills', controller: 'skills', action: 'search' %>
-				</

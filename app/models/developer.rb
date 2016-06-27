@@ -4,7 +4,8 @@ class Developer < ActiveRecord::Base
 
     attr_accessor :remember_token
     
-    has_many :apps
+    has_and_belongs_to_many :apps
+    has_many :microposts, dependent: :destroy
     has_many :skills
     
     validates :name, presence: true, length: { maximum: 50 }

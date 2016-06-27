@@ -10,12 +10,13 @@ Rails.application.routes.draw do
 
   resources :static_pages
   resources :apps do
+    resources :microposts
     member do
       get :followers
     end
   end
   resources :relationships,       only: [:create, :destroy]
-  resources :microposts,          only: [:create, :destroy]
+
 
   resources :approvals
   resources :skills
@@ -47,7 +48,7 @@ Rails.application.routes.draw do
 
   get 'home/search' => 'developers#search'
   get 'dev_results' => 'developers#dev_results'
-
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

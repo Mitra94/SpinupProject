@@ -40,12 +40,12 @@ class DevelopersController < ApplicationController
 
     respond_to do |format|
       if @developer.save
-	@skill = Skill.new((params[:id]))
+	@skill = Skill.new(params[:id])
 	@skill.save
         log_in_dev @developer
         remember_dev @developer
         format.html { redirect_to edit_skill_path(@skill), notice: 'Developer was successfully created.' }
-        format.json { render :edit }
+        format.json { render :edit}
       else
         format.html { render :new }
         format.json { render json: @developer.errors, status: :unprocessable_entity }

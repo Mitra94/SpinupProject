@@ -12,6 +12,8 @@ class AppsController < ApplicationController
   # GET /apps/1
   # GET /apps/1.json
   def show
+    @app = App.find(params[:id])
+    @microposts = @app.microposts.paginate(page: params[:page])
   end
 
   # GET /apps/new
@@ -37,26 +39,38 @@ class AppsController < ApplicationController
   
   # GET /musthave
   def musthave
-    #@apps = RatingCache.where('avg >= 4').all
     @apps = RatingCache.order('avg').reverse.first(5)
     render 'musthave'
   end
   
   
   def appoftheday
-    @apps = App.all
-    @ris = @apps.find(1)
-    @sum = 0.0
-    @apps.each do |app|
-        @temp = app.rates("vote").where("created_at >= ?", Time.zone.now.beginning_of_day).sum("stars")
-        if @temp > @sum
-            @sum = @temp
-            @ris = app
+    @apps = App.all.where("created_at >= ?", Time.zone.now.beginning_of_day)
+    if @apps.empty?
+        respond_to do |format|
+        format.html { redirect_to home_url, notice: 'No app has been created today!' }
+        format.json { head :no_content }
         end
-    end
-    respond_to do |format|
-        format.html { redirect_to @ris, notice: 'App of the day' }
-        format.json { render :show, status: :show, location: @app }
+    elsif @apps.count == 1
+        @ris = @apps.first()
+        respond_to do |format|
+            format.html { redirect_to @ris, notice: 'App of the day' }
+            format.json { render :show, status: :show, location: @app }
+        end
+    else
+        @ris = @apps.first()
+        @sum = @ris.rates("vote").sum("stars")
+        @apps.each do |app|
+            @temp = app.rates("vote").sum("stars")
+            if @temp > @sum
+                @sum = @temp
+                @ris = app
+            end
+        end
+        respond_to do |format|
+            format.html { redirect_to @ris, notice: 'App of the day' }
+            format.json { render :show, status: :show, location: @app }
+        end
     end
   end
   
@@ -122,6 +136,6 @@ class AppsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:app).permit(:name, :type, :category)
+      params.require(:app).permit(:name, :platform, :category)
     end
 end
