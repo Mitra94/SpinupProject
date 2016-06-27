@@ -44,34 +44,31 @@
 		</div>
 	</div>
 	<br><br><br><br><br><br><br><br>
-	
-	<% @app.developers.each do |developer| %>
-        <% if logged_in_dev?%>
-		<% if developer.id == current_dev.id %>
-        <h1>New Post</h1>
-        <% @micropost = Micropost.new %>
-        <% @micropost.app = @app %>
-        <section class="micropost_form">
-        <%= render 'shared/micropost_form' %>
-        </section>
-        <% end %>
-        <% end %>
+		<% @app.developers.each do |developer| %>
+			<% if logged_in_dev?%>
+				<% if developer.id == current_dev.id %>
+				<h1>New Post</h1>
+				<% @micropost = Micropost.new %>
+				<% @micropost.app = @app %>
+				<section class="micropost_form">
+				<%= render 'shared/micropost_form' %>
+				</section>
+			<% end %>
+		<% end %>
 
 		
         <div class="col-md-8">
         
           <div class="col-md-8">
             <% if @app.microposts.any? %>
-              <h3>Posts (<%= @app.microposts.count %>)</h3>
+              <h3>Microposts (<%= @app.microposts.count %>)</h3>
               <ol class="microposts">
                 <%= render @microposts %>
               </ol>
               <%= will_paginate @microposts %>
             <% end %>
           </div>
-
 		</div>
 	<% end %>
-	
   </div>
 </div>

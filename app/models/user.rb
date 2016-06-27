@@ -20,6 +20,12 @@ class User < ActiveRecord::Base
                                   
     has_many :following, through: :active_relationships, source: :followed
     
+    has_many :active_likes, class_name:  "Like",
+                                  foreign_key: "liker_id",
+                                  dependent:   :destroy
+                                  
+    has_many :likes, through: :active_likes, source: :liked
+    
         # Follows a user.
       def follow(app)
         active_relationships.create(followed_id: app.id)
@@ -34,6 +40,21 @@ class User < ActiveRecord::Base
       def following?(app)
         following.include?(app)
       end
+      
+    #Like a post
+	def like(micropost)
+		active_likes.create(liked_id: micropost.id)
+	end
+	
+	#Unlike a post
+	def unlike(micropost)
+		active_likes.find_by(liked_id: micropost.id).destroy
+	end
+	
+	#Returns true if the current user likes the micropost
+	def likes?(micropost)
+		likes.include?(micropost)
+	end
 
     # Returns the hash digest of the given string.
     def User.digest(string)

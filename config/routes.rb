@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :following
+      get :like
     end
   end
 
@@ -13,9 +14,11 @@ Rails.application.routes.draw do
     resources :microposts
     member do
       get :followers
+      get :likers
     end
   end
   resources :relationships,       only: [:create, :destroy]
+  resources :likes, 			  only: [:create, :destroy]
 
 
   # The priority is based upon order of creation: first created -> highest priority.
