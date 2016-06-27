@@ -61,6 +61,7 @@ class SkillsController < ApplicationController
 
   # GET /skills/1/edit
   def edit
+	@skills = Skill.find(params[:id])
   end
 
   def edit_htmlcss

@@ -38,8 +38,8 @@ class DevelopersController < ApplicationController
 	@skill.save
         log_in_dev @developer
         remember_dev @developer
-        format.html { redirect_to @developer, notice: 'Developer was successfully created.' }
-        format.json { render :show, status: :created, location: @developer }
+        format.html { redirect_to edit_skill_path(@skill), notice: 'Developer was successfully created.' }
+        format.json { render :edit }
       else
         format.html { render :new }
         format.json { render json: @developer.errors, status: :unprocessable_entity }

@@ -34,10 +34,12 @@ class DevelopersController < ApplicationController
 
     respond_to do |format|
       if @developer.save
+	@skill = Skill.new((params[:id]))
+	@skill.save
         log_in_dev @developer
         remember_dev @developer
-        format.html { redirect_to @developer, notice: 'Developer was successfully created.' }
-        format.json { render :show, status: :created, location: @developer }
+        format.html { redirect_to @skill, notice: 'Developer was successfully created. Now set some skills for your profile: ' }
+        format.json { render :edit, location: @skill, :id => params[:id] }
       else
         format.html { render :new }
         format.json { render json: @developer.errors, status: :unprocessable_entity }

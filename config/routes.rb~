@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get 'skills/:id/show_android' => 'skills#show_android'
   get 'skills/:id/show_ios' => 'skills#show_ios'
 
+  get 'skills/:id/edit' => 'skills#edit'
   get 'skills/:id/edit_htmlcss' => 'skills#edit_htmlcss'
   get 'skills/:id/edit_java' => 'skills#edit_java'
   get 'skills/:id/edit_javascript' => 'skills#edit_javascript'
@@ -42,7 +43,7 @@ Rails.application.routes.draw do
   get 'skills/:id/edit_android' => 'skills#edit_android'
   get 'skills/:id/edit_ios' => 'skills#edit_ios'
 
-  get 'skills/search' => 'skills#search'
+  get 'skills/:id/search' => 'skills#search'
   get 'results' => 'skills#results'
 
   # The priority is based upon order of creation: first created -> highest priority.
