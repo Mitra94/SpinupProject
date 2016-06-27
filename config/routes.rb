@@ -10,12 +10,12 @@ Rails.application.routes.draw do
 
   resources :static_pages
   resources :apps do
+    resources :microposts
     member do
       get :followers
     end
   end
   resources :relationships,       only: [:create, :destroy]
-  resources :microposts,          only: [:create, :destroy]
 
 
   # The priority is based upon order of creation: first created -> highest priority.
