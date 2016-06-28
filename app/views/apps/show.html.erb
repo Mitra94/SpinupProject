@@ -75,3 +75,16 @@
 	
   </div>
 </div>
+
+<% if !@app.developers.exists?(current_dev.id) %>
+
+	<%= link_to "Propose to work on app", controller: 'invites', action: 'create_invite' %>
+
+<% end %>
+
+
+<% if @app.developers.first.id == current_dev.id %>
+
+	<%= link_to "Watch pending requests", controller: 'invites', action: 'requests' %>
+
+<% end %>

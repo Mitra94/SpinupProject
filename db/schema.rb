@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630085458) do
+ActiveRecord::Schema.define(version: 20160630085461) do
 
   create_table "approvals", force: :cascade do |t|
     t.string   "skill"
@@ -34,6 +34,11 @@ ActiveRecord::Schema.define(version: 20160630085458) do
     t.integer "developer_id"
   end
 
+  create_table "apps_invites", id: false, force: :cascade do |t|
+    t.integer "app_id"
+    t.integer "invite_id"
+  end
+
   create_table "average_caches", force: :cascade do |t|
     t.integer  "rater_id"
     t.integer  "rateable_id"
@@ -53,6 +58,19 @@ ActiveRecord::Schema.define(version: 20160630085458) do
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
     t.string   "remember_digest"
+  end
+
+  create_table "developers_invites", id: false, force: :cascade do |t|
+    t.integer "developer_id"
+    t.integer "invite_id"
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.string   "app"
+    t.string   "sender"
+    t.string   "receiver"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "microposts", force: :cascade do |t|

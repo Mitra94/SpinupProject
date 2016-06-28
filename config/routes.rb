@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :invites
   post '/rate' => 'rater#create', :as => 'rate'
 
   resources :developers
@@ -48,6 +49,11 @@ Rails.application.routes.draw do
 
   get 'home/search' => 'developers#search'
   get 'dev_results' => 'developers#dev_results'
+
+  get 'apps/:id/create_invite' => 'invites#create_invite'
+  get 'apps/:id/requests' => 'invites#requests'
+  get 'apps/:id/requests/accept' => 'invites#accept'
+  get 'apps/:id/requests/refuse' => 'invites#refuse'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

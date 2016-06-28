@@ -1,0 +1,15 @@
+<p> Here you can find pending requests from developers to work on your app </p>
+
+
+<% Invite.all.each do |i| %>
+
+	<% if App.find_by(name: i.app).id == App.find(params[:id]).id and i.receiver.to_i == current_dev.id %>
+
+		<%= Developer.find(i.sender).name %>
+		<%= link_to "Profile", developer_path(i.sender.to_i) %>
+		<%= link_to "Accept", controller: 'invites', action: 'accept' %>
+		<%= link_to "Refuse", controller: 'invites', action: 'refuse' %>
+
+	<% end %>
+
+<% end %>
