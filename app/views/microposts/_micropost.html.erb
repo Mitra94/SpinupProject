@@ -11,21 +11,22 @@
 		<% if current_user%>
             <% if current_user.likes?(micropost) %>
 				<%= form_for(current_user.active_likes.find_by(liked_id: micropost.id), html: { method: :delete }) do |f| %>
-				<%= f.submit "Unlike", class: "btn" %>
+				<%= f.submit "Unspin", class: "btn" %>
 				<% end %>
             <% else %>
 				<%= form_for(current_user.active_likes.build) do |f| %>
 				<div class="hidden">
 				<%= select_tag "liked_id", options_from_collection_for_select(Micropost.all, 'id', 'content', micropost.id)%>
 				</div>
-				<%= f.submit "Like", class: "btn btn-primary" %>
+				<%= f.submit "Spin", class: "btn btn-primary" %>
 				<% end %>
             <% end %>
         <% else %>
         
         <% end %>
-        <strong><%= micropost.likers.count%> Likes </strong>
+        <strong><%= micropost.likers.count%> Spins </strong>
     </div>
+    <div id="Modify">
 	<% if logged_in_dev?%>
 		<% if current_dev.id == (micropost.developer.id) %>
 			<%= link_to 'Edit', [:edit, @micropost.app, micropost] %>
@@ -33,4 +34,77 @@
 		<% end %>
 	<% end %>
 	</span>
+	</div>
+	
+	
+	<div id="Comments">
+		<% if logged_in_dev?%>
+			<% @comment = Comment.new %>
+			<% @comment.micropost = micropost %>
+			<% @comment.developer = @current_dev %>
+			<%= form_for([@developer, @comment], html: { multipart: true }) do |f| %>
+				<%= render 'shared/error_messages', object: f.object %>
+				<div class="field">
+					<%= f.text_area :content, placeholder: "Compose new comment..." %>
+				</div>
+				<div class="hidden">
+					<%= select_tag "micropost_id", options_from_collection_for_select(Micropost.all, 'id', 'content', micropost.id)%>
+				</div>
+				<%= f.submit "Comment!", class: "btn btn-primary" %>
+			<% end %>
+		<%else%>
+			<% @opinion = Opinion.new %>
+			<% @opinion.micropost = micropost %>
+			<% @opinion.user = @current_user %>
+			<%= form_for([@user, @opinion], html: { multipart: true }) do |f| %>
+				<%= render 'shared/error_messages', object: f.object %>
+				<div class="field">
+					<%= f.text_area :content, placeholder: "Compose new comment..." %>
+				</div>
+				<div class="hidden">
+					<%= select_tag "micropost_id", options_from_collection_for_select(Micropost.all, 'id', 'content', micropost.id)%>
+				</div>
+				<%= f.submit "Comment!", class: "btn btn-primary" %>
+			<% end %>
+		<%end%>
+		
+		<br>
+		<strong><%= micropost.comments.count%> Developers Comments :</strong>
+		<br><br>
+		<% micropost.comments.each do |comment| %>
+			<% @app.developers.each do |developer|%>
+				<% if developer.id == comment.developer_id%>
+					<mark class="highlights_realizer">
+					<%= link_to comment.developer.name, comment.developer%>
+					</mark>
+				<% elsif developer.id != comment.developer_id%>
+					<% if logged_in_dev? and comment.developer_id == current_dev.id%>
+						<mark class="highlights_current">
+						<%= link_to comment.developer.name, comment.developer%>
+						</mark>
+					<%else%>
+						<%= link_to comment.developer.name, comment.developer%>
+					<%end%>
+				<%end%>
+			<%end%>
+			: <%= comment.content %>
+			<br>
+		<%end%>
+		<br>
+		
+		<strong><%= micropost.opinions.count%> Users Opinions :</strong>
+		<br><br>	
+		<% micropost.opinions.each do |opinion| %>
+			<% if opinion.user_id == current_user.id%>
+				<mark class="highlights_current">
+				<%= link_to opinion.user.username, opinion.user%>
+				</mark>
+			<%else%>
+				<%= link_to opinion.user.username, opinion.user%>
+			<%end%>
+			: <%= opinion.content %>
+			<br>
+		<%end%>		
+		<br><br><br><br>
+	</div>
 </li>

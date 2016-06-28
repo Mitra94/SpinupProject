@@ -224,3 +224,27 @@ div.information {
 .hidden{
     display:none;
 }
+
+.highlights_realizer {
+	background-color: #FF3030;
+}
+
+.highlights_current {
+	background-color: #D1EEEE;
+}
+
+.highlights_developer {
+	background-color: #B4EEB4;
+}
+a:link { 
+  color: black;
+}
+a:visited { 
+  color: black;
+}
+a:hover { 
+  color: black;
+}
+a:active { 
+  color: black;
+}

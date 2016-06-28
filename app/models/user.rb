@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
                                   
     has_many :likes, through: :active_likes, source: :liked
     
+    has_many :opinions, dependent: :destroy
+    
         # Follows a user.
       def follow(app)
         active_relationships.create(followed_id: app.id)

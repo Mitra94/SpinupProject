@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
 
-  resources :developers
+  resources :developers do
+	resources :comments
+	end
   resources :users do
+	resources :opinions
     member do
       get :following
       get :like
@@ -11,14 +14,18 @@ Rails.application.routes.draw do
 
   resources :static_pages
   resources :apps do
-    resources :microposts
-    member do
+    resources :microposts do
+		resources :comments
+		resources :opinions
+		end
+	member do
       get :followers
       get :likers
     end
   end
   resources :relationships,       only: [:create, :destroy]
   resources :likes, 			  only: [:create, :destroy]
+  resources :comments
 
 
   # The priority is based upon order of creation: first created -> highest priority.

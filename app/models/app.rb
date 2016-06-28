@@ -11,7 +11,6 @@ class App < ActiveRecord::Base
 
     has_many :followers, through: :passive_relationships, source: :follower
     
-    
     def self.search(search)
         if search
             search.downcase!

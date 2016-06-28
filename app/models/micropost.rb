@@ -15,6 +15,10 @@ class Micropost < ActiveRecord::Base
   validates :content, presence: true, length: { maximum: 140 }
   
   validate  :picture_size
+  
+  has_many :comments, dependent: :destroy
+  
+  has_many :opinions, dependent: :destroy
 
   private
 

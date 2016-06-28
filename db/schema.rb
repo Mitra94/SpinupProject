@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625102121) do
+ActiveRecord::Schema.define(version: 20160628092744) do
 
   create_table "apps", force: :cascade do |t|
     t.string   "name"
@@ -35,6 +35,17 @@ ActiveRecord::Schema.define(version: 20160625102121) do
     t.datetime "updated_at"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "developer_id"
+    t.integer  "micropost_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "comments", ["developer_id"], name: "index_comments_on_developer_id"
+  add_index "comments", ["micropost_id"], name: "index_comments_on_micropost_id"
+
   create_table "developers", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -45,6 +56,13 @@ ActiveRecord::Schema.define(version: 20160625102121) do
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
     t.string   "remember_digest"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "liker_id"
+    t.integer  "liked_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "microposts", force: :cascade do |t|
@@ -59,6 +77,17 @@ ActiveRecord::Schema.define(version: 20160625102121) do
   add_index "microposts", ["app_id"], name: "index_microposts_on_app_id"
   add_index "microposts", ["developer_id", "app_id", "created_at"], name: "index_microposts_on_developer_id_and_app_id_and_created_at"
   add_index "microposts", ["developer_id"], name: "index_microposts_on_developer_id"
+
+  create_table "opinions", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "micropost_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "opinions", ["micropost_id"], name: "index_opinions_on_micropost_id"
+  add_index "opinions", ["user_id"], name: "index_opinions_on_user_id"
 
   create_table "overall_averages", force: :cascade do |t|
     t.integer  "rateable_id"
