@@ -1,0 +1,14 @@
+<p> Ciao bellooo </p>
+
+
+<% App.all.each do |a| %>
+
+		<% if a.developers.first.id == current_dev.id %>
+		
+				<p><%= a.name %>
+					<%= link_to "Invite", invites_path(:app => a.name, :sender => current_dev.id, :receiver => params[:id]), :method => :post %>
+				</p>
+
+		<% end %>
+
+<% end %>

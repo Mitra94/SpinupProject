@@ -54,6 +54,12 @@ Rails.application.routes.draw do
   get 'apps/:id/requests' => 'invites#requests'
   get 'apps/:id/requests/accept' => 'invites#accept'
   get 'apps/:id/requests/refuse' => 'invites#refuse'
+
+  get 'developers/:id/choose_your_apps' => 'apps#choose_your_apps'
+
+  get 'developers/:id/pending_invites' => 'invites#pending_invites'
+  get 'developers/:id/pending_invites/accept_invite' => 'invites#accept_invite'
+  get 'developers/:id/pending_invites/refuse_invite' => 'invites#refuse_invite'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,17 @@
+<p> Here you can find your pending invites:  </p>
+
+<% Invite.all.each do |i| %>
+
+
+		<% if i.receiver.to_i == current_dev.id %>
+
+				<%= i.sender %>
+				<%= i.app %>
+				<%= link_to "View App", controller: 'apps', action: 'show', :id => App.find_by(name: i.app).id %>
+				<%= link_to "Accept", controller: 'invites', action: 'accept_invite', :id => App.find_by(name: i.app).id %>
+				<%= link_to "Refuse", controller: 'invites', action: 'refuse_invite', :id => App.find_by(name: i.app).id %>
+
+
+		<% end %>
+
+<% end %>

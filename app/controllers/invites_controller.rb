@@ -24,6 +24,9 @@ class InvitesController < ApplicationController
   def requests
   end
 
+  def pending_invites
+  end
+
   def accept
     @app = App.find(params[:id])
     @invite = Invite.find_by(app: @app.name, receiver: current_dev.id)
@@ -40,6 +43,22 @@ class InvitesController < ApplicationController
     end
   end
 
+
+  def accept_invite
+    @app = App.find(params[:id])
+    @invite = Invite.find_by(app: @app.name, receiver: current_dev.id)
+    @app.developers << current_dev
+    respond_to do |format|
+      if @invite.destroy
+        format.html { redirect_to @app, notice: 'You joined the development team!' }
+        format.json { render :show, status: :destroyed, location: @app }
+      else
+        format.html { render :new }
+        format.json { render json: @invite.errors, status: :unprocessable_entity }
+      end
+    end    
+  end
+
   def refuse
     @app = App.find(params[:id])
     @invite = Invite.find_by(app: @app.name, receiver: current_dev.id)
@@ -54,14 +73,30 @@ class InvitesController < ApplicationController
     end
   end
 
+  def refuse_invite
+    @app = App.find(params[:id])
+    @invite = Invite.find_by(app: @app.name, receiver: current_dev.id)
+    respond_to do |format|
+      if @invite.destroy
+        format.html { redirect_to @app, notice: 'Invite deleted...' }
+        format.json { render :show, status: :destroyed, location: @app }
+      else
+        format.html { render :new }
+        format.json { render json: @invite.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+
   # POST /invites
   # POST /invites.json
   def create
-    @invite = Invite.new(invite_params)
+    @invite = Invite.new(:app => params[:app], :sender => params[:sender], :receiver => params[:receiver])
 
     respond_to do |format|
       if @invite.save
-        format.html { redirect_to @invite, notice: 'Invite was successfully created.' }
+        format.html { redirect_to @invite, notice: 'Invite was successfully sent to the developer!' }
         format.json { render :show, status: :created, location: @invite }
       else
         format.html { render :new }

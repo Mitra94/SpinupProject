@@ -26,12 +26,16 @@
   <%= @developer.city %>
 </p>
 
-<% if current_dev.name == Developer.find(params[:id]).name %>
-				<p><%= link_to 'Take A Look At Your Skills', controller: 'skills', action: 'show'  %>
-				<% end %>
-				</p>
-				<% if current_dev.name != Developer.find(params[:id]).name %>
+<% if current_dev.id == Developer.find(params[:id]).id %>
+		<p><%= link_to 'Take A Look At Your Skills', controller: 'skills', action: 'show'  %>
+		<% end %>
+		</p>
+<% if current_dev.id != Developer.find(params[:id]).id %>
 					<p><%= link_to 'Approve Skills For This Developer', controller: 'skills', action: 'show'  %>
 				<% end %>
 					</p>
 
+<% if current_dev.id != Developer.find(params[:id]).id %>
+					<p><%= link_to 'Invite this developer to work on some of your apps', controller: 'apps', action: 'choose_your_apps' %>
+				<% end %>
+					</p>
