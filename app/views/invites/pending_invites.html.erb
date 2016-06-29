@@ -3,7 +3,7 @@
 <% Invite.all.each do |i| %>
 
 
-		<% if i.receiver.to_i == current_dev.id %>
+		<% if i.receiver.to_i == current_dev.id and !App.find_by(name: i.app).developers.exists?(current_dev.id) %>
 
 				<%= "The developer " + Developer.find(i.sender).name + " " + Developer.find(i.sender).surname + " wants you to join his developement team for app: " + "'" + i.app + "' " %>
 				<%= link_to "View App", controller: 'apps', action: 'show', :id => App.find_by(name: i.app).id %>
