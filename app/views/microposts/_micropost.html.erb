@@ -67,6 +67,8 @@
 				<%= f.submit "Comment!", class: "btn btn-primary" %>
 			<% end %>
 		<%end%>
+        
+    </div>
 		
 		<br>
 		<strong><%= micropost.comments.count%> Developers Comments :</strong>
@@ -89,22 +91,54 @@
 			<%end%>
 			: <%= comment.content %>
 			<br>
+			<%if current_user %>
+					<% if current_user.loves?(comment)%>
+						<%= form_for(current_user.active_loves.find_by(loved_id: comment.id), html: { method: :delete }) do |f| %>
+							<%= f.submit "Unspin", class: "btn" %>
+						<% end %>
+					<% else %>
+						<%= form_for(current_user.active_loves.build) do |f| %>
+							<div class="hidden">
+								<%= select_tag "loved_id", options_from_collection_for_select(Comment.all, 'id', 'content', comment.id)%>
+							</div>
+							<%= f.submit "Spin", class: "btn btn-primary" %>
+						<% end %>
+					<% end %>
+			<%end%>
+				<strong><%= comment.lovers.count%> Spins </strong>
+				<br>
 		<%end%>
 		<br>
 		
 		<strong><%= micropost.opinions.count%> Users Opinions :</strong>
-		<br><br>	
-		<% micropost.opinions.each do |opinion| %>
-			<% if opinion.user_id == current_user.id%>
-				<mark class="highlights_current">
-				<%= link_to opinion.user.username, opinion.user%>
-				</mark>
-			<%else%>
-				<%= link_to opinion.user.username, opinion.user%>
+		<br><br>
+			<% micropost.opinions.each do |opinion| %>
+				<% if current_user and opinion.user_id == current_user.id%>
+					<mark class="highlights_current">
+					<%= link_to opinion.user.username, opinion.user%>
+					</mark>
+				<%else%>
+					<%= link_to opinion.user.username, opinion.user%>
+				<%end%>
+				: <%= opinion.content %>
+				<%if current_user %>
+					<% if current_user.spins?(opinion)%>
+						<%= form_for(current_user.active_spins.find_by(spined_id: opinion.id), html: { method: :delete }) do |f| %>
+							<%= f.submit "Unspin", class: "btn" %>
+						<% end %>
+					<% else %>
+						<%= form_for(current_user.active_spins.build) do |f| %>
+							<div class="hidden">
+								<%= select_tag "spined_id", options_from_collection_for_select(Opinion.all, 'id', 'content', opinion.id)%>
+							</div>
+							<%= f.submit "Spin", class: "btn btn-primary" %>
+						<% end %>
+					<% end %>
+				<%end%>
+				<strong><%= opinion.spiners.count%> Spins </strong>
+				<br>
 			<%end%>
-			: <%= opinion.content %>
-			<br>
-		<%end%>		
-		<br><br><br><br>
+    </div>
+		<br><br><br>
 	</div>
 </li>

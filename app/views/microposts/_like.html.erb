@@ -1,4 +1,0 @@
-<%= form_for(current_user.active_likes.build) do |f| %>
-			<%= select_tag "liked_id", options_from_collection_for_select(Micropost.all, 'id', 'content', micropost.id)%>
-  <%= f.submit "Like", class: "btn btn-primary" %>
-<% end %>

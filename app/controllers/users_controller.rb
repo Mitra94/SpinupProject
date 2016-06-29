@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
-  before_action :set_user, only: [:show, :edit, :update, :following, :likes]
+  before_action :set_user, only: [:show, :edit, :update, :following, :likes, :spins, :loves]
   before_action :admin_user,     only: :destroy
   
   # GET /users
@@ -34,6 +34,24 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
   #End Likes Code
+  
+  #Like Opinions Code
+  def spins
+    @title = "Spins"
+    @user  = User.find(params[:id])
+    @opinions = @user.spins.paginate(page: params[:page])
+    render 'show_follow'
+  end
+  #End Like Opinions Code
+  
+  #Like Comments Code
+  def loves
+    @title = "Loves"
+    @user  = User.find(params[:id])
+    @comments = @user.loves.paginate(page: params[:page])
+    render 'show_follow'
+  end
+  #End Like Comments Code
 
   # GET /users/1/edit
   def edit
@@ -116,5 +134,4 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_url) unless current_user.admin?
     end
-    
 

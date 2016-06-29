@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lover_id: 1
+  loved_id: 1
+
+two:
+  lover_id: 1
+  loved_id: 1

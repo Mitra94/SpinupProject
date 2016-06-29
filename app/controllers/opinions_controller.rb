@@ -1,5 +1,7 @@
 class OpinionsController < ApplicationController
 
+  before_action :set_opinion, only: [:show, :edit, :update, :destroy, :spiners]
+  
   def new
 	@opinion = Opinion.new(params[:comment])
   end 
@@ -18,10 +20,22 @@ class OpinionsController < ApplicationController
     end
   end
   
+  #Like Comments Code
+  def spiners
+    @title = "Spiners"
+    @opinion  = Opinion.find(params[:id])
+    @users = @opinion.spiners.paginate(page: params[:page])
+    render 'show_spiners'
+  end
+  #End Like Comments Code
+  
   private
 
   def opinion_params
     params.require(:opinion).permit(:content)
   end 
   
+  def set_opinion
+    @opinion = Opinion.find(params[:id])
+  end   
 end

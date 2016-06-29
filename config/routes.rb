@@ -3,12 +3,21 @@ Rails.application.routes.draw do
 
   resources :developers do
 	resources :comments
+		member do
+			get :lovers
+		end
 	end
   resources :users do
-	resources :opinions
+	resources :opinions do
+		member do
+			get :spiners
+		end
+	end
     member do
       get :following
       get :like
+      get :spins
+      get :loves
     end
   end
 
@@ -17,7 +26,7 @@ Rails.application.routes.draw do
     resources :microposts do
 		resources :comments
 		resources :opinions
-		end
+	end
 	member do
       get :followers
       get :likers
@@ -26,6 +35,8 @@ Rails.application.routes.draw do
   resources :relationships,       only: [:create, :destroy]
   resources :likes, 			  only: [:create, :destroy]
   resources :comments
+  resources :spins,				  only: [:create, :destroy]
+  resources :loves,				  only: [:create, :destroy]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

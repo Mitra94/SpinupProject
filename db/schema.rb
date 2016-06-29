@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628092744) do
+ActiveRecord::Schema.define(version: 20160629121302) do
 
   create_table "apps", force: :cascade do |t|
     t.string   "name"
@@ -61,6 +61,13 @@ ActiveRecord::Schema.define(version: 20160628092744) do
   create_table "likes", force: :cascade do |t|
     t.integer  "liker_id"
     t.integer  "liked_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "loves", force: :cascade do |t|
+    t.integer  "lover_id"
+    t.integer  "loved_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -127,6 +134,13 @@ ActiveRecord::Schema.define(version: 20160628092744) do
     t.integer  "followed_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "spins", force: :cascade do |t|
+    t.integer  "spiner_id"
+    t.integer  "spined_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

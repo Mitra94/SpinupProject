@@ -26,6 +26,18 @@ class User < ActiveRecord::Base
                                   
     has_many :likes, through: :active_likes, source: :liked
     
+    has_many :active_spins, class_name:  "Spin",
+                                  foreign_key: "spiner_id",
+                                  dependent:   :destroy
+                                  
+    has_many :spins, through: :active_spins, source: :spined
+    
+    has_many :active_loves, class_name:  "Love",
+                                  foreign_key: "lover_id",
+                                  dependent:   :destroy
+                                  
+    has_many :loves, through: :active_loves, source: :loved
+    
     has_many :opinions, dependent: :destroy
     
         # Follows a user.
@@ -57,7 +69,37 @@ class User < ActiveRecord::Base
 	def likes?(micropost)
 		likes.include?(micropost)
 	end
+	
+	#Like a Opinion
+	def spin(opinion)
+		active_spins.create(spined_id: opinion.id)
+	end
 
+	#Unlike a Opinion
+	def unspin(opinion)
+		active_spins.find_by(spined_id: opinion.id).destroy
+	end
+	
+	#Returns true if the current user likes the opinion
+	def spins?(opinion)
+		spins.include?(opinion)
+	end
+	
+	#Like a Comment
+	def love(comment)
+		active_loves.create(loved_id: comment.id)
+	end
+
+	#Unlike a Comment
+	def unlove(comment)
+		active_loves.find_by(loved_id: comment.id).destroy
+	end
+	
+	#Returns true if the current user likes the comment
+	def loves?(comment)
+		loves.include?(comment)
+	end
+	
     # Returns the hash digest of the given string.
     def User.digest(string)
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
