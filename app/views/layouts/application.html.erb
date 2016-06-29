@@ -40,7 +40,8 @@
                             <%= link_to "My profile", developer_path(current_dev) %>
                             <%= link_to "Settings", edit_developer_path(current_dev) %><br>
                             <a href="/apps/new">Create App</a><br>
-                            <%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %>
+                            <%= link_to "My apps", controller: 'apps', action: 'my_apps', :id => current_dev.id %>
+                            <br><%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %>
                             <%= link_to "Log out", logoutdev_path, method: "get" %>
                         </div>
                 </div>

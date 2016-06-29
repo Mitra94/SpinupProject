@@ -1,0 +1,16 @@
+<p> Listing your apps: </p>
+
+
+<% App.all.each do |app| %>
+
+	<% if app.developers.exists?(current_dev.id) %>
+
+			<p>
+			<%= app.name %>
+			<%= link_to "View App", controller: 'apps', action: 'show', :id => app.id %>
+			</p>
+
+	<% end %>
+
+
+<% end %>

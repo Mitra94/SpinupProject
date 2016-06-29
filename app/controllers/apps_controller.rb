@@ -16,6 +16,9 @@ class AppsController < ApplicationController
     @microposts = @app.microposts.paginate(page: params[:page])
   end
 
+  def my_apps
+  end
+
   def choose_your_apps
   end
 

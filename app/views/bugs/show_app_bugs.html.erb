@@ -4,10 +4,12 @@
 
 		<% if b.app_id == params[:id].to_i %>
 
-			<p><%= "The Developer " + Developer.find(b.founder).name + " " + Developer.find(b.founder).surname + " found this: " %>
+			<p><%= "The developer " + Developer.find(b.founder).name + " " + Developer.find(b.founder).surname + " found this: " %>
 			<%= b.description %>
+			<% if App.find(b.app_id).developers.exists?(current_dev.id) %> 
 			<%= link_to "Solved? ", controller: 'bugs', action: 'solved_bug', :bug_id => b.id %>
 			</p>
+			<% end %>
 
 		<% end %>		
 
