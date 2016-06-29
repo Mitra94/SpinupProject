@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :bugs
   resources :invites
   post '/rate' => 'rater#create', :as => 'rate'
 
@@ -60,6 +61,10 @@ Rails.application.routes.draw do
   get 'developers/:id/pending_invites' => 'invites#pending_invites'
   get 'developers/:id/pending_invites/accept_invite' => 'invites#accept_invite'
   get 'developers/:id/pending_invites/refuse_invite' => 'invites#refuse_invite'
+
+  get 'apps/:id/show_app_bugs' => 'bugs#show_app_bugs'
+  get 'apps/:id/submit_bug' => 'bugs#submit_bug'
+  get 'apps/:id/show_app_bugs/solved_bug' => 'bugs#solved_bug'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,22 @@
+<p> Here you can find known bugs for the app you are looking at: </p>
+
+<% Bug.all.each do |b| %>
+
+		<% if b.app_id == params[:id].to_i %>
+
+			<p><%= "The Developer " + Developer.find(b.founder).name + " " + Developer.find(b.founder).surname + " found this: " %>
+			<%= b.description %>
+			<%= link_to "Solved? ", controller: 'bugs', action: 'solved_bug', :bug_id => b.id %>
+			</p>
+
+		<% end %>		
+
+<% end %>
+
+
+
+<% if @app.developers.exists?(current_dev.id) %>
+
+		<%= link_to "Submit bug", controller: 'bugs', action: 'submit_bug' %>
+
+	<% end %>
