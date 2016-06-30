@@ -2,6 +2,12 @@ class Micropost < ActiveRecord::Base
   belongs_to :developer
   belongs_to :app
   
+  has_many :passive_likes, class_name:  "Like",
+                                   foreign_key: "liked_id",
+                                   dependent:   :destroy
+
+  has_many :likers, through: :passive_likes, source: :liker
+  
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader 
   validates :developer_id, presence: true
@@ -9,6 +15,10 @@ class Micropost < ActiveRecord::Base
   validates :content, presence: true, length: { maximum: 140 }
   
   validate  :picture_size
+  
+  has_many :comments, dependent: :destroy
+  
+  has_many :opinions, dependent: :destroy
 
   private
 

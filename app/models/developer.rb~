@@ -7,6 +7,8 @@ class Developer < ActiveRecord::Base
     has_and_belongs_to_many :apps
     has_many :microposts, dependent: :destroy
     
+    has_many :comments, dependent: :destroy
+    
     validates :name, presence: true, length: { maximum: 50 }
     validates :surname, presence: true, length: { maximum: 50 }
     validates :city, presence: true

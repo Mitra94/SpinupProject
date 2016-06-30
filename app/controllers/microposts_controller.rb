@@ -1,5 +1,7 @@
 class MicropostsController < ApplicationController
 
+  before_action :set_micropost, only: [:show, :edit, :update, :destroy, :likers]
+  
   def new
 	@micropost = Micropost.new(params[:micropost])
   end 
@@ -43,9 +45,22 @@ class MicropostsController < ApplicationController
     end
   end
   
+  #Likes Code
+  def likers
+    @title = "Likers"
+    @micropost  = Micropost.find(params[:id])
+    @users = @micropost.likers.paginate(page: params[:page])
+    render 'show_likers'
+  end
+  #End Likes Code
+  
   private
 
   def micropost_params
     params.require(:micropost).permit(:content, :picture)
   end
+  
+  def set_micropost
+    @micropost = Micropost.find(params[:id])
+  end 
 end

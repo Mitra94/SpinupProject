@@ -15,7 +15,6 @@
     </p>
   <% end %>
   
-
    <% if logged_in_dev? %>
     <p>
       <%= link_to "Search Dev", controller: 'developers', action: 'search' %>
@@ -23,7 +22,7 @@
 	<p><%= link_to 'Search Dev With Skills', controller: 'skills', action: 'search', :id => 1 %>
 	</p>
   <% end %>
-   
+  
   
   <div class="col-md-8">
     <% if logged_in? %>

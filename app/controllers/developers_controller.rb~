@@ -1,6 +1,7 @@
 class DevelopersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
   before_action :set_developer, only: [:show, :edit, :update]
+  before_action :require_admin, only: :index
 
   # GET /developers
   # GET /developers.json
@@ -34,12 +35,10 @@ class DevelopersController < ApplicationController
 
     respond_to do |format|
       if @developer.save
-	@skill = Skill.new(params[:id])
-	@skill.save
         log_in_dev @developer
         remember_dev @developer
-        format.html { redirect_to edit_skill_path(@skill), notice: 'Developer was successfully created.' }
-        format.json { render :edit}
+        format.html { redirect_to @developer, notice: 'Developer was successfully created.' }
+        format.json { render :show, status: :created, location: @developer }
       else
         format.html { render :new }
         format.json { render json: @developer.errors, status: :unprocessable_entity }

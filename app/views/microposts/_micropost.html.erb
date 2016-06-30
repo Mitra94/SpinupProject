@@ -1,18 +1,164 @@
 <li id="micropost-<%= micropost.id %>">
-  <span class="app"><%= link_to micropost.developer.name, micropost.developer %></span>
-  <span class="content"><%= micropost.content %></span>
-  <%= image_tag micropost.picture.url if micropost.picture? %>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-    <% if micropost.updated_at != micropost.created_at %>
-      Modified <%= time_ago_in_words(micropost.updated_at) %> ago.
-    <% end %>
-    <% if logged_in_dev?%>
-    <% if current_dev.id == (micropost.developer.id) %>
-      <%= link_to 'Edit', [:edit, @micropost.app, micropost] %>
-      <%= link_to "delete", [@app, micropost], method: :delete,
-                                       data: { confirm: "You sure?" } %>
-    <% end %>
-    <% end %>
-  </span>
+	<span class="app"><%= link_to micropost.developer.name, micropost.developer %></span>
+	<span class="content"><%= micropost.content %></span>
+	<%= image_tag micropost.picture.url if micropost.picture? %>
+	<span class="timestamp">
+	Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+	<% if micropost.updated_at != micropost.created_at %>
+		Modified <%= time_ago_in_words(micropost.updated_at) %> ago.
+	<% end %>
+	<div id="like_form">
+		<% if current_user%>
+            <% if current_user.likes?(micropost) %>
+				<%= form_for(current_user.active_likes.find_by(liked_id: micropost.id), html: { method: :delete }) do |f| %>
+				<%= f.submit "Unspin", class: "btn" %>
+				<% end %>
+            <% else %>
+				<%= form_for(current_user.active_likes.build) do |f| %>
+				<div class="hidden">
+				<%= select_tag "liked_id", options_from_collection_for_select(Micropost.all, 'id', 'content', micropost.id)%>
+				</div>
+				<%= f.submit "Spin", class: "btn btn-primary" %>
+				<% end %>
+            <% end %>
+        <% else %>
+        
+        <% end %>
+        <strong><%= micropost.likers.count%> Spins </strong>
+    </div>
+    <div id="Modify">
+	<% if logged_in_dev?%>
+		<% if current_dev.id == (micropost.developer.id) %>
+			<%= link_to 'Edit', [:edit, @micropost.app, micropost] %>
+			<%= link_to "delete", [@app, micropost], method: :delete, data: { confirm: "You sure?" } %>
+		<% end %>
+	<% end %>
+	</span>
+	</div>
+	
+	
+	<div id="Comments">
+		<% if logged_in_dev?%>
+			<% @comment = Comment.new %>
+			<% @comment.micropost = micropost %>
+			<% @comment.developer = @current_dev %>
+			<%= form_for([@developer, @comment], html: { multipart: true }) do |f| %>
+				<%= render 'shared/error_messages', object: f.object %>
+				<div class="field">
+					<%= f.text_area :content, placeholder: "Compose new comment..." %>
+				</div>
+				<div class="hidden">
+					<%= select_tag "micropost_id", options_from_collection_for_select(Micropost.all, 'id', 'content', micropost.id)%>
+				</div>
+				<%= f.submit "Comment!", class: "btn btn-primary" %>
+			<% end %>
+		<%else%>
+			<% @opinion = Opinion.new %>
+			<% @opinion.micropost = micropost %>
+			<% @opinion.user = @current_user %>
+			<%= form_for([@user, @opinion], html: { multipart: true }) do |f| %>
+				<%= render 'shared/error_messages', object: f.object %>
+				<div class="field">
+					<%= f.text_area :content, placeholder: "Compose new comment..." %>
+				</div>
+				<div class="hidden">
+					<%= select_tag "micropost_id", options_from_collection_for_select(Micropost.all, 'id', 'content', micropost.id)%>
+				</div>
+				<%= f.submit "Comment!", class: "btn btn-primary" %>
+			<% end %>
+		<%end%>
+        
+    </div>
+		
+		<br>
+		<strong><%= micropost.comments.count%> Developers Comments :</strong>
+		<br><br>
+		<% micropost.comments.each do |comment| %>
+			<% @app.developers.each do |developer|%>
+				<% if developer.id == comment.developer_id%>
+					<mark class="highlights_realizer">
+					<%= link_to comment.developer.name, comment.developer%>
+					</mark>
+				<% elsif developer.id != comment.developer_id%>
+					<% if logged_in_dev? and comment.developer_id == current_dev.id%>
+						<mark class="highlights_current">
+						<%= link_to comment.developer.name, comment.developer%>
+						</mark>
+					<%else%>
+						<%= link_to comment.developer.name, comment.developer%>
+					<%end%>
+				<%end%>
+			<%end%>
+			: <%= comment.content %>
+			<br>
+			<%if current_user %>
+					<% if current_user.loves?(comment)%>
+						<%= form_for(current_user.active_loves.find_by(loved_id: comment.id), html: { method: :delete }) do |f| %>
+							<%= f.submit "Unspin", class: "btn" %>
+						<% end %>
+					<% else %>
+						<%= form_for(current_user.active_loves.build) do |f| %>
+							<div class="hidden">
+								<%= select_tag "loved_id", options_from_collection_for_select(Comment.all, 'id', 'content', comment.id)%>
+							</div>
+							<%= f.submit "Spin", class: "btn btn-primary" %>
+						<% end %>
+					<% end %>
+			<%end%>
+				<strong><%= comment.lovers.count%> Spins </strong>
+				<br>
+				
+				<div id="Modify">
+					<% if logged_in_dev?%>
+						<% if current_dev.id == (comment.developer.id) %>
+							<%= link_to 'Edit', [:edit, @micropost.app, micropost, comment] %>
+							<%= link_to "delete", [@app, micropost, comment], method: :delete, data: { confirm: "You sure?" } %>
+						<% end %>
+					<% end %>
+				</div>
+		<%end%>
+		<br>
+		
+		<strong><%= micropost.opinions.count%> Users Opinions :</strong>
+		<br><br>
+			<% micropost.opinions.each do |opinion| %>
+				<% if current_user and opinion.user_id == current_user.id%>
+					<mark class="highlights_current">
+					<%= link_to opinion.user.username, opinion.user%>
+					</mark>
+				<%else%>
+					<%= link_to opinion.user.username, opinion.user%>
+				<%end%>
+				: <%= opinion.content %>
+				<%if current_user %>
+					<% if current_user.spins?(opinion)%>
+						<%= form_for(current_user.active_spins.find_by(spined_id: opinion.id), html: { method: :delete }) do |f| %>
+							<%= f.submit "Unspin", class: "btn" %>
+						<% end %>
+					<% else %>
+						<%= form_for(current_user.active_spins.build) do |f| %>
+							<div class="hidden">
+								<%= select_tag "spined_id", options_from_collection_for_select(Opinion.all, 'id', 'content', opinion.id)%>
+							</div>
+							<%= f.submit "Spin", class: "btn btn-primary" %>
+						<% end %>
+					<% end %>
+				<%end%>
+				<strong><%= opinion.spiners.count%> Spins </strong>
+				<br>
+				
+				<div id="Modify">
+				<% if current_user.id != opinion.user_id %>
+				<%= link_to "Report", reports_path(:user_id => opinion.user_id, :comment => opinion.content, :post_id => opinion.micropost_id, :app_id => params[:id]), :method => :post %> 
+				<% end %>
+					<% if current_user and opinion.user_id == current_user.id%>
+							<%= link_to 'Edit', [:edit, opinion] %>
+							<%= link_to "delete", [opinion], method: :delete, data: { confirm: "You sure?" } %>
+					<% end %>
+				</div>
+				
+			<%end%>
+    </div>
+		<br><br><br>
+	</div>
 </li>

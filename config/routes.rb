@@ -1,27 +1,50 @@
 Rails.application.routes.draw do
-  resources :bugs
-  resources :invites
+
+  resources :reports
+resources :bugs
+resources :invites
   post '/rate' => 'rater#create', :as => 'rate'
 
-  resources :developers
+  resources :developers do
+	resources :comments
+		member do
+			get :lovers
+		end
+	end
   resources :users do
+	resources :opinions do
+		member do
+			get :spiners
+		end
+	end
     member do
       get :following
+      get :like
+      get :spins
+      get :loves
     end
   end
 
   resources :static_pages
   resources :apps do
-    resources :microposts
-    member do
+    resources :microposts do
+		resources :comments
+		resources :opinions
+	end
+	member do
       get :followers
+      get :likers
     end
   end
   resources :relationships,       only: [:create, :destroy]
+  resources :likes, 			  only: [:create, :destroy]
+  resources :comments
+  resources :spins,				  only: [:create, :destroy]
+  resources :loves,				  only: [:create, :destroy]
+  resources :opinions
 
-
-  resources :approvals
-  resources :skills
+resources :approvals
+resources :skills
 
   get 'skills/:id/show_htmlcss' => 'skills#show_htmlcss'
   get 'skills/:id/show_java' => 'skills#show_java'
@@ -69,7 +92,10 @@ Rails.application.routes.draw do
   get 'developers/:id/my_apps' => 'apps#my_apps'
 
   get 'login_admin' => 'users#login_admin'
-  
+
+  get 'list_reports' => 'reports#list_reports'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

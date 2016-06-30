@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630085464) do
+ActiveRecord::Schema.define(version: 20160630143832) do
 
   create_table "approvals", force: :cascade do |t|
     t.string   "skill"
@@ -56,6 +56,17 @@ ActiveRecord::Schema.define(version: 20160630085464) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "developer_id"
+    t.integer  "micropost_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "comments", ["developer_id"], name: "index_comments_on_developer_id"
+  add_index "comments", ["micropost_id"], name: "index_comments_on_micropost_id"
+
   create_table "developers", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -81,6 +92,20 @@ ActiveRecord::Schema.define(version: 20160630085464) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer  "liker_id"
+    t.integer  "liked_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "loves", force: :cascade do |t|
+    t.integer  "lover_id"
+    t.integer  "loved_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "microposts", force: :cascade do |t|
     t.string   "content"
     t.integer  "developer_id"
@@ -93,6 +118,17 @@ ActiveRecord::Schema.define(version: 20160630085464) do
   add_index "microposts", ["app_id"], name: "index_microposts_on_app_id"
   add_index "microposts", ["developer_id", "app_id", "created_at"], name: "index_microposts_on_developer_id_and_app_id_and_created_at"
   add_index "microposts", ["developer_id"], name: "index_microposts_on_developer_id"
+
+  create_table "opinions", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "micropost_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "opinions", ["micropost_id"], name: "index_opinions_on_micropost_id"
+  add_index "opinions", ["user_id"], name: "index_opinions_on_user_id"
 
   create_table "overall_averages", force: :cascade do |t|
     t.integer  "rateable_id"
@@ -134,6 +170,15 @@ ActiveRecord::Schema.define(version: 20160630085464) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "comment"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "app_id"
+  end
+
   create_table "skills", force: :cascade do |t|
     t.integer  "html_css",    default: 0
     t.integer  "java",        default: 0
@@ -147,6 +192,13 @@ ActiveRecord::Schema.define(version: 20160630085464) do
     t.integer  "ios",         default: 0
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "spins", force: :cascade do |t|
+    t.integer  "spiner_id"
+    t.integer  "spined_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
