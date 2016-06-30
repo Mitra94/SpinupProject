@@ -1,6 +1,7 @@
 class DevelopersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
   before_action :set_developer, only: [:show, :edit, :update]
+  before_action :require_admin, only: :index
 
   # GET /developers
   # GET /developers.json
@@ -83,6 +84,7 @@ class DevelopersController < ApplicationController
         redirect_to login_url
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

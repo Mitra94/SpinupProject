@@ -14,4 +14,13 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    private
+
+    def require_admin
+      if logged_in_dev? 
+        redirect_to developer_path(current_dev)
+      elsif !current_user.admin?
+        redirect_to user_path(current_user)
+    end
+  end
 end
