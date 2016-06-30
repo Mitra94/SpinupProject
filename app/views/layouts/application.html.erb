@@ -29,9 +29,11 @@
                         </div>
                 </div>
             </div>
+            <% if !current_user.admin? %>
             <section class="stats">
                 <%= render 'shared/statsuser' %>
             </section>
+            <% end %>
         <% elsif logged_in_dev? %>
             <div class="left_side">
                 <div class="dropdown">

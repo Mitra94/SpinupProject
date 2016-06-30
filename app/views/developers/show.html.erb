@@ -26,6 +26,7 @@
   <%= @developer.city %>
 </p>
 
+
 <% if current_dev.id == Developer.find(params[:id]).id %>
 		<p><%= link_to 'Take A Look At Your Skills', controller: 'skills', action: 'show'  %>
 		<% end %>

@@ -67,6 +67,8 @@ Rails.application.routes.draw do
   get 'apps/:id/show_app_bugs/solved_bug' => 'bugs#solved_bug'
 
   get 'developers/:id/my_apps' => 'apps#my_apps'
+
+  get 'login_admin' => 'users#login_admin'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

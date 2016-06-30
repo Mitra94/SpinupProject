@@ -1,0 +1,61 @@
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+<h1> Welcome to the super secret admin page, special powers await in here...</h1>
+
+<div style="float:left; width:50%;">
+
+<h3> Listing Users </h3>
+
+<table>
+
+	<tr>
+		<th> Username </th>
+		<th> Email </th>
+	</tr>
+
+	<% User.all.each do |user| %>
+
+ 		<% if !user.admin? %>
+ 		<tr>
+ 		<td><%= user.username %></td>
+ 		<td><%= user.email %></td>
+ 		</tr>
+ 		<% end %>
+
+ 	<% end %>
+ </table>
+
+</div>
+
+<div style="float:right; width:50%;">
+
+<h3> Listing Developers </h3>
+
+<table>
+
+	<tr>
+		<th> Developer name </th>
+		<th> Developer surname </th>
+		<th> Email </th>
+		<th> City </th>
+		<th> Age </th>
+	</tr>
+
+	<% Developer.all.each do |dev| %>
+
+		<tr>
+		<td><%= dev.name %></td>
+		<td><%= dev.surname %></td>
+		<td><%= dev.email %></td>
+		<td><%= dev.city %></td>
+		<td><%= dev.age %></td>
+		</tr>
+
+	<% end %>
+</table>
+ 
+</div>
