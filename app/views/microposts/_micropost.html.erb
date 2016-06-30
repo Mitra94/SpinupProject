@@ -107,6 +107,15 @@
 			<%end%>
 				<strong><%= comment.lovers.count%> Spins </strong>
 				<br>
+				
+				<div id="Modify">
+					<% if logged_in_dev?%>
+						<% if current_dev.id == (comment.developer.id) %>
+							<%= link_to 'Edit', [:edit, @micropost.app, micropost, comment] %>
+							<%= link_to "delete", [@app, micropost, comment], method: :delete, data: { confirm: "You sure?" } %>
+						<% end %>
+					<% end %>
+				</div>
 		<%end%>
 		<br>
 		
@@ -137,6 +146,14 @@
 				<%end%>
 				<strong><%= opinion.spiners.count%> Spins </strong>
 				<br>
+				
+				<div id="Modify">
+					<% if current_user and opinion.user_id == current_user.id%>
+							<%= link_to 'Edit', [:edit, opinion] %>
+							<%= link_to "delete", [opinion], method: :delete, data: { confirm: "You sure?" } %>
+					<% end %>
+				</div>
+				
 			<%end%>
     </div>
 		<br><br><br>

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :spins,				  only: [:create, :destroy]
   resources :loves,				  only: [:create, :destroy]
+  resources :opinions
 
 
   # The priority is based upon order of creation: first created -> highest priority.

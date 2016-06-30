@@ -20,6 +20,32 @@ class OpinionsController < ApplicationController
     end
   end
   
+  def destroy
+    @opinion = Opinion.find(params[:id])
+    @opinion.destroy
+    flash[:success] = "Comment deleted"
+    redirect_to request.referrer || root_url
+  end
+  
+  def edit
+    @opinion = Opinion.find(params[:id])
+  end
+
+  def update
+    @opinion = Opinion.find(params[:id])
+    @micropost = @opinion.micropost
+    @app = @micropost.app
+    respond_to do |format|
+      if @opinion.update(opinion_params)
+        format.html { redirect_to @app, notice: 'Comment was successfully updated.' }
+        format.json { render :show, status: :ok, location: @app }
+      else
+        format.html { render :edit }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   #Like Comments Code
   def spiners
     @title = "Spiners"
