@@ -90,6 +90,7 @@ resources :skills
   get 'apps/:id/show_app_bugs/solved_bug' => 'bugs#solved_bug'
 
   get 'developers/:id/my_apps' => 'apps#my_apps'
+  get 'modify_app' => 'apps#modify_app'
 
   get 'login_admin' => 'users#login_admin'
 

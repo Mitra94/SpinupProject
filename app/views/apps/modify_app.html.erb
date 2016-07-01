@@ -1,3 +1,5 @@
+<h1> You can edit your app in here </h1>
+
 <%= form_for(@app) do |f| %>
   <% if @app.errors.any? %>
     <div id="error_explanation">
@@ -10,7 +12,7 @@
       </ul>
     </div>
   <% end %>
-	
+
   <br>
   <div class="field">
     <%= f.label :name %>
@@ -26,13 +28,10 @@
     <%= f.label :category %>
     <%= f.text_field :category %>
   </div>
-  <div class="hidden">
-	<%= f.label :realizer %>
-	<%= select_tag "realizers", options_from_collection_for_select(Developer.all, 'id', 'name', current_dev.id)%>
-  </div>
-  <div class="hidden">
+  <br>
+  <div class="field">
   <%= f.label :version %>
-  <%= f.text_field :version, :value => "1.0" %>
+  <%= f.text_field :version %>
   </div>
   <div class="actions"><br>
     <%= f.submit %>

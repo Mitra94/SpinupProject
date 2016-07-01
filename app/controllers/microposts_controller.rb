@@ -9,7 +9,8 @@ class MicropostsController < ApplicationController
   def create
     @app = App.find(params[:app_id])
     @micropost = @app.microposts.build(micropost_params)
-    @micropost.developer_id = current_dev.id 
+    @micropost.developer_id = current_dev.id
+    @micropost.app_version = @app.version 
     if @micropost.save
       flash[:success] = "Micropost created!"
       redirect_to @app
@@ -57,7 +58,7 @@ class MicropostsController < ApplicationController
   private
 
   def micropost_params
-    params.require(:micropost).permit(:content, :picture)
+    params.require(:micropost).permit(:content, :picture, :app_version)
   end
   
   def set_micropost

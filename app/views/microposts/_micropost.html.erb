@@ -1,9 +1,9 @@
 <li id="micropost-<%= micropost.id %>">
-	<span class="app"><%= link_to micropost.developer.name, micropost.developer %></span>
-	<span class="content"><%= micropost.content %></span>
+	<span class="app"><%= link_to micropost.developer.name, micropost.developer %>:</span>
+	<span class="content">'<%= micropost.content %>'</span>
 	<%= image_tag micropost.picture.url if micropost.picture? %>
 	<span class="timestamp">
-	Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+	Posted <%= time_ago_in_words(micropost.created_at) %> ago on version "<%= micropost.app_version %>"
 	<% if micropost.updated_at != micropost.created_at %>
 		Modified <%= time_ago_in_words(micropost.updated_at) %> ago.
 	<% end %>
@@ -89,7 +89,7 @@
 					<%end%>
 				<%end%>
 			<%end%>
-			: <%= comment.content %>
+			: '<%= comment.content %>' on version "<%= micropost.app_version %>"
 			<br>
 			<%if current_user %>
 					<% if current_user.loves?(comment)%>
@@ -129,7 +129,7 @@
 				<%else%>
 					<%= link_to opinion.user.username, opinion.user%>
 				<%end%>
-				: <%= opinion.content %>
+				: '<%= opinion.content %>' on version "<%= micropost.app_version %>"
 				<%if current_user %>
 					<% if current_user.spins?(opinion)%>
 						<%= form_for(current_user.active_spins.find_by(spined_id: opinion.id), html: { method: :delete }) do |f| %>
@@ -148,7 +148,7 @@
 				<br>
 				
 				<div id="Modify">
-				<% if current_user.id != opinion.user_id %>
+				<% if !logged_in_dev? and current_user.id != opinion.user_id %>
 				<%= link_to "Report", reports_path(:user_id => opinion.user_id, :comment => opinion.content, :post_id => opinion.micropost_id, :app_id => params[:id]), :method => :post %> 
 				<% end %>
 					<% if current_user and opinion.user_id == current_user.id%>

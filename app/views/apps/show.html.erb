@@ -1,4 +1,3 @@
-
 <p id="notice"><%= notice %></p>
 <%= stylesheet_link_tag "application.css" %>
 
@@ -17,6 +16,10 @@
 			<p>
 				<strong>Name:</strong>
 				<%= @app.name %>
+			</p>
+			<p>
+				<strong>Current Version:</strong>
+				<%= @app.version %>
 			</p>
             
             Vote : <%= rating_for @app, 'vote', cancel_place: 'right', cancel_hint: 'Cancel this vote!',
@@ -43,7 +46,7 @@
             </div>
 		</div>
 	</div>
-	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br>
 		<% @app.developers.each do |developer| %>
 			<% if logged_in_dev?%>
 				<% if developer.id == current_dev.id %>

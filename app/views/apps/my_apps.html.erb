@@ -8,6 +8,10 @@
 			<p>
 			<%= app.name %>
 			<%= link_to "View App", controller: 'apps', action: 'show', :id => app.id %>
+			<%= link_to "Modify App", controller: 'apps', action: 'modify_app', :id => app.id %>
+			<% if app.developers.first.id == current_dev.id %>
+			<%= link_to "Delete App", app_path(app), method: :delete %>
+			<% end %>
 			</p>
 
 	<% end %>

@@ -82,7 +82,11 @@ class AppsController < ApplicationController
   # GET /apps/1/edit
   def edit
   end
-  
+
+  def modify_app
+  	@app = App.find(params[:id])
+  end
+
 
   # POST /apps
   # POST /apps.json
@@ -121,9 +125,10 @@ class AppsController < ApplicationController
   # DELETE /apps/1
   # DELETE /apps/1.json
   def destroy
+    @dev = @app.developers.first.id
     @app.destroy
     respond_to do |format|
-      format.html { redirect_to apps_url, notice: 'App was successfully destroyed.' }
+      format.html { redirect_to developer_path(@dev), notice: 'App was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -136,6 +141,6 @@ class AppsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:app).permit(:name, :platform, :category)
+      params.require(:app).permit(:name, :platform, :category, :version)
     end
 end
