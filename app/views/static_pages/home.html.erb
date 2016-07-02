@@ -3,15 +3,20 @@
   <h1>Welcome to Spinup</h1>
 
   <%= link_to 'Spin randomly', random_path %>
-  <%= link_to 'Chosen for you', home_path %>
+  <% if logged_in? %><%= link_to 'Chosen for you', chosenforyou_path %><% end %>
   <%= link_to 'Fresh apps', freshapps_path %>
   <%= link_to 'App of the day', appoftheday_path %>
   <%= link_to 'Must have', musthave_path %>
   
   <%= form_tag apps_path, :method => 'get', :id => 'apps_search' do %>
     <p>
-        <%= text_field_tag :search, params[:search] %>
-        <%= submit_tag "Search App", :name => nil %>
+        *optional
+        <%= text_field_tag :name, params[:name],  placeholder: 'Enter name...' %>
+        *optional
+        <%= select_tag :platform, options_for_select([ 'Android', 'ios', 'Windows Phone', 'Pc' ]) , :prompt => "Select Platform" %>
+        *optional
+        <%= select_tag :category, options_for_select([ 'Game', 'Photo', 'Family', 'Music', 'Shopping', 'Social', 'Communication' ]) , :prompt => "Select Category" %>
+        <br><%= submit_tag "Search App ", :name => nil %>
     </p>
   <% end %>
   

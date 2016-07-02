@@ -119,6 +119,7 @@ resources :skills
    get 'musthave' => 'apps#musthave'
    get 'freshapps' => 'apps#fresh'
    get 'appoftheday' => 'apps#appoftheday'
+   get 'chosenforyou' => 'apps#chosenforyou'
 
    
   # Example of regular route:

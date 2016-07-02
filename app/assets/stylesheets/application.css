@@ -10,14 +10,13 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  */
- *= require bootstrap ,
- *= require_tree ,
- *= require_self .
+@import "bootstrap-sprockets";
+@import "bootstrap";
  
 html, body {
   margin: 0;
   padding: 0;
-  background: blue; 
+  background: white; 
   color: DarkSlateGrey;
   font-family: Tahoma, Verdana, sans-serif;
   font-size: 10pt;

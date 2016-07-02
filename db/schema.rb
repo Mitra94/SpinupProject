@@ -57,6 +57,18 @@ ActiveRecord::Schema.define(version: 20160701100238) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string   "Game"
+    t.string   "Photo"
+    t.string   "Family"
+    t.string   "Music"
+    t.string   "Shopping"
+    t.string   "Social"
+    t.string   "Communication"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.string   "content"
     t.integer  "developer_id"
@@ -206,11 +218,12 @@ ActiveRecord::Schema.define(version: 20160701100238) do
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "email"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "password_digest"
     t.string   "remember_digest"
     t.boolean  "admin"
+    t.string   "categories",      default: "--- []\n"
   end
 
 end

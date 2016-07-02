@@ -6,16 +6,16 @@ class Developer < ActiveRecord::Base
     
     has_and_belongs_to_many :apps
     has_many :microposts, dependent: :destroy
-has_many :skills
-has_many :invites
-has_many :bugs
+    has_many :skills
+    has_many :invites
+    has_many :bugs
     
     has_many :comments, dependent: :destroy
     
-    validates :name, presence: true, length: { maximum: 50 }
-    validates :surname, presence: true, length: { maximum: 50 }
-    validates :city, presence: true
-    validates :age, presence: true, :numericality => { :greater_than_or_equal_to => 1 }
+    validates :name, presence: true, length: {minimum: 3, maximum: 50 }
+    validates :surname, presence: true, length: {minimum: 3, maximum: 50 }
+    validates :city, presence: true, length: {minimum: 2, maximum: 50 }
+    validates :age, presence: true, :numericality => { :greater_than_or_equal_to => 1, :less_than_or_equal_to => 100 }
 
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     validates :email, presence: true, length: { maximum: 255 }, 
@@ -23,6 +23,7 @@ has_many :bugs
     
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+    validates :password_confirmation, presence: true
     
     ratyrate_rater
     

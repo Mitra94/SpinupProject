@@ -19,6 +19,11 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
+  <%= f.label :categories, "Your App's categories prefered" %>
+      <%= f.collection_check_boxes :categories, @categories || [], :first, :last do |b|
+        b.label { b.check_box + b.text }
+    end %>
+    <br>
   <div class="field">
     <%= f.label :password %><br>
     <%= f.password_field :password, class: 'form-control'  %>

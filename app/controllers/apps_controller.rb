@@ -6,7 +6,11 @@ class AppsController < ApplicationController
   # GET /apps.json
   def index
     #@apps = App.all
-    @apps = App.search(params[:search])
+    name = params[:name]
+    platform = params[:platform]
+    category = params[:category]
+    @apps = App.search(name, platform, category)
+    #@apps = App.search(params[:search])
   end
 
   # GET /apps/1
@@ -29,20 +33,36 @@ class AppsController < ApplicationController
   end
   
   # GET /random
+  # GET /random
   def random
     @app = App.order("RANDOM()").first
+    if @app.nil?
+        redirect_to home_url, notice: 'there is not app'
+    else
     respond_to do |format|
-        format.html { redirect_to @app, notice: 'Spin randomly succeded' }
+        format.html { redirect_to @app}
         format.json { render :show, status: :show, location: @app }
+    end
     end
   end 
   
   # GET /musthave
   def musthave
-    @apps = RatingCache.order('avg').reverse.first(5)
+    @apps = RatingCache.order('avg, qty').reverse.first(5)
     render 'musthave'
   end
   
+  def chosenforyou
+    @categories = current_user.categories.split(',')
+    @first = @categories[0]
+    @apps = App.where('category = ?', @first)
+    @categories.each do |cat|
+        #logger.debug "category: #{cat[2...6].inspect}"
+        cat = cat[2...6]
+        @apps += App.where('category LIKE ?', "%#{cat}%")
+    end
+    render 'chosenforyou'
+  end
   
   def appoftheday
     @apps = App.all.where("created_at >= ?", Time.zone.now.beginning_of_day)
@@ -54,7 +74,7 @@ class AppsController < ApplicationController
     elsif @apps.count == 1
         @ris = @apps.first()
         respond_to do |format|
-            format.html { redirect_to @ris, notice: 'App of the day' }
+            format.html { redirect_to @ris}
             format.json { render :show, status: :show, location: @app }
         end
     else
@@ -68,7 +88,7 @@ class AppsController < ApplicationController
             end
         end
         respond_to do |format|
-            format.html { redirect_to @ris, notice: 'App of the day' }
+            format.html { redirect_to @ris }
             format.json { render :show, status: :show, location: @app }
         end
     end
@@ -93,12 +113,15 @@ class AppsController < ApplicationController
   def create
     @app = App.new(app_params)
     #added code for realizers list
-	@developers = Developer.where(:id => params[:realizers])
-	@app.developers << @developers 
+	#@developers = Developer.where(:id => params[:realizers])
+    #logger.debug "DEVELOPER: #{@developers.inspect} \n"
+	#@app.developers << @developers 
+    #logger.debug "DEVELOPERS: #{@app.developers.inspect} \n"
 	#end code
 
     respond_to do |format|
       if @app.save
+        @app.developers << current_dev 
         format.html { redirect_to @app, notice: 'App was successfully created.' }
         format.json { render :show, status: :created, location: @app }
       else
