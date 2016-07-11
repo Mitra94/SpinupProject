@@ -42,7 +42,8 @@ resources :invites
   resources :spins,				  only: [:create, :destroy]
   resources :loves,				  only: [:create, :destroy]
   resources :opinions
-
+  resources :notifications
+  
 resources :approvals
 resources :skills
 

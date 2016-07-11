@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160701100238) do
+ActiveRecord::Schema.define(version: 20160711104716) do
 
   create_table "approvals", force: :cascade do |t|
     t.string   "skill"
@@ -132,6 +132,20 @@ ActiveRecord::Schema.define(version: 20160701100238) do
   add_index "microposts", ["app_id"], name: "index_microposts_on_app_id"
   add_index "microposts", ["developer_id", "app_id", "created_at"], name: "index_microposts_on_developer_id_and_app_id_and_created_at"
   add_index "microposts", ["developer_id"], name: "index_microposts_on_developer_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "notifier_id"
+    t.integer  "notified_id"
+    t.integer  "opinion_id"
+    t.string   "kind"
+    t.boolean  "read",        default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "notifications", ["notified_id"], name: "index_notifications_on_notified_id"
+  add_index "notifications", ["notifier_id"], name: "index_notifications_on_notifier_id"
+  add_index "notifications", ["opinion_id"], name: "index_notifications_on_opinion_id"
 
   create_table "opinions", force: :cascade do |t|
     t.string   "content"

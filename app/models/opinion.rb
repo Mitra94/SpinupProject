@@ -7,4 +7,6 @@ class Opinion < ActiveRecord::Base
                                    dependent:   :destroy
 
   has_many :spiners, through: :passive_spins, source: :spiner
+  
+  has_many :notifications
 end
