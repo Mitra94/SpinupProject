@@ -21,12 +21,12 @@
   <br>
   <div class="field">
     <%= f.label :platform %>
-    <%= f.text_field :platform %>
+    <%= f.select :platform, [ 'Android', 'ios', 'Windows phone', 'Pc' ], :prompt => 'Select One' %>
   </div>
   <br>
   <div class="field">
     <%= f.label :category %>
-    <%= f.text_field :category %>
+    <%= f.select :category, [ 'Game', 'Photo', 'Family', 'Music', 'Shopping', 'Social', 'Communication' ] , :prompt => "Select One" %>
   </div>
   <br>
   <div class="field">

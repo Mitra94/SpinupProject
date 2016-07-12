@@ -17,6 +17,7 @@ class App < ActiveRecord::Base
     validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
     validates :platform, presence: true
     validates :category, presence: true
+    validates :version, presence: true
     
     def self.search_name(name)
            name.downcase!

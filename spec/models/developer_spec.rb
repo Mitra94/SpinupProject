@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Developer, type: :model do
+
+  it "has a valid factory" do
+    assert FactoryGirl.create(:developer).valid?
+  end
   
   it "has none to begin with" do
     expect(Developer.count).to eq 0
@@ -109,4 +113,45 @@ RSpec.describe Developer, type: :model do
     assert !FactoryGirl.build(:developer, password_confirmation: nil).valid?
   end
   
+  it "is invalid without a name during the update" do
+	developer = FactoryGirl.build(:developer) 
+	developer.update_attributes(:name => nil) 
+	expect(developer.valid?).to eq false
+  end
+  
+  it "is invalid without a surname during the update" do
+	developer = FactoryGirl.build(:developer) 
+	developer.update_attributes(:surname => nil) 
+	expect(developer.valid?).to eq false
+  end  
+  
+  it "is invalid without a email during the update" do
+	developer = FactoryGirl.build(:developer) 
+	developer.update_attributes(:email => nil) 
+	expect(developer.valid?).to eq false
+  end
+  
+  it "is invalid without a city during the update" do
+	developer = FactoryGirl.build(:developer) 
+	developer.update_attributes(:city => nil) 
+	expect(developer.valid?).to eq false
+  end  
+  
+  it "is invalid without a age during the update" do
+	developer = FactoryGirl.build(:developer) 
+	developer.update_attributes(:age => nil) 
+	expect(developer.valid?).to eq false
+  end  
+ 
+  it "is invalid without a password during the update" do
+	developer = FactoryGirl.build(:developer) 
+	developer.update_attributes(:password => nil) 
+	expect(developer.valid?).to eq false
+  end
+  
+  it "is invalid without a password_confirmation during the update" do
+	developer = FactoryGirl.build(:developer) 
+	developer.update_attributes(:password_confirmation => nil) 
+	expect(developer.valid?).to eq false
+  end    
 end

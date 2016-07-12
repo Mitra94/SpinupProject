@@ -74,7 +74,7 @@ RSpec.describe User, type: :model do
     assert !FactoryGirl.build(:user, password_confirmation: nil).valid?
   end
   
-  it "don' t following a app" do
+  it "don't following a app" do
     user = FactoryGirl.create(:user)
     app = FactoryGirl.create(:app)
     assert !user.following?(app)
@@ -102,4 +102,93 @@ RSpec.describe User, type: :model do
     assert app.followers.include?(user)
   end
 
+  #Start like tests
+  it "don't like a micropost" do
+    user = FactoryGirl.create(:user)
+    micropost = FactoryGirl.create(:micropost)
+    assert !user.likes?(micropost)
+  end
+
+  it "should like a micropost" do
+    user = FactoryGirl.create(:user)
+    micropost = FactoryGirl.create(:micropost)
+    user.like(micropost)
+    assert user.likes?(micropost)
+  end  	
+  
+  it "should unlike a micropost" do
+    user = FactoryGirl.create(:user)
+    micropost = FactoryGirl.create(:micropost)
+    user.like(micropost)
+    user.unlike(micropost)
+    assert !user.likes?(micropost)
+  end
+  
+  it "should include a user in micropost's likers" do
+    user = FactoryGirl.create(:user)
+    micropost = FactoryGirl.create(:micropost)
+    user.like(micropost)
+    assert micropost.likers.include?(user)
+  end  
+  #End like tests
+  
+  #Start love tests
+  it "don't love a comment" do
+    user = FactoryGirl.create(:user)
+    comment = FactoryGirl.create(:comment)
+    assert !user.loves?(comment)
+  end
+
+  it "should love a comment" do
+    user = FactoryGirl.create(:user)
+    comment = FactoryGirl.create(:comment)
+    user.love(comment)
+    assert user.loves?(comment)
+  end  	
+  
+  it "should unlove a comment" do
+    user = FactoryGirl.create(:user)
+    comment = FactoryGirl.create(:comment)
+    user.love(comment)
+    user.unlove(comment)
+    assert !user.loves?(comment)
+  end
+  
+  it "should include a user in comment's lovers" do
+    user = FactoryGirl.create(:user)
+    comment = FactoryGirl.create(:comment)
+    user.love(comment)
+    assert comment.lovers.include?(user)
+  end  
+  #End love tests 
+  
+  #Start spin tests
+  it "don't love a opinion" do
+    user = FactoryGirl.create(:user)
+    opinion = FactoryGirl.create(:opinion)
+    assert !user.spins?(opinion)
+  end
+
+  it "should love a opinion" do
+    user = FactoryGirl.create(:user)
+    opinion = FactoryGirl.create(:opinion)
+    user.spin(opinion)
+    assert user.spins?(opinion)
+  end  	
+  
+  it "should unlove a opinion" do
+    user = FactoryGirl.create(:user)
+    opinion = FactoryGirl.create(:opinion)
+    user.spin(opinion)
+    user.unspin(opinion)
+    assert !user.spins?(opinion)
+  end
+  
+  it "should include a user in opinion's spiners" do
+    user = FactoryGirl.create(:user)
+    opinion = FactoryGirl.create(:opinion)
+    user.spin(opinion)
+    assert opinion.spiners.include?(user)
+  end  
+  #End spin tests     
 end
