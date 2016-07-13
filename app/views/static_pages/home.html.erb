@@ -86,7 +86,7 @@
   <%if logged_in? %>
 		<% current_user.opinions.each do |opinion| %>
 			<% opinion.notifications.each do |notification| %>
-				<%if notification.notifier.id != current_user.id and notification.read == false%>
+				<%if notification.notifier.id != current_user.id%>
 					<%count = count+1%>
 				<%end%>
 			<%end%>

@@ -190,5 +190,29 @@ RSpec.describe User, type: :model do
     user.spin(opinion)
     assert opinion.spiners.include?(user)
   end  
-  #End spin tests     
+  #End spin tests   
+  
+  it "is invalid without a username during the update" do
+	user = FactoryGirl.build(:user) 
+	user.update_attributes(:username => nil) 
+	expect(user.valid?).to eq false
+  end 
+  
+  it "is invalid without a email during the update" do
+	user = FactoryGirl.build(:user) 
+	user.update_attributes(:email => nil) 
+	expect(user.valid?).to eq false
+  end
+ 
+  it "is invalid without a password during the update" do
+	user = FactoryGirl.build(:user) 
+	user.update_attributes(:password => nil) 
+	expect(user.valid?).to eq false
+  end
+  
+  it "is invalid without a password_confirmation during the update" do
+	user = FactoryGirl.build(:user) 
+	user.update_attributes(:password_confirmation => nil) 
+	expect(user.valid?).to eq false
+  end       
 end

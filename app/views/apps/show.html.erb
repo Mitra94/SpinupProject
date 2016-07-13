@@ -11,7 +11,7 @@
 		</div>
 	<div class="general">
 		<div class="photo">
-			Qui va inserita la foto
+			<%= image_tag @app.picture.url if @app.picture? %>
 		</div>
 		<div class="information">
 			<p>

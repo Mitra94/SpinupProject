@@ -24,7 +24,6 @@ class SpinsController < ApplicationController
 		Notification.create(notifier_id: current_user.id,
 							notified_id: opinion.user_id,
 							opinion_id: opinion.id,
-							read: false,
 							kind: "spin")
 	end
 	
@@ -32,7 +31,6 @@ class SpinsController < ApplicationController
 		Notification.create(notifier_id: current_user.id,
 							notified_id: opinion.user_id,
 							opinion_id: opinion.id,
-							read: false,
 							kind: "unspin")
 	end
 end

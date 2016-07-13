@@ -34,7 +34,20 @@
   <%= f.label :version %>
   <%= f.text_field :version, :value => "1.0" %>
   </div>
+  <br>
+  <span class="picture">
+    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+  </span>
   <div class="actions"><br>
-    <%= f.submit %>
+    <%= f.submit "Post", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $('#micropost_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+</script>

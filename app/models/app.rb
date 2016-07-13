@@ -19,6 +19,16 @@ class App < ActiveRecord::Base
     validates :category, presence: true
     validates :version, presence: true
     
+    mount_uploader :picture, PictureUploader 
+    validate  :picture_size
+    
+    # Validates the size of an uploaded picture.
+    def picture_size
+      if picture.size > 5.megabytes
+        errors.add(:picture, "should be less than 5MB")
+      end
+    end
+      
     def self.search_name(name)
            name.downcase!
            where('LOWER(name) LIKE ?', "%#{name}%")
