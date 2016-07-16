@@ -23,4 +23,20 @@ RSpec.describe Rate, type: :model do
     assert !FactoryGirl.build(:rate, rateable: nil).valid?
   end
   
+  it "is invalid without stars" do
+    !FactoryGirl.build(:rate, stars: nil).valid?
+  end
+  
+  it "is invalid with stars > 5" do
+    !FactoryGirl.build(:rate, stars: "6").valid?
+  end
+  
+  it "is valid with stars = 0" do
+    FactoryGirl.build(:rate, stars: "0").valid?
+  end
+  
+  it "is invalid with stars < 0" do
+    !FactoryGirl.build(:rate, stars: "-1").valid?
+  end
+  
 end
