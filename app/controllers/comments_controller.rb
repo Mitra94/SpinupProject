@@ -2,6 +2,9 @@ class CommentsController < ApplicationController
 
   before_action :set_comment, only: [:show, :edit, :update, :destroy, :lovers]
 
+  def index
+  end
+
   def new
 	@comment = Comment.new(params[:comment])
   end 
@@ -28,15 +31,13 @@ class CommentsController < ApplicationController
   end
   
   def edit
-    @app = App.find(params[:app_id])
-    @micropost = @app.microposts.find(params[:id])
-    @comment = @micropost.comments.find(params[:id])
+	@comment = Comment.find(params[:id])
   end
 
   def update
-    @app = App.find(params[:app_id])
-    @micropost = @app.microposts.find(params[:id])
-    @comment = @micropost.comments.find(params[:id])
+    @comment = Comment.find(params[:id])
+    @micropost = @comment.micropost
+    @app = @micropost.app
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to @app, notice: 'Comment was successfully updated.' }

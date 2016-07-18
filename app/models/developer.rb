@@ -27,6 +27,18 @@ class Developer < ActiveRecord::Base
     
     ratyrate_rater
     
+    #Picture
+    mount_uploader :picture, PictureUploader 
+    validate  :picture_size
+    
+    # Validates the size of an uploaded picture.
+    def picture_size
+      if picture.size > 5.megabytes
+        errors.add(:picture, "should be less than 5MB")
+      end
+    end
+    #End Picture
+    
     # Returns the hash digest of the given string.
     def Developer.digest(string)
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
