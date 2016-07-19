@@ -8,11 +8,27 @@
 <div class="center jumbotron">
   <h1>Welcome to Spinup</h1>
 
-  <%= link_to 'Spin randomly', random_path %>
-  <% if logged_in? %><%= link_to 'Chosen for you', chosenforyou_path %><% end %>
-  <%= link_to 'Fresh apps', freshapps_path %>
-  <%= link_to 'App of the day', appoftheday_path %>
-  <%= link_to 'Must have', musthave_path %>
+  <br><br>
+  <% if logged_in? %>
+  <span><%= image_tag "cake5.jpg", :usemap => "#shelfmap" %></span>
+    <map name="shelfmap">
+      <area shape="poly" coords="190,22,154,144,47,66,105,22" href="/musthave" alt="Must have apps" />
+      <area shape="poly" coords="42,71,148,149,43,225,16,142" href="/random" alt="Random app" />
+      <area shape="poly" coords="154,147,196,19,252,58,288,149" href="/freshapps" alt="Fresh apps" />
+      <area shape="poly" coords="150,153,191,275,113,277,44,228" href="/chosenforyou" alt="App of the day" />
+      <area shape="poly" coords="156,151,196,275,261,224,284,152" href="/appoftheday" alt="App of the day" />
+    </map>
+  <br><br>
+  <% else %>
+  <span><%= image_tag "cake4.jpg", :usemap => "#shelfmap" %></span>
+    <map name="shelfmap">
+      <area shape="poly" coords="145,15,143,140,9,142,48,50" href="/musthave" alt="Must have apps" />
+      <area shape="poly" coords="7,161,147,165,146,298,45,254" href="/random" alt="Random app" />
+      <area shape="poly" coords="165,30,161,142,279,138,256,63" href="/freshapps" alt="Fresh apps" />
+      <area shape="poly" coords="299,162,259,260,158,297,159,162" href="/appoftheday" alt="App of the day" />
+    </map>
+  <br><br>
+  <% end %>
   
   <%= form_tag apps_path, :method => 'get', :id => 'apps_search' do %>
     <p>
