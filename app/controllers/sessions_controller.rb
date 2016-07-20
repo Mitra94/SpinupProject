@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     if user.admin?
       redirect_to login_admin_url
     else
-	redirect_to user
+	redirect_to home_url
 	end
     else
       # Create an error message.
@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
       # Log the dev in and redirect to the dev's show page.
       log_in_dev dev
       params[:session][:remember_me] == '1' ? remember_dev(dev) : forget_dev(dev)
-      redirect_to dev
+      redirect_to home_url
     else
       # Create an error message.
       flash.now[:danger] = 'Invalid email/password combination'

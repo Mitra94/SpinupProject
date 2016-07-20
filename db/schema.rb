@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713103148) do
+ActiveRecord::Schema.define(version: 20160718130602) do
 
   create_table "approvals", force: :cascade do |t|
     t.string   "skill"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160713103148) do
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
     t.string   "remember_digest"
+    t.string   "picture"
   end
 
   create_table "developers_invites", id: false, force: :cascade do |t|

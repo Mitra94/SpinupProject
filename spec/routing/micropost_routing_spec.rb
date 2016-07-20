@@ -36,4 +36,12 @@ RSpec.describe "routes for microposts", :type => :routing do
                     )
         end
         
+        it "show micropost's likers" do
+            expect(:get => "/apps/1/microposts/1/likers").to route_to(
+                      :controller => "microposts",
+                      :action => "likers",
+                      :app_id => "1",
+                      :id=>"1"
+                    )
+        end                 
 end

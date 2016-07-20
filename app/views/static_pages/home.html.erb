@@ -8,11 +8,27 @@
 <div class="center jumbotron">
   <h1>Welcome to Spinup</h1>
 
-  <%= link_to 'Spin randomly', random_path %>
-  <% if logged_in? %><%= link_to 'Chosen for you', chosenforyou_path %><% end %>
-  <%= link_to 'Fresh apps', freshapps_path %>
-  <%= link_to 'App of the day', appoftheday_path %>
-  <%= link_to 'Must have', musthave_path %>
+  <br><br>
+  <% if logged_in? %>
+  <span><%= image_tag "cake5.jpg", :usemap => "#shelfmap" %></span>
+    <map name="shelfmap">
+      <area shape="poly" coords="190,22,154,144,47,66,105,22" href="/musthave" alt="Must have apps" />
+      <area shape="poly" coords="42,71,148,149,43,225,16,142" href="/random" alt="Random app" />
+      <area shape="poly" coords="154,147,196,19,252,58,288,149" href="/freshapps" alt="Fresh apps" />
+      <area shape="poly" coords="150,153,191,275,113,277,44,228" href="/chosenforyou" alt="App of the day" />
+      <area shape="poly" coords="156,151,196,275,261,224,284,152" href="/appoftheday" alt="App of the day" />
+    </map>
+  <br><br>
+  <% else %>
+  <span><%= image_tag "cake4.jpg", :usemap => "#shelfmap" %></span>
+    <map name="shelfmap">
+      <area shape="poly" coords="145,15,143,140,9,142,48,50" href="/musthave" alt="Must have apps" />
+      <area shape="poly" coords="7,161,147,165,146,298,45,254" href="/random" alt="Random app" />
+      <area shape="poly" coords="165,30,161,142,279,138,256,63" href="/freshapps" alt="Fresh apps" />
+      <area shape="poly" coords="299,162,259,260,158,297,159,162" href="/appoftheday" alt="App of the day" />
+    </map>
+  <br><br>
+  <% end %>
   
   <%= form_tag apps_path, :method => 'get', :id => 'apps_search' do %>
     <p>
@@ -100,7 +116,7 @@
 				<%else%>
 					<% current_user.opinions.each do |opinion| %>
 							<% opinion.notifications.each do |notification| %>
-								<%if notification.notifier.id != current_user.id and notification.read == false%>
+								<%if notification.notifier.id != current_user.id%>
 									<% if notification.kind == "unspin"%>
 										<%= link_to notification.notifier.username + " dislikes your comment", opinion.micropost.app %>
 									<%else%>
@@ -189,7 +205,7 @@
 	<%label_sixth_daily=""%>	
 	<%seventh_daily=0%>
 	<%label_seventh_daily=""%>
-	        
+	     
   <%App.find_each do |app|%>
 	<%app.rates("vote").each do |rate|%>
 		<%if app.category == 'Game'%>
@@ -209,18 +225,18 @@
 					
 		<%elsif app.category == 'Music'%>
 			<%count_music = count_music +1%>
-			<%somma_music  = somma_music +rate.stars%>
-			<%media_music  = somma_music /count_music %><br>
+			<%somma_music  = somma_music+rate.stars%>
+			<%media_music  = somma_music/count_music %><br>
 						
 		<%elsif app.category == 'Shopping'%>
 			<%count_shopping = count_shopping+1%>
-			<%somma_shopping  = somma_shopping +rate.stars%>
-			<%media_shopping = somma_shopping /count_shopping %>
+			<%somma_shopping  = somma_shopping+rate.stars%>
+			<%media_shopping = somma_shopping/count_shopping %>
 						
 		<%elsif app.category == 'Social'%>
-			<%count_social = count_social +1%>
-			<%somma_social  = somma_social +rate.stars%>
-			<%media_social  = somma_social /count_social %>		
+			<%count_social = count_social+1%>
+			<%somma_social  = somma_social+rate.stars%>
+			<%media_social  = somma_social/count_social %>		
 			
 		<%elsif app.category == 'Communication'%>
 			<%count_communication = count_communication+1%>
@@ -229,469 +245,485 @@
 					
 		<%end%>
 	<%end%>
-	
-		<%if app.category == 'Game'%>
-			<%if media_game > first%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = first%>
-				<%first = media_game%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>
-				<%label_second = label_first%>		
-				<%label_first = app.category%>
-			<%elsif media_game > second%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = media_game%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>				
-				<%label_second = app.category%>
-			<%elsif media_game > third%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>			
-				<%third = media_game%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>				
-				<%label_third = app.category%>
-			<%elsif media_game > fourth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = media_game%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = app.category%>
-			<%elsif media_game > fifth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = media_game%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = app.category%>	
-			<%elsif media_game > sixth%>
-				<%seventh = sixth%>
-				<%sixth = media_game%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = app.category%>												
-			<%elsif media_game > seventh%>
-				<%seventh = media_game%>
-				<%label_seventh = app.category%>	
+  <%end%>
+  
+  <%App.find_each do |app|%>
+	<%if app.category == 'Game'%>
+		<%if label_first != 'Game' and label_second != 'Game' and label_third != 'Game' and label_fourth != 'Game' and label_fifth != 'Game' and label_sixth != 'Game' and label_seventh != 'Game'%>
+				<%if media_game > first%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = first%>
+						<%first = media_game%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>
+						<%label_second = label_first%>		
+						<%label_first = app.category%>
+				<%elsif media_game > second%>				
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = media_game%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>				
+						<%label_second = app.category%>
+				<%elsif media_game > third%>			
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>			
+						<%third = media_game%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>				
+						<%label_third = app.category%>
+				<%elsif media_game > fourth%>			
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = media_game%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = app.category%>
+				<%elsif media_game > fifth%>	
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = media_game%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = app.category%>	
+				<%elsif media_game > sixth%>			
+						<%seventh = sixth%>
+						<%sixth = media_game%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = app.category%>										
+				<%elsif media_game > seventh%>				
+						<%seventh = media_game%>
+						<%label_seventh = app.category%>	
+				<%end%>
 			<%end%>
-		
+			
 		<%elsif app.category == 'Photo'%>	
-			<%if media_photo > first%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = first%>
-				<%first = media_photo%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>
-				<%label_second = label_first%>		
-				<%label_first = app.category%>
-			<%elsif media_photo > second%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = media_photo%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>				
-				<%label_second = app.category%>
-			<%elsif media_photo > third%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>			
-				<%third = media_photo%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>				
-				<%label_third = app.category%>
-			<%elsif media_photo > fourth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = media_photo%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = app.category%>
-			<%elsif media_photo > fifth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = media_photo%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = app.category%>	
-			<%elsif media_photo > sixth%>
-				<%seventh = sixth%>
-				<%sixth = media_photo%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = app.category%>												
-			<%elsif media_photo > seventh%>
-				<%seventh = media_photo%>
-				<%label_seventh = app.category%>																
+			<%if label_first != 'Photo' and label_second != 'Photo' and label_third != 'Photo' and label_fourth != 'Photo' and label_fifth != 'Photo' and label_sixth != 'Photo' and label_seventh != 'Photo'%>
+				<%if media_photo > first%>			
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = first%>
+						<%first = media_photo%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>
+						<%label_second = label_first%>		
+						<%label_first = app.category%>
+				<%elsif media_photo > second%>				
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = media_photo%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>				
+						<%label_second = app.category%>
+				<%elsif media_photo > third%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>			
+						<%third = media_photo%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>				
+						<%label_third = app.category%>
+				<%elsif media_photo > fourth%>	
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = media_photo%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = app.category%>
+				<%elsif media_photo > fifth%>	
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = media_photo%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = app.category%>	
+				<%elsif media_photo > sixth%>	
+						<%seventh = sixth%>
+						<%sixth = media_photo%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = app.category%>												
+				<%elsif media_photo > seventh%>
+						<%seventh = media_photo%>
+						<%label_seventh = app.category%>																
+				<%end%>
 			<%end%>
 			
 		<%elsif app.category == 'Family'%>	
-			<%if media_family > first%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = first%>
-				<%first = media_family%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>
-				<%label_second = label_first%>		
-				<%label_first = app.category%>
-			<%elsif media_family > second%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = media_family%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>				
-				<%label_second = app.category%>
-			<%elsif media_family > third%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>			
-				<%third = media_family%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>				
-				<%label_third = app.category%>
-			<%elsif media_family > fourth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = media_family%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = app.category%>				
-			<%elsif media_family > fifth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = media_family%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = app.category%>												
-			<%elsif media_family > sixth%>
-				<%seventh = sixth%>
-				<%sixth = media_family%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = app.category%>												
-			<%elsif media_family > seventh%>
-				<%seventh = media_family%>
-				<%label_seventh = app.category%>	
+			<%if label_first != 'Family' and label_second != 'Family' and label_third != 'Family' and label_fourth != 'Family' and label_fifth != 'Family' and label_sixth != 'Family' and label_seventh != 'Family'%>
+				<%if media_family > first%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = first%>
+						<%first = media_family%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>
+						<%label_second = label_first%>		
+						<%label_first = app.category%>
+				<%elsif media_family > second%>	
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = media_family%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>				
+						<%label_second = app.category%>
+				<%elsif media_family > third%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>			
+						<%third = media_family%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>				
+						<%label_third = app.category%>
+				<%elsif media_family > fourth%>				
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = media_family%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = app.category%>			
+				<%elsif media_family > fifth%>	
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = media_family%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = app.category%>											
+				<%elsif media_family > sixth%>	
+						<%seventh = sixth%>
+						<%sixth = media_family%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = app.category%>											
+				<%elsif media_family > seventh%>				
+						<%seventh = media_family%>
+						<%label_seventh = app.category%>	
+				<%end%>
 			<%end%>
 			
 		<%elsif app.category == 'Music'%>
-			<%if media_music > first%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = first%>
-				<%first = media_music%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>
-				<%label_second = label_first%>		
-				<%label_first = app.category%>
-			<%elsif media_music > second%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = media_music%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>				
-				<%label_second = app.category%>
-			<%elsif media_music > third%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>			
-				<%third = media_music%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>				
-				<%label_third = app.category%>
-			<%elsif media_music > fourth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = media_music%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = app.category%>
-			<%elsif media_music > fifth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = media_music%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = app.category%>												
-			<%elsif media_music > sixth%>
-				<%seventh = sixth%>
-				<%sixth = media_music%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = app.category%>												
-			<%elsif media_music > seventh%>
-				<%seventh = media_music%>
-				<%label_seventh = app.category%>	
-			<%end%>
+			<%if label_first != 'Music' and label_second != 'Music' and label_third != 'Music' and label_fourth != 'Music' and label_fifth != 'Music' and label_sixth != 'Music' and label_seventh != 'Music'%>		
+				<%if media_music > first%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = fourth%>
+					<%fourth = third%>
+					<%third = second%>
+					<%second = first%>
+					<%first = media_music%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = label_fourth%>
+					<%label_fourth = label_third%>
+					<%label_third = label_second%>
+					<%label_second = label_first%>		
+					<%label_first = app.category%>
+				<%elsif media_music > second%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = fourth%>
+					<%fourth = third%>
+					<%third = second%>
+					<%second = media_music%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = label_fourth%>
+					<%label_fourth = label_third%>
+					<%label_third = label_second%>				
+					<%label_second = app.category%>
+				<%elsif media_music > third%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = fourth%>
+					<%fourth = third%>			
+					<%third = media_music%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = label_fourth%>
+					<%label_fourth = label_third%>				
+					<%label_third = app.category%>
+				<%elsif media_music > fourth%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = fourth%>
+					<%fourth = media_music%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = label_fourth%>
+					<%label_fourth = app.category%>
+				<%elsif media_music > fifth%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = media_music%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = app.category%>												
+				<%elsif media_music > sixth%>
+					<%seventh = sixth%>
+					<%sixth = media_music%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = app.category%>												
+				<%elsif media_music > seventh%>
+					<%seventh = media_music%>
+					<%label_seventh = app.category%>	
+				<%end%>
+			<%end%>	
 			
 		<%elsif app.category == 'Shopping'%>	
-			<%if media_shopping > first%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = first%>
-				<%first = media_shopping%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>
-				<%label_second = label_first%>		
-				<%label_first = app.category%>
-			<%elsif media_shopping > second%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = media_shopping%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>				
-				<%label_second = app.category%>
-			<%elsif media_shopping > third%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>			
-				<%third = media_shopping%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>				
-				<%label_third = app.category%>
-			<%elsif media_shopping > fourth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = media_shopping%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = app.category%>
-			<%elsif media_shopping > fifth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = media_shopping%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = app.category%>												
-			<%elsif media_shopping > sixth%>
-				<%seventh = sixth%>
-				<%sixth = media_shopping%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = app.category%>												
-			<%elsif media_shopping > seventh%>
-				<%seventh = media_shopping%>
-				<%label_seventh = app.category%>	
+			<%if label_first != 'Shopping' and label_second != 'Shopping' and label_third != 'Shopping' and label_fourth != 'Shopping' and label_fifth != 'Shopping' and label_sixth != 'Shopping' and label_seventh != 'Shopping'%>			
+				<%if media_shopping > first%>			
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = first%>
+						<%first = media_shopping%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>
+						<%label_second = label_first%>		
+						<%label_first = app.category%>
+				<%elsif media_shopping > second%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = media_shopping%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>				
+						<%label_second = app.category%>
+				<%elsif media_shopping > third%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>			
+						<%third = media_shopping%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>				
+						<%label_third = app.category%>
+				<%elsif media_shopping > fourth%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = media_shopping%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = app.category%>
+				<%elsif media_shopping > fifth%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = media_shopping%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = app.category%>											
+				<%elsif media_shopping > sixth%>
+						<%seventh = sixth%>
+						<%sixth = media_shopping%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = app.category%>											
+				<%elsif media_shopping > seventh%>			
+						<%seventh = media_shopping%>
+						<%label_seventh = app.category%>	
+				<%end%>
 			<%end%>	
 		
 		<%elsif app.category == 'Social'%>
-			<%if media_social > first%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = first%>
-				<%first = media_social%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>
-				<%label_second = label_first%>		
-				<%label_first = app.category%>
-			<%elsif media_social > second%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = media_social%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>				
-				<%label_second = app.category%>
-			<%elsif media_social > third%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>			
-				<%third = media_social%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>				
-				<%label_third = app.category%>
-			<%elsif media_social > fourth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = media_social%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = app.category%>
-			<%elsif media_social > fifth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = media_social%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = app.category%>												
-			<%elsif media_social > sixth%>
-				<%seventh = sixth%>
-				<%sixth = media_social%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = app.category%>												
-			<%elsif media_social > seventh%>
-				<%seventh = media_social%>
-				<%label_seventh = app.category%>	
-			<%end%>	
+			<%if label_first != 'Social' and label_second != 'Social' and label_third != 'Social' and label_fourth != 'Social' and label_fifth != 'Social' and label_sixth != 'Social' and label_seventh != 'Social'%>	
+				<%if media_social > first%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = fourth%>
+					<%fourth = third%>
+					<%third = second%>
+					<%second = first%>
+					<%first = media_social%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = label_fourth%>
+					<%label_fourth = label_third%>
+					<%label_third = label_second%>
+					<%label_second = label_first%>		
+					<%label_first = app.category%>
+				<%elsif media_social > second%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = fourth%>
+					<%fourth = third%>
+					<%third = second%>
+					<%second = media_social%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = label_fourth%>
+					<%label_fourth = label_third%>
+					<%label_third = label_second%>				
+					<%label_second = app.category%>
+				<%elsif media_social > third%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = fourth%>
+					<%fourth = third%>			
+					<%third = media_social%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = label_fourth%>
+					<%label_fourth = label_third%>				
+					<%label_third = app.category%>
+				<%elsif media_social > fourth%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = fourth%>
+					<%fourth = media_social%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = label_fourth%>
+					<%label_fourth = app.category%>
+				<%elsif media_social > fifth%>
+					<%seventh = sixth%>
+					<%sixth = fifth%>
+					<%fifth = media_social%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = label_fifth%>
+					<%label_fifth = app.category%>												
+				<%elsif media_social > sixth%>
+					<%seventh = sixth%>
+					<%sixth = media_social%>
+					<%label_seventh = label_sixth%>
+					<%label_sixth = app.category%>												
+				<%elsif media_social > seventh%>
+					<%seventh = media_social%>
+					<%label_seventh = app.category%>	
+				<%end%>	
+			<%end%>
 					
 		<%elsif app.category == 'Communication'%>	
-			<%if media_communication > first%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = first%>
-				<%first = media_communication %>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>
-				<%label_second = label_first%>
-				<%label_first = app.category%>
-			<%elsif media_communication > second%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>
-				<%third = second%>
-				<%second = media_communiation%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = label_second%>			
-				<%label_second = app.category%>
-			<%elsif media_communication > third%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>
-				<%fourth = third%>			
-				<%third = media_communication%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = label_third%>
-				<%label_third = app.category%>
-			<%elsif media_communication > fourth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = fourth%>	
-				<%fourth = media_communication%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = label_fourth%>
-				<%label_fourth = app.category%>
-			<%elsif media_communication > fifth%>
-				<%seventh = sixth%>
-				<%sixth = fifth%>
-				<%fifth = media_communication%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = label_fifth%>
-				<%label_fifth = app.category%>	
-			<%elsif media_communication > sixth%>
-				<%seventh = sixth%>
-				<%sixth = media_communication%>
-				<%label_seventh = label_sixth%>
-				<%label_sixth = app.category%>												
-			<%elsif media_communication > seventh%>
-				<%seventh = media_communication%>
-				<%label_seventh = app.category%>																
-			<%end%>											
+			<%if label_first != 'Communication' and label_second != 'Communication' and label_third != 'Communication' and label_fourth != 'Communication' and label_fifth != 'Communication' and label_sixth != 'Communication' and label_seventh != 'Communication'%>	
+				<%if media_communication > first%>	
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = first%>
+						<%first = media_communication %>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>
+						<%label_second = label_first%>
+						<%label_first = app.category%>
+				<%elsif media_communication > second%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>
+						<%third = second%>
+						<%second = media_communication%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = label_second%>			
+						<%label_second = app.category%>
+				<%elsif media_communication > third%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>
+						<%fourth = third%>			
+						<%third = media_communication%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = label_third%>
+						<%label_third = app.category%>
+				<%elsif media_communication > fourth%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = fourth%>	
+						<%fourth = media_communication%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = label_fourth%>
+						<%label_fourth = app.category%>
+				<%elsif media_communication > fifth%>
+						<%seventh = sixth%>
+						<%sixth = fifth%>
+						<%fifth = media_communication%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = label_fifth%>
+						<%label_fifth = app.category%>	
+				<%elsif media_communication > sixth%>
+						<%seventh = sixth%>
+						<%sixth = media_communication%>
+						<%label_seventh = label_sixth%>
+						<%label_sixth = app.category%>											
+				<%elsif media_communication > seventh%>
+						<%seventh = media_communication%>
+						<%label_seventh = app.category%>															
+				<%end%>	
+			<%end%>										
 		<%end%>
   <%end%>
-
+	
 	<%somma_game=0%>
 	<%media_game=0%>
 	<%count_game=0%>
@@ -754,448 +786,464 @@
 				<%end%>
 			<%end%>
 		<%end%>	
-		
+	<%end%>	
+	
+	<%App.find_each do |app|%>	
 		<%if app.category == 'Game'%>
-			<%if media_game > first_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = first_monthly%>
-				<%first_monthly = media_game%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly= label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>
-				<%label_second_monthly = label_first_monthly%>		
-				<%label_first_monthly = app.category%>
-			<%elsif media_game > second_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = media_game%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>				
-				<%label_second_monthly = app.category%>
-			<%elsif media_game > third_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>			
-				<%third_monthly = media_game%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>				
-				<%label_third_monthly = app.category%>
-			<%elsif media_game > fourth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = media_game%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = app.category%>
-			<%elsif media_game > fifth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = media_game%>
-				<%label_fifth_monthly = app.category%>												
-			<%elsif media_game > sixth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = media_game%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = app.category%>												
-			<%elsif media_game > seventh_monthly%>
-				<%seventh_monthly = media_game%>
-				<%label_seventh_monthly = app.category%>	
+			<%if label_first_monthly != 'Game' and label_second_monthly != 'Game' and label_third_monthly != 'Game' and label_fourth_monthly != 'Game' and label_fifth_monthly != 'Game' and label_sixth_monthly != 'Game' and label_seventh_monthly != 'Game'%>			
+				<%if media_game > first_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = first_monthly%>
+					<%first_monthly = media_game%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly= label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>
+					<%label_second_monthly = label_first_monthly%>		
+					<%label_first_monthly = app.category%>
+				<%elsif media_game > second_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = media_game%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>				
+					<%label_second_monthly = app.category%>
+				<%elsif media_game > third_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>			
+					<%third_monthly = media_game%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>				
+					<%label_third_monthly = app.category%>
+				<%elsif media_game > fourth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = media_game%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = app.category%>
+				<%elsif media_game > fifth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = media_game%>
+					<%label_fifth_monthly = app.category%>												
+				<%elsif media_game > sixth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = media_game%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = app.category%>												
+				<%elsif media_game > seventh_monthly%>
+					<%seventh_monthly = media_game%>
+					<%label_seventh_monthly = app.category%>	
+				<%end%>
 			<%end%>
 		
 		<%elsif app.category == 'Photo'%>	
-			<%if media_photo > first_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = first_monthly%>
-				<%first_monthly = media_photo%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly= label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>
-				<%label_second_monthly = label_first_monthly%>		
-				<%label_first_monthly = app.category%>
-			<%elsif media_photo > second_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = media_photo%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>				
-				<%label_second_monthly = app.category%>
-			<%elsif media_photo > third_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>			
-				<%third_monthly = media_photo%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>				
-				<%label_third_monthly = app.category%>
-			<%elsif media_photo > fourth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = media_photo%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = app.category%>
-			<%elsif media_photo > fifth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = media_photo%>
-				<%label_fifth_monthly = app.category%>												
-			<%elsif media_photo > sixth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = media_photo%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = app.category%>												
-			<%elsif media_photo > seventh_monthly%>
-				<%seventh_monthly = media_photo%>
-				<%label_seventh_monthly = app.category%>	
+			<%if label_first_monthly != 'Photo' and label_second_monthly != 'Photo' and label_third_monthly != 'Photo' and label_fourth_monthly != 'Photo' and label_fifth_monthly != 'Photo' and label_sixth_monthly != 'Photo' and label_seventh_monthly != 'Photo'%>			
+				<%if media_photo > first_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = first_monthly%>
+					<%first_monthly = media_photo%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly= label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>
+					<%label_second_monthly = label_first_monthly%>		
+					<%label_first_monthly = app.category%>
+				<%elsif media_photo > second_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = media_photo%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>				
+					<%label_second_monthly = app.category%>
+				<%elsif media_photo > third_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>			
+					<%third_monthly = media_photo%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>				
+					<%label_third_monthly = app.category%>
+				<%elsif media_photo > fourth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = media_photo%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = app.category%>
+				<%elsif media_photo > fifth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = media_photo%>
+					<%label_fifth_monthly = app.category%>												
+				<%elsif media_photo > sixth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = media_photo%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = app.category%>												
+				<%elsif media_photo > seventh_monthly%>
+					<%seventh_monthly = media_photo%>
+					<%label_seventh_monthly = app.category%>	
+				<%end%>
 			<%end%>
 			
 		<%elsif app.category == 'Family'%>	
-			<%if media_family > first_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = first_monthly%>
-				<%first_monthly = media_family%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly= label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>
-				<%label_second_monthly = label_first_monthly%>		
-				<%label_first_monthly = app.category%>
-			<%elsif media_family > second_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = media_family%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>				
-				<%label_second_monthly = app.category%>
-			<%elsif media_family > third_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>			
-				<%third_monthly = media_family%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>				
-				<%label_third_monthly = app.category%>
-			<%elsif media_family > fourth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = media_family%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = app.category%>
-			<%elsif media_family > fifth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = media_family%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = app.category%>
-			<%elsif media_family > sixth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = media_family%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = app.category%>												
-			<%elsif media_family > seventh_monthly%>
-				<%seventh_monthly = media_family%>
-				<%label_seventh_monthly = app.category%>																	
+			<%if label_first_monthly != 'Family' and label_second_monthly != 'Family' and label_third_monthly != 'Family' and label_fourth_monthly != 'Family' and label_fifth_monthly != 'Family' and label_sixth_monthly != 'Family' and label_seventh_monthly != 'Family'%>		
+				<%if media_family > first_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = first_monthly%>
+					<%first_monthly = media_family%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly= label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>
+					<%label_second_monthly = label_first_monthly%>		
+					<%label_first_monthly = app.category%>
+				<%elsif media_family > second_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = media_family%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>				
+					<%label_second_monthly = app.category%>
+				<%elsif media_family > third_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>			
+					<%third_monthly = media_family%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>				
+					<%label_third_monthly = app.category%>
+				<%elsif media_family > fourth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = media_family%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = app.category%>
+				<%elsif media_family > fifth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = media_family%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = app.category%>
+				<%elsif media_family > sixth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = media_family%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = app.category%>												
+				<%elsif media_family > seventh_monthly%>
+					<%seventh_monthly = media_family%>
+					<%label_seventh_monthly = app.category%>																	
+				<%end%>
 			<%end%>
 			
 		<%elsif app.category == 'Music'%>
-			<%if media_music > first_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = first_monthly%>
-				<%first_monthly = media_music%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly= label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>
-				<%label_second_monthly = label_first_monthly%>		
-				<%label_first_monthly = app.category%>
-			<%elsif media_music > second_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = media_music%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>				
-				<%label_second_monthly = app.category%>
-			<%elsif media_music > third_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>			
-				<%third_monthly = media_music%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>				
-				<%label_third_monthly = app.category%>
-			<%elsif media_music > fourth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = media_music%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = app.category%>
-			<%elsif media_music > fifth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = media_music%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = app.category%>	
-			<%elsif media_music > sixth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = media_music%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = app.category%>												
-			<%elsif media_music > seventh_monthly%>
-				<%seventh_monthly = media_music%>
-				<%label_seventh_monthly = app.category%>																
+			<%if label_first_monthly != 'Music' and label_second_monthly != 'Music' and label_third_monthly != 'Music' and label_fourth_monthly != 'Music' and label_fifth_monthly != 'Music' and label_sixth_monthly != 'Music' and label_seventh_monthly != 'Music'%>
+				<%if media_music > first_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = first_monthly%>
+					<%first_monthly = media_music%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly= label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>
+					<%label_second_monthly = label_first_monthly%>		
+					<%label_first_monthly = app.category%>
+				<%elsif media_music > second_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = media_music%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>				
+					<%label_second_monthly = app.category%>
+				<%elsif media_music > third_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>			
+					<%third_monthly = media_music%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>				
+					<%label_third_monthly = app.category%>
+				<%elsif media_music > fourth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = media_music%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = app.category%>
+				<%elsif media_music > fifth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = media_music%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = app.category%>	
+				<%elsif media_music > sixth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = media_music%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = app.category%>												
+				<%elsif media_music > seventh_monthly%>
+					<%seventh_monthly = media_music%>
+					<%label_seventh_monthly = app.category%>																
+				<%end%>
 			<%end%>
 			
 		<%elsif app.category == 'Shopping'%>	
-			<%if media_shopping > first_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = first_monthly%>
-				<%first_monthly = media_shopping%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly= label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>
-				<%label_second_monthly = label_first_monthly%>		
-				<%label_first_monthly = app.category%>
-			<%elsif media_shopping > second_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = media_shopping%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>				
-				<%label_second_monthly = app.category%>
-			<%elsif media_shopping > third_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>			
-				<%third_monthly = media_shopping%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>				
-				<%label_third_monthly = app.category%>
-			<%elsif media_shopping > fourth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = media_shopping%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = app.category%>
-			<%elsif media_shopping > fifth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = media_shopping%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = app.category%>												
-			<%elsif media_shopping > sixth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = media_shopping%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = app.category%>												
-			<%elsif media_shopping > seventh_monthly%>
-				<%seventh_monthly = media_shopping%>
-				<%label_seventh_monthly = app.category%>	
-			<%end%>
-		
+			<%if label_first_monthly != 'Shopping' and label_second_monthly != 'Shopping' and label_third_monthly != 'Shopping' and label_fourth_monthly != 'Shopping' and label_fifth_monthly != 'Shopping' and label_sixth_monthly != 'Shopping' and label_seventh_monthly != 'Shopping'%>
+				<%if media_shopping > first_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = first_monthly%>
+					<%first_monthly = media_shopping%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly= label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>
+					<%label_second_monthly = label_first_monthly%>		
+					<%label_first_monthly = app.category%>
+				<%elsif media_shopping > second_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = media_shopping%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>				
+					<%label_second_monthly = app.category%>
+				<%elsif media_shopping > third_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>			
+					<%third_monthly = media_shopping%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>				
+					<%label_third_monthly = app.category%>
+				<%elsif media_shopping > fourth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = media_shopping%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = app.category%>
+				<%elsif media_shopping > fifth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = media_shopping%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = app.category%>												
+				<%elsif media_shopping > sixth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = media_shopping%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = app.category%>												
+				<%elsif media_shopping > seventh_monthly%>
+					<%seventh_monthly = media_shopping%>
+					<%label_seventh_monthly = app.category%>	
+				<%end%>
+			<%end%>	
+			
 		<%elsif app.category == 'Social'%>
-			<%if media_social > first_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = first_monthly%>
-				<%first_monthly = media_social%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly= label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>
-				<%label_second_monthly = label_first_monthly%>		
-				<%label_first_monthly = app.category%>
-			<%elsif media_social > second_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = media_social%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>				
-				<%label_second_monthly = app.category%>
-			<%elsif media_social > third_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>			
-				<%third_monthly = media_social%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>				
-				<%label_third_monthly = app.category%>
-			<%elsif media_social > fourth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = media_social%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = app.category%>
-			<%elsif media_social > fifth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = media_social%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = app.category%>												
-			<%elsif media_social > sixth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = media_social%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = app.category%>												
-			<%elsif media_social > seventh_monthly%>
-				<%seventh_monthly = media_social%>
-				<%label_seventh_monthly = app.category%>	
+			<%if label_first_monthly != 'Social' and label_second_monthly != 'Social' and label_third_monthly != 'Social' and label_fourth_monthly != 'Social' and label_fifth_monthly != 'Social' and label_sixth_monthly != 'Social' and label_seventh_monthly != 'Social'%>
+					<%if media_social > first_monthly%>
+						<%seventh_monthly = sixth_monthly%>
+						<%sixth_monthly = fifth_monthly%>
+						<%fifth_monthly = fourth_monthly%>
+						<%fourth_monthly = third_monthly%>
+						<%third_monthly = second_monthly%>
+						<%second_monthly = first_monthly%>
+						<%first_monthly = media_social%>
+						<%label_seventh_monthly = label_sixth_monthly%>
+						<%label_sixth_monthly = label_fifth_monthly%>
+						<%label_fifth_monthly = label_fourth_monthly%>
+						<%label_fourth_monthly= label_third_monthly%>
+						<%label_third_monthly = label_second_monthly%>
+						<%label_second_monthly = label_first_monthly%>		
+						<%label_first_monthly = app.category%>
+					<%elsif media_social > second_monthly%>
+						<%seventh_monthly = sixth_monthly%>
+						<%sixth_monthly = fifth_monthly%>
+						<%fifth_monthly = fourth_monthly%>
+						<%fourth_monthly = third_monthly%>
+						<%third_monthly = second_monthly%>
+						<%second_monthly = media_social%>
+						<%label_seventh_monthly = label_sixth_monthly%>
+						<%label_sixth_monthly = label_fifth_monthly%>
+						<%label_fifth_monthly = label_fourth_monthly%>
+						<%label_fourth_monthly = label_third_monthly%>
+						<%label_third_monthly = label_second_monthly%>				
+						<%label_second_monthly = app.category%>
+					<%elsif media_social > third_monthly%>
+						<%seventh_monthly = sixth_monthly%>
+						<%sixth_monthly = fifth_monthly%>
+						<%fifth_monthly = fourth_monthly%>
+						<%fourth_monthly = third_monthly%>			
+						<%third_monthly = media_social%>
+						<%label_seventh_monthly = label_sixth_monthly%>
+						<%label_sixth_monthly = label_fifth_monthly%>
+						<%label_fifth_monthly = label_fourth_monthly%>
+						<%label_fourth_monthly = label_third_monthly%>				
+						<%label_third_monthly = app.category%>
+					<%elsif media_social > fourth_monthly%>
+						<%seventh_monthly = sixth_monthly%>
+						<%sixth_monthly = fifth_monthly%>
+						<%fifth_monthly = fourth_monthly%>
+						<%fourth_monthly = media_social%>
+						<%label_seventh_monthly = label_sixth_monthly%>
+						<%label_sixth_monthly = label_fifth_monthly%>
+						<%label_fifth_monthly = label_fourth_monthly%>
+						<%label_fourth_monthly = app.category%>
+					<%elsif media_social > fifth_monthly%>
+						<%seventh_monthly = sixth_monthly%>
+						<%sixth_monthly = fifth_monthly%>
+						<%fifth_monthly = media_social%>
+						<%label_seventh_monthly = label_sixth_monthly%>
+						<%label_sixth_monthly = label_fifth_monthly%>
+						<%label_fifth_monthly = app.category%>												
+					<%elsif media_social > sixth_monthly%>
+						<%seventh_monthly = sixth_monthly%>
+						<%sixth_monthly = media_social%>
+						<%label_seventh_monthly = label_sixth_monthly%>
+						<%label_sixth_monthly = app.category%>												
+					<%elsif media_social > seventh_monthly%>
+						<%seventh_monthly = media_social%>
+						<%label_seventh_monthly = app.category%>	
+					<%end%>
 			<%end%>
 					
 		<%elsif app.category == 'Communication'%>	
-			<%if media_communication > first_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = first_monthly%>
-				<%first_monthly = media_communication%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly= label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>
-				<%label_second_monthly = label_first_monthly%>		
-				<%label_first_monthly = app.category%>
-			<%elsif media_communication > second_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>
-				<%third_monthly = second_monthly%>
-				<%second_monthly = media_communication%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>
-				<%label_third_monthly = label_second_monthly%>				
-				<%label_second_monthly = app.category%>
-			<%elsif media_communication > third_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = third_monthly%>			
-				<%third_monthly = media_communication%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = label_third_monthly%>				
-				<%label_third_monthly = app.category%>
-			<%elsif media_communication > fourth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = fourth_monthly%>
-				<%fourth_monthly = media_communication%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = label_fourth_monthly%>
-				<%label_fourth_monthly = app.category%>
-			<%elsif media_communication > fifth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = fifth_monthly%>
-				<%fifth_monthly = media_communication%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = label_fifth_monthly%>
-				<%label_fifth_monthly = app.category%>	
-			<%elsif media_communication > sixth_monthly%>
-				<%seventh_monthly = sixth_monthly%>
-				<%sixth_monthly = media_communication%>
-				<%label_seventh_monthly = label_sixth_monthly%>
-				<%label_sixth_monthly = app.category%>												
-			<%elsif media_communication > seventh_monthly%>
-				<%seventh_monthly = media_communication%>
-				<%label_seventh_monthly = app.category%>													
-			<%end%>										
+			<%if label_first_monthly != 'Communication' and label_second_monthly != 'Communication' and label_third_monthly != 'Communication' and label_fourth_monthly != 'Communication' and label_fifth_monthly != 'Communication' and label_sixth_monthly != 'Communication' and label_seventh_monthly != 'Communication'%>		
+				<%if media_communication > first_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = first_monthly%>
+					<%first_monthly = media_communication%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly= label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>
+					<%label_second_monthly = label_first_monthly%>		
+					<%label_first_monthly = app.category%>
+				<%elsif media_communication > second_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>
+					<%third_monthly = second_monthly%>
+					<%second_monthly = media_communication%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>
+					<%label_third_monthly = label_second_monthly%>				
+					<%label_second_monthly = app.category%>
+				<%elsif media_communication > third_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = third_monthly%>			
+					<%third_monthly = media_communication%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = label_third_monthly%>				
+					<%label_third_monthly = app.category%>
+				<%elsif media_communication > fourth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = fourth_monthly%>
+					<%fourth_monthly = media_communication%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = label_fourth_monthly%>
+					<%label_fourth_monthly = app.category%>
+				<%elsif media_communication > fifth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = fifth_monthly%>
+					<%fifth_monthly = media_communication%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = label_fifth_monthly%>
+					<%label_fifth_monthly = app.category%>	
+				<%elsif media_communication > sixth_monthly%>
+					<%seventh_monthly = sixth_monthly%>
+					<%sixth_monthly = media_communication%>
+					<%label_seventh_monthly = label_sixth_monthly%>
+					<%label_sixth_monthly = app.category%>												
+				<%elsif media_communication > seventh_monthly%>
+					<%seventh_monthly = media_communication%>
+					<%label_seventh_monthly = app.category%>													
+				<%end%>			
+			<%end%>							
 		<%end%>		
 	<%end%>
 	
@@ -1261,468 +1309,484 @@
 				<%end%>		
 			<%end%>
 		<%end%>
-		
+	<%end%>	
+	
+	<%App.find_each do |app|%>	
 		<%if app.category == 'Game'%>
-			<%if media_game > first_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = first_daily%>
-				<%first_daily = media_game%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>
-				<%label_second_daily = label_first_daily%>		
-				<%label_first_daily = app.category%>
-			<%elsif media_game > second_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = media_game%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>				
-				<%label_second_daily = app.category%>
-			<%elsif media_game > third_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>			
-				<%third_daily = media_game%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>				
-				<%label_third_daily = app.category%>
-			<%elsif media_game > fourth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = media_game%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = app.category%>
-			<%elsif media_game > fifth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = media_game%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = app.category%>
-			<%elsif media_game > sixth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = media_game%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = app.category%>												
-			<%elsif media_game > seventh_daily%>
-				<%seventh_daily= media_game%>
-				<%label_seventh_daily = app.category%>																		
+			<%if label_first_daily != 'Game' and label_second_daily != 'Game' and label_third_daily != 'Game' and label_fourth_daily != 'Game' and label_fifth_daily != 'Game' and label_sixth_daily != 'Game' and label_seventh_daily != 'Game'%>				
+				<%if media_game > first_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = first_daily%>
+					<%first_daily = media_game%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>
+					<%label_second_daily = label_first_daily%>		
+					<%label_first_daily = app.category%>
+				<%elsif media_game > second_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = media_game%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>				
+					<%label_second_daily = app.category%>
+				<%elsif media_game > third_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>			
+					<%third_daily = media_game%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>				
+					<%label_third_daily = app.category%>
+				<%elsif media_game > fourth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = media_game%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = app.category%>
+				<%elsif media_game > fifth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = media_game%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = app.category%>
+				<%elsif media_game > sixth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = media_game%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = app.category%>												
+				<%elsif media_game > seventh_daily%>
+					<%seventh_daily= media_game%>
+					<%label_seventh_daily = app.category%>																		
+				<%end%>
 			<%end%>
 		
 		<%elsif app.category == 'Photo'%>	
-			<%if media_photo > first_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = first_daily%>
-				<%first_daily = media_photo%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>
-				<%label_second_daily = label_first_daily%>		
-				<%label_first_daily = app.category%>
-			<%elsif media_photo > second_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = media_photo%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>				
-				<%label_second_daily = app.category%>
-			<%elsif media_photo > third_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>			
-				<%third_daily = media_photo%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>				
-				<%label_third_daily = app.category%>
-			<%elsif media_photo > fourth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = media_photo%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = app.category%>
-			<%elsif media_photo > fifth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = media_photo%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = app.category%>												
-			<%elsif media_photo > sixth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = media_photo%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = app.category%>												
-			<%elsif media_photo > seventh_daily%>
-				<%seventh_daily= media_photo%>
-				<%label_seventh_daily = app.category%>	
+			<%if label_first_daily != 'Photo' and label_second_daily != 'Photo' and label_third_daily != 'Photo' and label_fourth_daily != 'Photo' and label_fifth_daily != 'Photo' and label_sixth_daily != 'Photo' and label_seventh_daily != 'Photo'%>				
+				<%if media_photo > first_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = first_daily%>
+					<%first_daily = media_photo%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>
+					<%label_second_daily = label_first_daily%>		
+					<%label_first_daily = app.category%>
+				<%elsif media_photo > second_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = media_photo%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>				
+					<%label_second_daily = app.category%>
+				<%elsif media_photo > third_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>			
+					<%third_daily = media_photo%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>				
+					<%label_third_daily = app.category%>
+				<%elsif media_photo > fourth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = media_photo%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = app.category%>
+				<%elsif media_photo > fifth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = media_photo%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = app.category%>												
+				<%elsif media_photo > sixth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = media_photo%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = app.category%>												
+				<%elsif media_photo > seventh_daily%>
+					<%seventh_daily= media_photo%>
+					<%label_seventh_daily = app.category%>	
+				<%end%>
 			<%end%>
 			
 		<%elsif app.category == 'Family'%>	
-			<%if media_family > first_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = first_daily%>
-				<%first_daily = media_family%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>
-				<%label_second_daily = label_first_daily%>		
-				<%label_first_daily = app.category%>
-			<%elsif media_family > second_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = media_family%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>				
-				<%label_second_daily = app.category%>
-			<%elsif media_family > third_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>			
-				<%third_daily = media_family%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>				
-				<%label_third_daily = app.category%>
-			<%elsif media_family > fourth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = media_family%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = app.category%>
-			<%elsif media_family > fifth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = media_family%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = app.category%>												
-			<%elsif media_family > sixth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = media_family%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = app.category%>												
-			<%elsif media_family > seventh_daily%>
-				<%seventh_daily= media_family%>
-				<%label_seventh_daily = app.category%>	
+			<%if label_first_daily != 'Family' and label_second_daily != 'Family' and label_third_daily != 'Family' and label_fourth_daily != 'Family' and label_fifth_daily != 'Family' and label_sixth_daily != 'Family' and label_seventh_daily != 'Family'%>				
+				<%if media_family > first_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = first_daily%>
+					<%first_daily = media_family%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>
+					<%label_second_daily = label_first_daily%>		
+					<%label_first_daily = app.category%>
+				<%elsif media_family > second_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = media_family%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>				
+					<%label_second_daily = app.category%>
+				<%elsif media_family > third_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>			
+					<%third_daily = media_family%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>				
+					<%label_third_daily = app.category%>
+				<%elsif media_family > fourth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = media_family%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = app.category%>
+				<%elsif media_family > fifth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = media_family%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = app.category%>												
+				<%elsif media_family > sixth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = media_family%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = app.category%>												
+				<%elsif media_family > seventh_daily%>
+					<%seventh_daily= media_family%>
+					<%label_seventh_daily = app.category%>	
+				<%end%>
 			<%end%>
 			
 		<%elsif app.category == 'Music'%>
-			<%if media_music > first_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = first_daily%>
-				<%first_daily = media_music%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>
-				<%label_second_daily = label_first_daily%>		
-				<%label_first_daily = app.category%>
-			<%elsif media_music > second_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = media_music%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>				
-				<%label_second_daily = app.category%>
-			<%elsif media_music > third_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>			
-				<%third_daily = media_music%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>				
-				<%label_third_daily = app.category%>
-			<%elsif media_music > fourth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = media_music%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = app.category%>
-			<%elsif media_music > fifth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = media_music%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = app.category%>												
-			<%elsif media_music > sixth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = media_music%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = app.category%>												
-			<%elsif media_music > seventh_daily%>
-				<%seventh_daily= media_music%>
-				<%label_seventh_daily = app.category%>
+			<%if label_first_daily != 'Music' and label_second_daily != 'Music' and label_third_daily != 'Music' and label_fourth_daily != 'Music' and label_fifth_daily != 'Music' and label_sixth_daily != 'Music' and label_seventh_daily != 'Music'%>				
+				<%if media_music > first_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = first_daily%>
+					<%first_daily = media_music%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>
+					<%label_second_daily = label_first_daily%>		
+					<%label_first_daily = app.category%>
+				<%elsif media_music > second_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = media_music%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>				
+					<%label_second_daily = app.category%>
+				<%elsif media_music > third_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>			
+					<%third_daily = media_music%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>				
+					<%label_third_daily = app.category%>
+				<%elsif media_music > fourth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = media_music%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = app.category%>
+				<%elsif media_music > fifth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = media_music%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = app.category%>												
+				<%elsif media_music > sixth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = media_music%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = app.category%>												
+				<%elsif media_music > seventh_daily%>
+					<%seventh_daily= media_music%>
+					<%label_seventh_daily = app.category%>
+				<%end%>
 			<%end%>
 			
 		<%elsif app.category == 'Shopping'%>	
-			<%if media_shopping > first_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = first_daily%>
-				<%first_daily = media_shopping%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>
-				<%label_second_daily = label_first_daily%>		
-				<%label_first_daily = app.category%>
-			<%elsif media_shopping > second_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = media_shopping%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>				
-				<%label_second_daily = app.category%>
-			<%elsif media_shopping > third_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>			
-				<%third_daily = media_shopping%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>				
-				<%label_third_daily = app.category%>
-			<%elsif media_shopping > fourth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = media_shopping%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = app.category%>
-			<%elsif media_shopping > fifth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = media_shopping%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = app.category%>												
-			<%elsif media_shopping > sixth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = media_shopping%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = app.category%>												
-			<%elsif media_shopping > seventh_daily%>
-				<%seventh_daily= media_shopping%>
-				<%label_seventh_daily = app.category%>
+			<%if label_first_daily != 'Shopping' and label_second_daily != 'Shopping' and label_third_daily != 'Shopping' and label_fourth_daily != 'Shopping' and label_fifth_daily != 'Shopping' and label_sixth_daily != 'Shopping' and label_seventh_daily != 'Shopping'%>				
+				<%if media_shopping > first_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = first_daily%>
+					<%first_daily = media_shopping%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>
+					<%label_second_daily = label_first_daily%>		
+					<%label_first_daily = app.category%>
+				<%elsif media_shopping > second_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = media_shopping%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>				
+					<%label_second_daily = app.category%>
+				<%elsif media_shopping > third_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>			
+					<%third_daily = media_shopping%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>				
+					<%label_third_daily = app.category%>
+				<%elsif media_shopping > fourth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = media_shopping%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = app.category%>
+				<%elsif media_shopping > fifth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = media_shopping%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = app.category%>												
+				<%elsif media_shopping > sixth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = media_shopping%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = app.category%>												
+				<%elsif media_shopping > seventh_daily%>
+					<%seventh_daily= media_shopping%>
+					<%label_seventh_daily = app.category%>
+				<%end%>
 			<%end%>
 		
 		<%elsif app.category == 'Social'%>
-			<%if media_social > first_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = first_daily%>
-				<%first_daily = media_social%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>
-				<%label_second_daily = label_first_daily%>		
-				<%label_first_daily = app.category%>
-			<%elsif media_social > second_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = media_social%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>				
-				<%label_second_daily = app.category%>
-			<%elsif media_social > third_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>			
-				<%third_daily = media_social%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>				
-				<%label_third_daily = app.category%>
-			<%elsif media_social > fourth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = media_social%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = app.category%>
-			<%elsif media_social > fifth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = media_social%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = app.category%>												
-			<%elsif media_social > sixth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = media_social%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = app.category%>												
-			<%elsif media_social > seventh_daily%>
-				<%seventh_daily= media_social%>
-				<%label_seventh_daily = app.category%>
+			<%if label_first_daily != 'Social' and label_second_daily != 'Social' and label_third_daily != 'Social' and label_fourth_daily != 'Social' and label_fifth_daily != 'Social' and label_sixth_daily != 'Social' and label_seventh_daily != 'Social'%>				
+				<%if media_social > first_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = first_daily%>
+					<%first_daily = media_social%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>
+					<%label_second_daily = label_first_daily%>		
+					<%label_first_daily = app.category%>
+				<%elsif media_social > second_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = media_social%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>				
+					<%label_second_daily = app.category%>
+				<%elsif media_social > third_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>			
+					<%third_daily = media_social%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>				
+					<%label_third_daily = app.category%>
+				<%elsif media_social > fourth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = media_social%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = app.category%>
+				<%elsif media_social > fifth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = media_social%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = app.category%>												
+				<%elsif media_social > sixth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = media_social%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = app.category%>												
+				<%elsif media_social > seventh_daily%>
+					<%seventh_daily= media_social%>
+					<%label_seventh_daily = app.category%>
+				<%end%>
 			<%end%>
 					
 		<%elsif app.category == 'Communication'%>	
-			<%if media_communication > first_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = first_daily%>
-				<%first_daily = media_communication%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>
-				<%label_second_daily = label_first_daily%>		
-				<%label_first_daily = app.category%>
-			<%elsif media_communication > second_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>
-				<%third_daily = second_daily%>
-				<%second_daily = media_communication%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>
-				<%label_third_daily = label_second_daily%>				
-				<%label_second_daily = app.category%>
-			<%elsif media_communication > third_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = third_daily%>			
-				<%third_daily = media_communication%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = label_third_daily%>				
-				<%label_third_daily = app.category%>
-			<%elsif media_communication > fourth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = fourth_daily%>
-				<%fourth_daily = media_communication%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = label_fourth_daily%>
-				<%label_fourth_daily = app.category%>
-			<%elsif media_communication > fifth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = fifth_daily%>
-				<%fifth_daily = media_communication%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = label_fifth_daily%>
-				<%label_fifth_daily = app.category%>
-			<%elsif media_communication > sixth_daily%>
-				<%seventh_daily = sixth_daily%>
-				<%sixth_daily = media_communication%>
-				<%label_seventh_daily = label_sixth_daily%>
-				<%label_sixth_daily = app.category%>												
-			<%elsif media_communication > seventh_daily%>
-				<%seventh_daily= media_communication%>
-				<%label_seventh_daily = app.category%>																
-			<%end%>										
+			<%if label_first_daily != 'Communication' and label_second_daily != 'Communication' and label_third_daily != 'Communication' and label_fourth_daily != 'Communication' and label_fifth_daily != 'Communication' and label_sixth_daily != 'Communication' and label_seventh_daily != 'Communication'%>				
+				<%if media_communication > first_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = first_daily%>
+					<%first_daily = media_communication%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>
+					<%label_second_daily = label_first_daily%>		
+					<%label_first_daily = app.category%>
+				<%elsif media_communication > second_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>
+					<%third_daily = second_daily%>
+					<%second_daily = media_communication%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>
+					<%label_third_daily = label_second_daily%>				
+					<%label_second_daily = app.category%>
+				<%elsif media_communication > third_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = third_daily%>			
+					<%third_daily = media_communication%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = label_third_daily%>				
+					<%label_third_daily = app.category%>
+				<%elsif media_communication > fourth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = fourth_daily%>
+					<%fourth_daily = media_communication%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = label_fourth_daily%>
+					<%label_fourth_daily = app.category%>
+				<%elsif media_communication > fifth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = fifth_daily%>
+					<%fifth_daily = media_communication%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = label_fifth_daily%>
+					<%label_fifth_daily = app.category%>
+				<%elsif media_communication > sixth_daily%>
+					<%seventh_daily = sixth_daily%>
+					<%sixth_daily = media_communication%>
+					<%label_seventh_daily = label_sixth_daily%>
+					<%label_sixth_daily = app.category%>												
+				<%elsif media_communication > seventh_daily%>
+					<%seventh_daily= media_communication%>
+					<%label_seventh_daily = app.category%>																
+				<%end%>			
+			<%end%>							
 		<%end%>		
 	<%end%>
 	

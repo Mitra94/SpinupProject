@@ -7,19 +7,13 @@ Rails.application.routes.draw do
 
   resources :developers do
 	resources :comments
-		member do
-			get :lovers
-		end
-	end
+  end
+  
   resources :users do
-	resources :opinions do
-		member do
-			get :spiners
-		end
-	end
+	resources :opinions
     member do
       get :following
-      get :like
+      get :likes
       get :spins
       get :loves
     end
@@ -28,12 +22,22 @@ Rails.application.routes.draw do
   resources :static_pages
   resources :apps do
     resources :microposts do
-		resources :comments
-		resources :opinions
+		resources :comments do
+			member do
+				get :lovers
+			end
+		end
+		resources :opinions do
+			member do
+				get :spiners
+			end
+		end
+		member do
+			get :likers
+		end
 	end
 	member do
       get :followers
-      get :likers
     end
   end
   resources :relationships,       only: [:create, :destroy]

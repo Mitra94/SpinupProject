@@ -31,4 +31,36 @@ RSpec.describe "routes for users", :type => :routing do
                       :id=>"1"
                     )
         end
+        
+        it "show users's following" do
+            expect(:get => "/users/1/following").to route_to(
+                      :controller => "users",
+                      :action => "following",
+                      :id=>"1"
+                    )
+        end  
+        
+        it "show users's likes" do
+            expect(:get => "/users/1/likes").to route_to(
+                      :controller => "users",
+                      :action => "likes",
+                      :id=>"1"
+                    )
+        end           
+        
+        it "show users's spins" do
+            expect(:get => "/users/1/spins").to route_to(
+                      :controller => "users",
+                      :action => "spins",
+                      :id=>"1"
+                    )
+        end
+        
+        it "show users's loves" do
+            expect(:get => "/users/1/loves").to route_to(
+                      :controller => "users",
+                      :action => "loves",
+                      :id=>"1"
+                    )
+        end        
 end
