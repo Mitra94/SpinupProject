@@ -66,52 +66,52 @@ class SkillsController < ApplicationController
 
   def edit_htmlcss
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'htmlcss', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'htmlcss', voted: params[:id], voter: current_dev.id)
   end
 
   def edit_java
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'java', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'java', voted: params[:id], voter: current_dev.id)
   end
 
   def edit_javascript
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'javascript', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'javascript', voted: params[:id], voter: current_dev.id)
   end
 
   def edit_c
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'c', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'c', voted: params[:id], voter: current_dev.id)
   end
 
   def edit_cplus
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'cplus', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'cplus', voted: params[:id], voter: current_dev.id)
   end
 
   def edit_nodejs
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'nodejs', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'nodejs', voted: params[:id], voter: current_dev.id)
   end
 
   def edit_database
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'database', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'database', voted: params[:id], voter: current_dev.id)
   end
 
   def edit_algorithms
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'algorithms', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'algorithms', voted: params[:id], voter: current_dev.id)
   end
 
   def edit_android
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'android', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'android', voted: params[:id], voter: current_dev.id)
   end
 
   def edit_ios
 	@skill = Skill.find(params[:id])
-	@approval = Approval.create(skill: 'ios', voted: params[:id], voter: current_dev.name)
+	@approval = Approval.create(skill: 'ios', voted: params[:id], voter: current_dev.id)
   end
 
 

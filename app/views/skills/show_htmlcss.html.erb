@@ -4,9 +4,11 @@ table, th, td {
 }
 </style>
 
+<br><br><br>
+
 <p> Listing voters </p>
 
-<% if (Developer.find(params[:id]).name != current_dev.name) %>
+<% if (Developer.find(params[:id]).id != current_dev.id) %>
 <table>
 
 			<tr>
@@ -20,8 +22,8 @@ table, th, td {
 		<% if (v.voted == params[:id].to_i and v.skill == 'htmlcss') %>
 			
 			<tr>
-				<td> <%= v.voter %> </td>
-				<td> <%= link_to 'Profile', Developer.find_by(name: v.voter)  %> </td>
+				<td> <%= Developer.find(v.voter).name %> </td>
+				<td> <%= link_to 'Profile', Developer.find(v.voter)  %> </td>
 			</tr>
 
 		<% end %>
@@ -32,7 +34,7 @@ table, th, td {
 
 </table>
 
-<% if (Developer.find(params[:id]).name == current_dev.name) %>
+<% if (Developer.find(params[:id]).id == current_dev.id) %>
 
 <table>
 
@@ -43,12 +45,12 @@ table, th, td {
 
 	<% Approval.all.each do |v| %>
 		
-		<% if (Developer.find_by(id: v.voted).name == current_dev.name and v.skill == 'htmlcss') %>
+		<% if (Developer.find_by(id: v.voted).id == current_dev.id and v.skill == 'htmlcss') %>
 		
 		<tr>
 
-			<td> <%= v.voter %> </td>
-			<td> <%= link_to 'Profile', Developer.find_by(name: v.voter)  %> </td>
+			<td> <%= Developer.find(v.voter).name %> </td>
+			<td> <%= link_to 'Profile', Developer.find(v.voter)  %> </td>
 		</tr>
 		<% end %>		
 	<% end %>

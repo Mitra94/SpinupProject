@@ -1,9 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<br><br><br>
+
 <p>
   <strong>Html+css:</strong>
   <%= @skill.html_css %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>
+  <% if current_dev.id != Developer.find(params[:id]).id %>
   <%= link_to 'Approve', controller: 'skills', action: 'edit_htmlcss' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_htmlcss' %>
@@ -12,7 +14,7 @@
 <p>
   <strong>Java:</strong>
   <%= @skill.java %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>
+  <% if current_dev.id != Developer.find(params[:id]).id %>
   <%= link_to 'Approve', controller: 'skills', action: 'edit_java' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_java' %>
@@ -21,7 +23,7 @@
 <p>
   <strong>Javascript:</strong>
   <%= @skill.javascript %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>	
+  <% if current_dev.id != Developer.find(params[:id]).id %>	
   <%= link_to 'Approve', controller: 'skills', action: 'edit_javascript' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_javascript' %>
@@ -30,7 +32,7 @@
 <p>
   <strong>C:</strong>
   <%= @skill.c %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>
+  <% if current_dev.id != Developer.find(params[:id]).id %>
   <%= link_to 'Approve', controller: 'skills', action: 'edit_c' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_c' %>
@@ -39,7 +41,7 @@
 <p>
   <strong>C++:</strong>
   <%= @skill.c_plus_plus %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>
+  <% if current_dev.id != Developer.find(params[:id]).id %>
   <%= link_to 'Approve', controller: 'skills', action: 'edit_cplus' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_c_plus_plus' %>
@@ -48,7 +50,7 @@
 <p>
   <strong>Nodejs:</strong>
   <%= @skill.nodejs %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>
+  <% if current_dev.id != Developer.find(params[:id]).id %>
   <%= link_to 'Approve', controller: 'skills', action: 'edit_nodejs' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_nodejs' %>
@@ -57,7 +59,7 @@
 <p>
   <strong>Database:</strong>
   <%= @skill.database %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>
+  <% if current_dev.id != Developer.find(params[:id]).id %>
   <%= link_to 'Approve', controller: 'skills', action: 'edit_database' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_database' %>
@@ -66,7 +68,7 @@
 <p>
   <strong>Algorithms:</strong>
   <%= @skill.algorithms %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>
+  <% if current_dev.id != Developer.find(params[:id]).id %>
   <%= link_to 'Approve', controller: 'skills', action: 'edit_algorithms' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_algorithms' %>
@@ -75,7 +77,7 @@
 <p>
   <strong>Android:</strong>
   <%= @skill.android %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>
+  <% if current_dev.id != Developer.find(params[:id]).id %>
   <%= link_to 'Approve', controller: 'skills', action: 'edit_android' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_android' %>
@@ -84,7 +86,7 @@
 <p>
   <strong>Ios:</strong>
   <%= @skill.ios %>
-  <% if current_dev.name != Developer.find(params[:id]).name %>
+  <% if current_dev.id != Developer.find(params[:id]).id %>
   <%= link_to 'Approve', controller: 'skills', action: 'edit_ios' %>
   <% end %>
   <%= link_to 'Who voted this?', controller: 'skills', action: 'show_ios' %>

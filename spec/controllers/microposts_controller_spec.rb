@@ -42,5 +42,4 @@ RSpec.describe MicropostsController, type: :controller do
 			#	expect(response).to redirect_to new_app_path
 			#end						
 		#end
-	end
 end

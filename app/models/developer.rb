@@ -7,6 +7,7 @@ class Developer < ActiveRecord::Base
     has_and_belongs_to_many :apps
     has_many :microposts, dependent: :destroy
     has_many :skills
+    has_and_belongs_to_many :approvals
     has_many :invites
     has_many :bugs
     

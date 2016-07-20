@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   resources :reports
-resources :bugs
-resources :invites
+  resources :bugs
+  resources :invites, except: [:index, :edit, :update]
   post '/rate' => 'rater#create', :as => 'rate'
 
   resources :developers do
@@ -44,8 +44,8 @@ resources :invites
   resources :opinions
   resources :notifications
   
-resources :approvals
-resources :skills
+resources :approvals, only: :new
+resources :skills, except: [:index, :destroy]
 
   get 'skills/:id/show_htmlcss' => 'skills#show_htmlcss'
   get 'skills/:id/show_java' => 'skills#show_java'

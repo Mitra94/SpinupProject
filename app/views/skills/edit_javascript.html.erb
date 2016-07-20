@@ -1,3 +1,5 @@
+<br><br><br>
+
 <%= form_for(@skill) do |f| %>
   <% if @skill.errors.any? %>
     <div id="error_explanation">
@@ -14,7 +16,7 @@
 
     <div class="field">
     <%= f.label :javascript %><br>
-    <%= f.number_field :javascript %>
+    <%= f.number_field :javascript, in: 0..50 %>
   </div>
 
     <div class="actions">
