@@ -62,5 +62,11 @@ RSpec.describe "routes for users", :type => :routing do
                       :action => "loves",
                       :id=>"1"
                     )
+        end
+
+        it "show admin page" do
+            expect(:get => "login_admin").to route_to(
+              :controller => "users",
+              :action => "login_admin")
         end        
 end

@@ -31,7 +31,7 @@ class ApprovalsController < ApplicationController
         format.html { redirect_to @approval, notice: 'Approval was successfully created.' }
         format.json { render :show, status: :created, location: @approval }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, notice: 'Mistakes were made' }
         format.json { render json: @approval.errors, status: :unprocessable_entity }
       end
     end

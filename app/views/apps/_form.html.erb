@@ -30,7 +30,7 @@
 	<%= f.label :realizer %>
 	<%= select_tag "realizers", options_from_collection_for_select(Developer.all, 'id', 'name', current_dev.id)%>
   </div>
-  <div class="hidden">
+  <div class="field">
   <%= f.label :version %>
   <%= f.text_field :version, :value => "1.0" %>
   </div>

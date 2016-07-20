@@ -1,16 +1,18 @@
+<br><br><br>
+
 <p id="notice"><%= notice %></p>
 
 <p>
   <strong>App:</strong>
-  <%= @bug.app_id %>
+  <%= App.find(@bug.app_id).name %>
 </p>
 
 <p>
   <strong>Founder:</strong>
-  <%= @bug.founder %>
+  <%= Developer.find(@bug.founder).name %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>Your Description:</strong>
   <%= @bug.description %>
 </p>

@@ -35,7 +35,7 @@ class BugsController < ApplicationController
         format.html { redirect_to @bug, notice: 'Bug was successfully created.' }
         format.json { render :show, status: :created, location: @bug }
       else
-        format.html { render :new }
+        format.html { redirect_to :new }
         format.json { render json: @bug.errors, status: :unprocessable_entity }
       end
     end

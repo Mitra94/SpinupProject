@@ -31,7 +31,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.save
-        format.html { redirect_to @report, notice: 'Report was successfully created and sent to an admin for further checks' }
+        format.html { redirect_to :back, notice: 'Report was successfully created and sent to an admin for further checks' }
         format.json { render :show, status: :created, location: @report }
       else
         format.html { render :new }

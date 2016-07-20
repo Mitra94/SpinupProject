@@ -1,12 +1,15 @@
+<br><br><br>
+
+
 <p> Listing reports: </p>
 
 
 <% Report.all.each do |report| %>
 
 		<% if Opinion.exists?(content: report.comment, user_id: report.user_id, micropost_id: report.post_id) and Report.exists?(id: report.id)%>
-		<%= "The user '" + User.find(report.user_id).username + "' reported this: " + report.comment %>
+		<p><%= "The user '" + User.find(report.user_id).username + "' reported this: " + report.comment %>
 		<%= link_to "Delete comment?", app_micropost_opinion_path(:app_id => report.app_id, :micropost_id => report.post_id, :id => report.id), method: :delete %>
-		<%= link_to "Delete from list", report_path(report), method: :delete %>
+		<%= link_to "Delete from list", report_path(report), method: :delete %></p>
 		<% end %>
 
 

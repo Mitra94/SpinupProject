@@ -13,4 +13,5 @@ class Opinion < ActiveRecord::Base
   has_many :spiners, through: :passive_spins, source: :spiner
   
   has_many :notifications
+  has_one :report
 end

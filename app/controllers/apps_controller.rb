@@ -103,10 +103,6 @@ class AppsController < ApplicationController
   def edit
   end
 
-  def modify_app
-  	@app = App.find(params[:id])
-  end
-
 
   # POST /apps
   # POST /apps.json

@@ -31,6 +31,15 @@ RSpec.describe AppsController, type: :controller do
           get :fresh
           assert_response :success
     end 
+
+    it "should delete an app" do
+    	@app = FactoryGirl.create(:app)
+    	@dev = FactoryGirl.create(:developer)
+    	@app.developers << @dev
+    	delete :destroy, :id => @app.id
+    	assert_response :redirect
+    	expect(response).to redirect_to(developer_path(@dev))
+    end
     
     it "should show chosen for you apps" do
           @app = FactoryGirl.create(:app)

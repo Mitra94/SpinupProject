@@ -37,7 +37,7 @@ class InvitesController < ApplicationController
         format.html { redirect_to @app, notice: 'A new developer joined your team!' }
         format.json { render :show, status: :destroyed, location: @app }
       else
-        format.html { render :new }
+        format.html { render :back }
         format.json { render json: @invite.errors, status: :unprocessable_entity }
       end
     end

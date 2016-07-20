@@ -75,4 +75,11 @@ RSpec.describe "routes for apps", :type => :routing do
                     )
         end 
 
+        it "get my apps" do
+          expect(:get => "developers/1/my_apps").to route_to(
+                      :controller => "apps",
+                      :action => "my_apps",
+                      :id => "1")
+        end
+
 end

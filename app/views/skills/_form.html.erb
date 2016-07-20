@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :'HTML+CSS' %><br>
-    <%= f.number_field :html_css %>
+    <%= f.number_field :html_css, in: 0..50 %>
   </div>
   <div class="field">
     <%= f.label :java %><br>
@@ -21,35 +21,35 @@
   </div>
   <div class="field">
     <%= f.label :javascript %><br>
-    <%= f.number_field :javascript %>
+    <%= f.number_field :javascript, in: 0..50 %>
   </div>
   <div class="field">
     <%= f.label :c %><br>
-    <%= f.number_field :c %>
+    <%= f.number_field :c, in: 0..50 %>
   </div>
   <div class="field">
     <%= f.label :'c++' %><br>
-    <%= f.number_field :c_plus_plus %>
+    <%= f.number_field :c_plus_plus, in: 0..50 %>
   </div>
   <div class="field">
     <%= f.label :nodejs %><br>
-    <%= f.number_field :nodejs %>
+    <%= f.number_field :nodejs, in: 0..50 %>
   </div>
   <div class="field">
     <%= f.label :database %><br>
-    <%= f.number_field :database %>
+    <%= f.number_field :database, in: 0..50 %>
   </div>
   <div class="field">
     <%= f.label :algorithms %><br>
-    <%= f.number_field :algorithms %>
+    <%= f.number_field :algorithms, in: 0..50 %>
   </div>
   <div class="field">
     <%= f.label :android %><br>
-    <%= f.number_field :android %>
+    <%= f.number_field :android, in: 0..50 %>
   </div>
   <div class="field">
     <%= f.label :ios %><br>
-    <%= f.number_field :ios %>
+    <%= f.number_field :ios, in: 0..50 %>
   </div>
   <div class="actions">
     <%= f.submit %>

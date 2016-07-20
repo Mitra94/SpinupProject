@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :reports
-  resources :bugs
+  resources :reports, except: [:index, :edit, :update]
+  resources :bugs, except: [:index, :edit, :update]
   resources :invites, except: [:index, :edit, :update]
   post '/rate' => 'rater#create', :as => 'rate'
 
@@ -95,7 +95,6 @@ resources :skills, except: [:index, :destroy]
   get 'apps/:id/show_app_bugs/solved_bug' => 'bugs#solved_bug'
 
   get 'developers/:id/my_apps' => 'apps#my_apps'
-  get 'modify_app' => 'apps#modify_app'
 
   get 'login_admin' => 'users#login_admin'
 

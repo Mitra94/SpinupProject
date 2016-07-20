@@ -214,5 +214,17 @@ RSpec.describe User, type: :model do
 	user = FactoryGirl.build(:user) 
 	user.update_attributes(:password_confirmation => nil) 
 	expect(user.valid?).to eq false
-  end       
+  end     
+
+  it "is not an admin" do
+  user = FactoryGirl.create(:user)
+  expect(user.admin?).to eq false
+  end
+
+  it "is an admin" do
+  user = FactoryGirl.create(:user)
+  user.update_attributes(:admin => true)
+  expect(user.admin?).to eq true
+  end
+
 end

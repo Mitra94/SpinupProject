@@ -2,11 +2,17 @@ require 'rails_helper'
 
 RSpec.describe SkillsController, type: :controller do
 
+	before :each do
+		@developer = FactoryGirl.create(:developer)
+		sign_in @developer
+
+	end
+
 	it "should show skill object" do
 
 		skill = FactoryGirl.create(:skill)
 		get :show, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -15,7 +21,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_htmlcss, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -25,7 +31,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_java, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -34,7 +40,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_javascript, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -43,7 +49,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_c, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -52,7 +58,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_c_plus_plus, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -61,7 +67,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_nodejs, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -70,7 +76,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_database, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -79,7 +85,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_algorithms, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -88,7 +94,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_android, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -98,7 +104,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :show_ios, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 
 	end
@@ -116,7 +122,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -124,7 +130,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_htmlcss, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -132,7 +138,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_java, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -140,7 +146,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_javascript, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -148,7 +154,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_c, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -156,7 +162,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_cplus, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -164,7 +170,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_nodejs, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -172,7 +178,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_database, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -180,7 +186,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_algorithms, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -188,7 +194,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_android, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -196,7 +202,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :edit_ios, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -204,7 +210,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :search, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -212,7 +218,7 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = FactoryGirl.create(:skill)
 		get :results, :id => skill.id
-		assert_response :redirect
+		assert_response :success
 
 	end
 
@@ -229,9 +235,29 @@ RSpec.describe SkillsController, type: :controller do
 
 
 		skill = Skill.create(:html_css => 0, :java => 0, :javascript => 0, :c => 0, :c_plus_plus => 0, :nodejs => 0, :database => 0, :algorithms => 0, :android => 0, :ios => 0)
-		post :update, :id => skill.id
-		assert_response :redirect
+		put :update, :id => skill.id, :skill => skill.attributes = {:html_css => 10}
+		skill.reload
+		assert skill.html_css == 10
 
+	end
+
+
+	private
+
+	def sign_in(developer)
+		session[:developer_id] = developer.id
+		current_developer = developer
+		@current_developer = developer
+	end
+
+	def sign_out
+		current_developer = nil
+		@current_developer = nil
+		cookies.delete(:remember_token)
+	end
+
+	def signed_in?
+		return !@current_developer.nil?
 	end
 
 end
