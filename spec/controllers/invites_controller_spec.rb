@@ -6,72 +6,76 @@ RSpec.describe InvitesController, type: :controller do
 		@developer = FactoryGirl.create(:developer)
 		sign_in @developer
 		@app = FactoryGirl.create(:app)
-		@app.update_attributes(:name => "test")
 
 	end
 
 	it "should create a new invite" do
 
-		count = Invite.count
-		Invite.create(:app => "prova", :sender => "1", :receiver => "2")
-		assert Invite.count > count
+		expect{Invite.create(:app => @app.name, :sender => @developer.id, :receiver => @developer.id)}.to change(Invite, :count)
 
 	end
 
 	it "should show an invite" do
 
-		invite = Invite.create(:app => "prova", :sender => "1", :receiver => "2")
+		invite = Invite.create(:app => @app.name, :sender => @developer.id, :receiver => @developer.id)
 		get :show, :id => invite.id
 		assert_response :success
+		expect(response).to render_template(:show)
 
 	end
 
 	it "should get requests" do
 
-		get :requests, :id => 1
+		get :requests, :id => @app.id
 		assert_response :success
+		expect(response).to render_template(:requests)
 
 	end
 
 	it "should get pending invites" do
 
-		get :pending_invites, :id => 1
+		get :pending_invites, :id => @app.id
 		assert_response :success
+		expect(response).to render_template(:pending_invites)
 
 	end
 
 	it "should accept an invite (1)" do
 
-		invite = Invite.create(:app => @app.name, :sender => "2", :receiver => @developer.id)
+		invite = Invite.create(:app => @app.name, :sender => @developer.id, :receiver => @developer.id)
 		get :accept, :id => @app.id
 		assert_response :redirect
+		expect(response).to redirect_to(app_path(@app))
 
 	end
 
 
 	it "should accept an invite (2)" do
 
-		invite = Invite.create(:app => @app.name, :sender => "2", :receiver => @developer.id)
+		invite = Invite.create(:app => @app.name, :sender => @developer.id, :receiver => @developer.id)
 		get :accept_invite, :id => @app.id
 		assert_response :redirect
+		expect(response).to redirect_to(app_path(@app))
 
 	end
 
 
 	it "should refuse an invite (1)" do
 
-		invite = Invite.create(:app => @app.name, :sender => "2", :receiver => @developer.id)
+		invite = Invite.create(:app => @app.name, :sender => @developer.id, :receiver => @developer.id)
 		get :refuse, :id => @app.id
 		assert_response :redirect
+		expect(response).to redirect_to(app_path(@app))
 
 	end
 
 
 	it "should refuse an invite (2)" do
 
-		invite = Invite.create(:app => @app.name, :sender => "2", :receiver => @developer.id)
+		invite = Invite.create(:app => @app.name, :sender => @developer.id, :receiver => @developer.id)
 		get :refuse_invite, :id => @app.id
 		assert_response :redirect
+		expect(response).to redirect_to(app_path(@app))
 
 	end
 
@@ -81,6 +85,7 @@ RSpec.describe InvitesController, type: :controller do
 		invite = Invite.create(:app => @app.name, :sender => @developer.id, :receiver => @developer.id)
 		get :create_invite, :id => @app.id
 		assert_response :redirect
+		expect(response).to redirect_to(app_path(@app))
 
 	end
 

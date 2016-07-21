@@ -15,6 +15,7 @@ RSpec.describe ReportsController, type: :controller do
 
 		get :list_reports
 		assert_response :success
+		expect(response).to render_template(:list_reports)
 
 	end
 
@@ -23,6 +24,7 @@ RSpec.describe ReportsController, type: :controller do
 
 		get :new
 		assert_response :success
+		expect(response).to render_template(:new)
 
 	end
 
