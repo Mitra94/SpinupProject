@@ -2,44 +2,116 @@ require 'rails_helper'
 
 RSpec.describe MicropostsController, type: :controller do
 
-	#describe 'POST #create' do
-		#context 'with valid attributes' do
-			#it 'creates the micropost' do
-				#app = FactoryGirl.create(:app)
-				#post :'apps/:id/create', micropost: FactoryGirl.create(:micropost)
-				#expect(Micropost.count).to eq(1)
-			#end 
+    before :each do
+        @developer = FactoryGirl.create(:developer)
+        sign_in @developer
+        @app = FactoryGirl.create(:app)
+    end
+    
+	describe 'POST #create' do
+    
+		context 'with valid attributes' do
 			
-			#it 'redirects to the "show" action for the new micropost' do
-			#	post :create, micropost: FactoryGirl.create(:micropost)
-			#	expect(response).to redirect_to micropost
-			#end			
-		#end
+            it 'add one micropost' do
+                count = Micropost.count
+                @micropost = FactoryGirl.create(:micropost)
+                post :create, micropost: {developer: @micropost.developer, content: @micropost.content}, app_id: @app.id
+                assert Micropost.count > count
+            end 
+            
+			it "should create micropost" do
+                @micropost = FactoryGirl.create(:micropost)
+                post :create, micropost: {developer: @micropost.developer, content: @micropost.content}, app_id: @app.id
+                assert_response :redirect
+                expect(response).to redirect_to('/apps/1')
+            end			
+		end
 		
-		#context 'with invalid attributes' do
-			#it 'does not create the micropost without content' do
-				#post :create, micropost: FactoryGirl.build(:micropost, content: nil)
-				#expect(micropost.count).to eq(0)
-			#end
-			
-			#it 'does not create the micropost without app' do
-				#post :create, micropost: FactoryGirl.build(:micropost, app: nil)
-				#expect(micropost.count).to eq(0)
-			#end
-			
-			#it 'does not create the micropost without developer' do
-				#post :create, micropost: FactoryGirl.build(:micropost, developer: nil)
-				#expect(micropost.count).to eq(0)
-			#end
-			
-			#it 'does not create the micropost without app version' do
-				#post :create, micropost: FactoryGirl.build(:micropost, app_version: nil)
-				#expect(micropost.count).to eq(0)
-			#end
-			
-			#it 're-renders the "new" view' do
-			#	post :create, app: FactoryGirl.build(:app, name: nil)
-			#	expect(response).to redirect_to new_app_path
-			#end						
-		#end
+		context "with invalid attributes" do
+            it "does not save the micropost without content" do
+                count = Micropost.count
+                post :create, micropost: { developer_id: "1", content: nil}, app_id: @app.id
+                expect(Micropost.count).to eq(count)
+            end
+            it "re-renders the new method" do
+                post :create, micropost: { developer_id: "1", content: nil}, app_id: @app.id
+                expect(response).to redirect_to('/apps/1')
+            end
+        end
+	end
+    
+    describe 'PUT update' do
+    
+        before :each do
+            @micropost = FactoryGirl.create(:micropost)
+        end	
+        
+        context "valid attributes" do
+        
+            it "located the requested @micropost" do
+                put :update, id: @micropost, micropost: { developer: @micropost.developer, content: @micropost.content }, app_id: @micropost.app
+                expect(assigns(:micropost)).to eq(@micropost)
+            end
+            
+            it "changes @micropost's attributes" do
+                put :update, id: @micropost,
+                micropost: { developer: @micropost.developer, content: "Modified" }, app_id: @micropost.app
+                @micropost.reload
+                expect(@micropost.content).to eq("Modified")
+            end
+            
+            it "redirects to the updated micropost" do
+                put :update, id: @micropost, micropost: { developer: @micropost.developer, content: "Modified" }, app_id: @micropost.app
+                expect(response).to redirect_to ('/apps/2')
+            end
+            
+        end
+        context "invalid attributes" do
+        
+            it "locates the requested @micropost" do
+                put :update, id: @micropost, micropost: { developer: @micropost.developer, content: nil }, app_id: @micropost.app
+                expect(assigns(:micropost)).to eq(@micropost)
+            end
+            
+            it "does not change @micropost's attributes" do
+                put :update, id: @micropost,
+                micropost: { developer: @micropost.developer, content: nil }, app_id: @micropost.app
+                @micropost.reload
+                expect(@micropost.content).not_to eq("Modified")
+            end
+        
+        end
+    end	
+    
+    describe 'DELETE destroy' do
+    
+        before :each do
+            @micropost = FactoryGirl.create(:micropost)
+        end	
+        
+        it "should delete micropost" do
+            delete :destroy, :id => @micropost.id, micropost: { developer: @micropost.developer, content: nil }, app_id: @micropost.app
+            assert_response :redirect
+            expect(response).to redirect_to(root_path)
+        end
+        
+    end
+    
+    private
+    
+    def sign_in(developer)
+        session[:developer_id] = developer.id
+        current_dev = developer
+        @current_dev = developer
+    end
+    
+    def sign_out
+        current_dev = nil
+        @current_dev = nil
+        cookies.delete(:remember_token)
+    end
+    
+    def signed_in?
+        return !@current_dev.nil?
+    end	
 end
