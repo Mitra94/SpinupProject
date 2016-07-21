@@ -7,4 +7,8 @@ class Notification < ActiveRecord::Base
   validates :notified_id, presence: true
   validates :opinion_id, presence: true 
   validates :kind, presence: true   
+  
+  def edit
+	update_attribute(:read, true)
+  end
 end
