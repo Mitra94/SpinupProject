@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :developer do |f|
-    f.name { Faker::Name.first_name }
+    f.name { Faker::Internet.user_name(3) }
     f.surname { Faker::Name.last_name }
     f.email { Faker::Internet.email }
     f.city { Faker::Address.city }
