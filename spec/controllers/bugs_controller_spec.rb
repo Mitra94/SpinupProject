@@ -5,6 +5,7 @@ RSpec.describe BugsController, type: :controller do
 
 	before :each do
 
+		@app = FactoryGirl.create(:app)
 		@developer = FactoryGirl.create(:developer)
 		sign_in @developer
 
@@ -12,42 +13,44 @@ RSpec.describe BugsController, type: :controller do
 
 	it "should show a bug" do
 
-		bug = Bug.create(:app_id => 1, :founder => "tester", :description => "critical bug in db section")
+		bug = Bug.create(:app_id => @app.id, :founder => "tester", :description => "critical bug in db section")
 		get :show, :id => bug.id
 		assert_response :success
+		expect(response).to render_template(:show)
 
 	end
 
 
 	it "should get app_bugs" do
 
-		get :show_app_bugs, :id => 1
+		get :show_app_bugs, :id => @app.id
 		assert_response :success
+		expect(response).to render_template(:show_app_bugs)
 
 	end
 
 	it "should create a new bug" do
 
-		count = Bug.count
-		Bug.create(:app_id => 1, :founder => "tester", :description => "critical bug in db section")
-		assert Bug.count > count
+		expect{Bug.create(:app_id => @app.id, :founder => "tester", :description => "critical bug in db section")}.to change(Bug, :count)
 
 	end
 
 
 	it "should submit a bug" do
 
-		get :submit_bug, :id => 1
+		get :submit_bug, :id => @app.id
 		assert_response :success
+		expect(response).to render_template(:submit_bug)
 
 	end
 
 
 	it "should get solved bug" do
 
-		bug = Bug.create(:app_id => 1, :founder => "tester", :description => "critical bug in db section")
-		get :solved_bug, :id => 1, :bug_id => bug.id 
+		bug = Bug.create(:app_id => @app.id, :founder => "tester", :description => "critical bug in db section")
+		get :solved_bug, :id => @app.id, :bug_id => bug.id 
 		assert_response :redirect
+		expect(response).to redirect_to(app_path(@app))
 
 	end
 

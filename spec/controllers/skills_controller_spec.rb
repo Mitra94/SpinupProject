@@ -13,6 +13,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show)
 
 	end
 
@@ -22,6 +23,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_htmlcss, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_htmlcss)
 
 
 	end
@@ -32,6 +34,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_java, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_java)
 
 
 	end
@@ -41,6 +44,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_javascript, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_javascript)
 
 
 	end
@@ -50,6 +54,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_c, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_c)
 
 
 	end
@@ -59,6 +64,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_c_plus_plus, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_c_plus_plus)
 
 
 	end
@@ -68,6 +74,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_nodejs, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_nodejs)
 
 
 	end
@@ -77,6 +84,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_database, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_database)
 
 
 	end
@@ -86,6 +94,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_algorithms, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_algorithms)
 
 
 	end
@@ -95,6 +104,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_android, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_android)
 
 
 	end
@@ -105,6 +115,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :show_ios, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:show_ios)
 
 
 	end
@@ -123,6 +134,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit)
 
 	end
 
@@ -131,6 +143,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_htmlcss, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_htmlcss)
 
 	end
 
@@ -139,6 +152,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_java, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_java)
 
 	end
 
@@ -147,6 +161,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_javascript, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_javascript)
 
 	end
 
@@ -155,6 +170,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_c, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_c)
 
 	end
 
@@ -163,6 +179,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_cplus, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_cplus)
 
 	end
 
@@ -171,6 +188,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_nodejs, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_nodejs)
 
 	end
 
@@ -179,6 +197,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_database, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_database)
 
 	end
 
@@ -187,6 +206,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_algorithms, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_algorithms)
 
 	end
 
@@ -195,6 +215,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_android, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_android)
 
 	end
 
@@ -203,6 +224,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :edit_ios, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:edit_ios)
 
 	end
 
@@ -211,6 +233,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :search, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:search)
 
 	end
 
@@ -219,14 +242,13 @@ RSpec.describe SkillsController, type: :controller do
 		skill = FactoryGirl.create(:skill)
 		get :results, :id => skill.id
 		assert_response :success
+		expect(response).to render_template(:results)
 
 	end
 
 	it "should create a skill" do
 
-		count = Skill.count
-		skill = Skill.create(:html_css => 0, :java => 0, :javascript => 0, :c => 0, :c_plus_plus => 0, :nodejs => 0, :database => 0, :algorithms => 0, :android => 0, :ios => 0)
-		assert Skill.count > count
+		expect{Skill.create(:html_css => 0, :java => 0, :javascript => 0, :c => 0, :c_plus_plus => 0, :nodejs => 0, :database => 0, :algorithms => 0, :android => 0, :ios => 0)}.to change(Skill, :count)
 
 	end
 
@@ -236,6 +258,8 @@ RSpec.describe SkillsController, type: :controller do
 
 		skill = Skill.create(:html_css => 0, :java => 0, :javascript => 0, :c => 0, :c_plus_plus => 0, :nodejs => 0, :database => 0, :algorithms => 0, :android => 0, :ios => 0)
 		put :update, :id => skill.id, :skill => skill.attributes = {:html_css => 10}
+		assert_response :redirect
+		expect(response).to redirect_to(skill_path(skill))
 		skill.reload
 		assert skill.html_css == 10
 
