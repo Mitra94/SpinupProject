@@ -24,13 +24,15 @@ class SpinsController < ApplicationController
 		Notification.create(notifier_id: current_user.id,
 							notified_id: opinion.user_id,
 							opinion_id: opinion.id,
-							kind: "spin")
+							kind: "spin",
+							read: false)
 	end
 	
 	def create_notification_unspin(opinion)
 		Notification.create(notifier_id: current_user.id,
 							notified_id: opinion.user_id,
 							opinion_id: opinion.id,
-							kind: "unspin")
+							kind: "unspin",
+							read: false)
 	end
 end

@@ -16,7 +16,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: white; 
   color: DarkSlateGrey;
   font-family: Tahoma, Verdana, sans-serif;
   font-size: 10pt;
@@ -162,6 +161,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
 }
 
+
 container {
     background-color: #FF0000;
     margin: auto;   
@@ -247,6 +247,7 @@ a:hover {
 a:active { 
   color: black;
 }
+
  /* Dropdown Button */
 .notbtn {
     background-color: #4CAF50;
@@ -276,6 +277,7 @@ a:active {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-left: 755px;
 }
 
 /* Links inside the dropdown */
@@ -327,8 +329,33 @@ a:active {
 	margin-right: 40%;
 }
 
-.contenuto {
-	margin-left: 0%;
+div#pie {
+    margin: 0 25%; 
+}
+
+div#charts {
+	float:left;
+	width:25%;
+	margin-left: 75%;
+	margin-right: 5%;
+	margin-top: -25%;
+}
+
+#charts h2 {
+	margin-left:-25%;
+}
+
+#charts p {
+	margin-left:-25%;
+}
+
+div#posts {
+	background-color: #fa3e3e;
+	margin-left: 38%;
+	width: 25%;
+}
+
+div#notify {
 }
 
 hr {

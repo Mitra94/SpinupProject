@@ -78,7 +78,7 @@ RSpec.describe CommentsController, type: :controller do
 		end
 	end	
 	
-	describe 'PUT update' do
+	describe 'DELETE update' do
 		before :each do
 			@comment = FactoryGirl.create(:comment)
 		end	
@@ -86,7 +86,7 @@ RSpec.describe CommentsController, type: :controller do
 		it "should delete comment" do
 			delete :destroy, :id => @comment.id
 			assert_response :redirect
-			expect(response).to redirect_to(developer_path(@developer))
+			expect(response).to redirect_to(root_path)
 		end
 	end
 		
