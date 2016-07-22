@@ -17,6 +17,7 @@ class DevelopersController < ApplicationController
   # GET /developers/1.json
   def show
     @developer = Developer.find(params[:id])
+    @skill = Skill.find(params[:id])
   end
 
   # GET /developers/new

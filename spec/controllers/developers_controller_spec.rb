@@ -8,6 +8,7 @@ RSpec.describe DevelopersController, type: :controller do
     end
     
     it "should show user" do
+        @skill = FactoryGirl.create(:skill)
         get :show, :id => @dev
         expect(response).to render_template(:show)
     end

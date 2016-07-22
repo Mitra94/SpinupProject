@@ -96,7 +96,7 @@ class InvitesController < ApplicationController
 
     respond_to do |format|
       if @invite.save
-        format.html { redirect_to @invite, notice: 'Invite was successfully sent to the developer!' }
+        format.html { redirect_to developer_path(current_dev), notice: 'Invite was successfully sent to the developer!' }
         format.json { render :show, status: :created, location: @invite }
       else
         format.html { render :new }

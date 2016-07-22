@@ -259,7 +259,7 @@ RSpec.describe SkillsController, type: :controller do
 		skill = Skill.create(:html_css => 0, :java => 0, :javascript => 0, :c => 0, :c_plus_plus => 0, :nodejs => 0, :database => 0, :algorithms => 0, :android => 0, :ios => 0)
 		put :update, :id => skill.id, :skill => skill.attributes = {:html_css => 10}
 		assert_response :redirect
-		expect(response).to redirect_to(skill_path(skill))
+		expect(response).to redirect_to(developer_path(@developer))
 		skill.reload
 		assert skill.html_css == 10
 
