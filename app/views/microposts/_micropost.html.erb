@@ -7,6 +7,7 @@
 	<% if micropost.updated_at != micropost.created_at %>
 		Modified <%= time_ago_in_words(micropost.updated_at) %> ago.
 	<% end %>
+    </span>
 	<div id="like_form">
 		<% if current_user%>
             <% if current_user.likes?(micropost) %>
@@ -158,7 +159,6 @@
 				</div>
 				
 			<%end%>
-    </div>
-		<br><br><br>
-	</div>
+    
+		<br>
 </li>
