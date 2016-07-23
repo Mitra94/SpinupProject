@@ -20,21 +20,12 @@
 					<br><%= submit_tag "Search App ", :name => nil %>
 				</p>
 		  <% end %>
-		  <% if logged_in_dev? %>
-			<p><%= link_to "Search Dev", controller: 'developers', action: 'search' %></p>
-			<p><%= link_to 'Search Dev With Skills', controller: 'skills', action: 'search', :id => 1 %></p>
-		  <% end %> 
 		</div>
-		<br>
-	  
-	  <% if logged_in_dev? %>
-		  <%= form_tag developers_path, :method => 'get', :id => 'developers_search' do %>
-			<p>
-				<%= text_field_tag :search, params[:search] %>
-				<%= submit_tag "Search Developer", :name => nil %>
-			</p>
-		  <% end %>
-	  <% end %>
+
+		<% if logged_in_dev? %>
+			<p><%= button_to "Search Developer", {:controller => 'developers', :action => 'search'}, :method => :get %></p>
+			<p><%= button_to 'Search Developer With Skills', {:controller => 'skills', :action => 'search', :id => 1}, :method => :get %></p>
+		  <% end %> 
 	  
 		<div id="pie">
 			<% if logged_in? %>

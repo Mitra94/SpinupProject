@@ -75,12 +75,15 @@
 		<strong><%= micropost.comments.count%> Developers Comments :</strong>
 		<br><br>
 		<% micropost.comments.each do |comment| %>
-			<% @app.developers.each do |developer|%>
-				<% if developer.id == comment.developer_id%>
+			<% if current_user or current_dev or @app.developers.exists?(current_dev)%>
+				<%if current_user %>
+						<%= link_to comment.developer.name, comment.developer%>
+				<% end %>
+				<% if logged_in_dev? and current_dev.id == comment.developer_id %>
 					<mark class="highlights_realizer">
 					<%= link_to comment.developer.name, comment.developer%>
 					</mark>
-				<% elsif developer.id != comment.developer_id%>
+				<% elsif logged_in_dev? and current_dev.id != comment.developer_id%>
 					<% if logged_in_dev? and comment.developer_id == current_dev.id%>
 						<mark class="highlights_current">
 						<%= link_to comment.developer.name, comment.developer%>
@@ -131,6 +134,9 @@
 					<%= link_to opinion.user.username, opinion.user%>
 				<%end%>
 				: '<%= opinion.content %>' on version "<%= micropost.app_version %>"
+				<% if !logged_in_dev? and current_user.id != opinion.user_id %>
+				<%= link_to "Report this comment", reports_path(:user_id => opinion.user_id, :comment => opinion.content, :post_id => opinion.micropost_id, :app_id => params[:id]), :method => :post %> 
+				<% end %>
 				<%if current_user %>
 					<% if current_user.spins?(opinion)%>
 						<%= form_for(current_user.active_spins.find_by(spined_id: opinion.id), html: { method: :delete }) do |f| %>
@@ -149,9 +155,6 @@
 				<br>
 				
 				<div id="Modify">
-				<% if !logged_in_dev? and current_user.id != opinion.user_id %>
-				<%= link_to "Report", reports_path(:user_id => opinion.user_id, :comment => opinion.content, :post_id => opinion.micropost_id, :app_id => params[:id]), :method => :post %> 
-				<% end %>
 					<% if current_user and opinion.user_id == current_user.id%>
 							<%= link_to 'Edit', [:edit, opinion] %>
 							<%= link_to "delete", [opinion], method: :delete, data: { confirm: "You sure?" } %>

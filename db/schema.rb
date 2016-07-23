@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721150845) do
+ActiveRecord::Schema.define(version: 20160718130602) do
 
   create_table "approvals", force: :cascade do |t|
     t.string   "skill"
@@ -142,7 +142,6 @@ ActiveRecord::Schema.define(version: 20160721150845) do
     t.string   "kind"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.boolean  "read"
   end
 
   add_index "notifications", ["notified_id"], name: "index_notifications_on_notified_id"
@@ -155,6 +154,7 @@ ActiveRecord::Schema.define(version: 20160721150845) do
     t.integer  "micropost_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.boolean "read"
   end
 
   add_index "opinions", ["micropost_id"], name: "index_opinions_on_micropost_id"
