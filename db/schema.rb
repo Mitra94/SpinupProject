@@ -154,7 +154,6 @@ ActiveRecord::Schema.define(version: 20160718130602) do
     t.integer  "micropost_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.boolean "read"
   end
 
   add_index "opinions", ["micropost_id"], name: "index_opinions_on_micropost_id"

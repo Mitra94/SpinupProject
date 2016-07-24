@@ -6,7 +6,7 @@
 
 		<% if i.receiver.to_i == current_dev.id and !App.find_by(name: i.app).developers.exists?(current_dev.id) %>
 
-				<%= "The developer " + Developer.find(i.sender).name + " " + Developer.find(i.sender).surname + " wants you to join his developement team for app: " + "'" + i.app + "' " %>
+				<%= "The developer " + Developer.find(i.sender).name + " " + Developer.find(i.sender).surname + " wants you to join his development team for app: " + "'" + i.app + "' " %>
 				<%= link_to "View App", controller: 'apps', action: 'show', :id => App.find_by(name: i.app).id %>
 				<%= link_to "Accept", controller: 'invites', action: 'accept_invite', :id => App.find_by(name: i.app).id %>
 				<%= link_to "Refuse", controller: 'invites', action: 'refuse_invite', :id => App.find_by(name: i.app).id %>
