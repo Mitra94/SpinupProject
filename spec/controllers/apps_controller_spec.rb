@@ -151,13 +151,6 @@ RSpec.describe AppsController, type: :controller do
       end
     end
     
-    it "should destroy app" do
-          @app = FactoryGirl.create(:app)
-          post :create, app: { category: @app.category, name: @app.name, platform: @app.platform }
-          post :destroy, :id => @app.id
-          assert_response :success
-    end
-    
     private
     
     def sign_in(user)
