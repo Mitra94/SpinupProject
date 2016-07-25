@@ -1,7 +1,29 @@
-<br><br><br>
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%= current_user.username%> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "Settings", edit_user_path(current_user) %><br>
+						<% if current_user.admin? %>
+							<%= link_to "Reports", controller: 'reports', action: 'list_reports' %><br>
+						<% end %>
+						<%= link_to "Log out", logout_path, method: "get" %>
+					</div>
+				</div>	
+			</div>
+			<div class="follow">
+				<% if !current_user.admin? %>
+					<%= render 'shared/statsuser' %>
+				<% end %>
+			</div>
+		<%end%>
 
+<p> <strong> Listing reports: </strong></p>
 
-<p> Listing reports: </p>
+<hr>
 
 
 <% Report.all.each do |report| %>
@@ -9,8 +31,10 @@
 		<% if Opinion.exists?(content: report.comment, user_id: report.user_id, micropost_id: report.post_id) and Report.exists?(id: report.id)%>
 		<p><%= "The user '" + User.find(report.user_id).username + "' reported this: " + report.comment %>
 		<%= link_to "Delete comment?", app_micropost_opinion_path(:app_id => report.app_id, :micropost_id => report.post_id, :id => report.id), method: :delete %>
-		<%= link_to "Delete from list", report_path(report), method: :delete %></p>
+		<%= link_to "Delete from list only?", report_path(report), method: :delete %></p>
 		<% end %>
 
 
 	<% end %>
+
+</div>

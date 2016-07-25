@@ -1,3 +1,6 @@
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+
 <%= form_for(@developer) do |f| %>
   <% if @developer.errors.any? %>
     <div id="error_explanation">
@@ -14,47 +17,39 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <p><%= f.label :name %>
+    <%= f.text_field :name %></p>
   </div>
-  <br>
   <div class="field">
-    <%= f.label :surname %>
-    <%= f.text_field :surname %>
+    <p><%= f.label :surname %>
+    <%= f.text_field :surname %></p>
   </div>
-  <br>
   <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city %>
-  </div>
-  
+    <p><%= f.label :city %><br>
+    <%= f.text_field :city %></p>
+  </div>  
   <div class="field">
-    <%= f.label :age %>
-    <%= f.number_field :age %>
+    <p><%= f.label :age %>
+    <%= f.number_field :age %></p>
   </div>
-  <br>
   <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
+    <p><%= f.label :email %>
+    <%= f.text_field :email %></p>
   </div>
-  <br>
   <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password, class: 'form-control'  %>
+    <p><%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control'  %></p>
   </div>
-  <br>
   <div class="field">
-    <%= f.label :password_confirmation, "Confirmation" %>
-    <%= f.password_field :password_confirmation, class: 'form-control' %>
+   <p> <%= f.label :password_confirmation, "Confirmation" %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %></p>
   </div>
-  <br>
-  <span class="picture">
+  <p><span class="picture">
 	<%= f.label :picture, "Upload Your Photo" %>
-    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-  </span>
-  <br>
+   <p><%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %></p>
+  </span></p>
   <div class="actions">
-    <%= f.submit "Create Developer", class: "btn btn-primary" %>
+   <p> <%= f.submit "Create Developer", class: "btn btn-primary" %></p>
   </div>
   </div>
  </div>
@@ -68,3 +63,6 @@
     }
   });
 </script>
+
+
+</div>

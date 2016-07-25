@@ -1,12 +1,33 @@
-<br><br><br>
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in_dev?%>
+      <div class="left">
+        <div class="dropdown">
+          <button class="dropbtn"> <%=current_dev.name %> </button>
+          <div class="dropdown-content">
+            <%= link_to "Home", home_path%><br>
+            <%= link_to "My profile", developer_path(current_dev) %><br>
+            <%= link_to "Settings", edit_developer_path(current_dev) %><br>
+            <%= link_to "Create App", new_app_path%><br>
+            <%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+            <%= link_to "Log out", logoutdev_path, method: "get" %>
+          </div>
+        </div>
+       </div>
+    <%end%> 
+
 
 <style>
 table, th, td {
     border: 1px solid black;
 }
+th, td {
+	padding: 10px;
+	text-align: left;
+}
 </style>
 
-<table>
+<table align= "center", style="width:20%">
 
 	<tr>
 		<th> Developer </th>
@@ -16,46 +37,53 @@ table, th, td {
 
 <p> According to your search these are the developers we found: </p>
 
+<hr>
+
 <% Developer.all.each do |d| %>
 
-	<% if params[:commit] == 'Search by Name' and d.name == params[:q] %>
+	<% if params[:commit] == 'Search by Name' and d.name == params[:q] and d.id != current_dev.id %>
 
 		<tr>
 			<td><%= d.name %></td>
-			<td><%= link_to "Profile", Developer.find_by(name: d.name) %></td>
+			<td><%= link_to "Go to developer profile", Developer.find_by(name: d.name) %></td>
 		</tr>	
 	<% end %>
 
-	<% if params[:commit] == 'Search by Surname' and d.surname == params[:q] %>
+	<% if params[:commit] == 'Search by Surname' and d.surname == params[:q] and d.id != current_dev.id%>
 
 		<tr>	
 			<td><%= d.name %></td>
-			<td><%= link_to "Profile", Developer.find_by(surname: d.name) %></td>
+			<td><%= link_to "Go to developer profile", Developer.find_by(surname: d.name) %></td>
 		</tr>
 	<% end %>
 
-	<% if params[:commit] == 'Search by Email' and d.email == params[:q] %>
+	<% if params[:commit] == 'Search by Email' and d.email == params[:q] and d.id != current_dev.id%>
 
 		<tr>	
 			<td><%= d.name %></td>
-			<td><%= link_to "Profile", Developer.find_by(name: d.name) %></td>
+			<td><%= link_to "Go to developer profile", Developer.find_by(name: d.name) %></td>
 		</tr>
 	<% end %>
 
-	<% if params[:commit] == 'Search by City' and d.city == params[:q] %>
+	<% if params[:commit] == 'Search by City' and d.city == params[:q] and d.id != current_dev.id%>
 
 		<tr>	
 			<td><%= d.name %></td>
-			<td><%= link_to "Profile", Developer.find_by(name: d.name) %></td>
+			<td><%= link_to "Go to developer profile", Developer.find_by(name: d.name) %></td>
 		</tr>
 	<% end %>
 
-	<% if params[:commit] == 'Search by Age' and d.age == params[:q].to_i %>
+	<% if params[:commit] == 'Search by Age' and d.age == params[:q].to_i and d.id != current_dev.id%>
 
 		<tr>	
 			<td><%= d.name %></td>
-			<td><%= link_to "Profile", Developer.find_by(name: d.name) %></td>
+			<td><%= link_to "Go to developer profile", Developer.find_by(name: d.name) %></td>
 		</tr>
 	<% end %>
 
 <% end %>
+
+
+</table>
+
+</div>

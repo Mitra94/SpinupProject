@@ -1,16 +1,36 @@
-<br><br><br>
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in_dev?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%=current_dev.name %> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "My profile", developer_path(current_dev) %><br>
+						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
+						<%= link_to "Create App", new_app_path%><br>
+						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+						<%= link_to "Log out", logoutdev_path, method: "get" %>
+					</div>
+				</div>
+		   </div>
+		<%end%>  
 
-<p> Select one of your apps to invite the developer </p>
+<p> <strong>Select one of your apps to invite the developer </strong></p>
+
+<hr>
 
 
 <% App.all.each do |a| %>
 
-		<% if a.developers.first.id == current_dev.id %>
+		<% if a.developers.first.id == current_dev.id and Invite.where("app = ? AND sender = ? AND receiver = ?", a.name, @current_dev.id, params[:id]).count == 0 %>
 		
-				<p><%= a.name %>
-					<%= link_to "Invite", invites_path(:app => a.name, :sender => current_dev.id, :receiver => params[:id]), :method => :post %>
+				<p><%= "Invite for "  + "'" + a.name  + "'" + "?" + "  " %>
+					<%= link_to "Send invite", invites_path(:app => a.name, :sender => current_dev.id, :receiver => params[:id]), :method => :post %>
 				</p>
 
 		<% end %>
 
 <% end %>
+
+</div>

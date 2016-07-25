@@ -1,4 +1,21 @@
-<br><br><br>
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in_dev?%>
+      <div class="left">
+        <div class="dropdown">
+          <button class="dropbtn"> <%=current_dev.name %> </button>
+          <div class="dropdown-content">
+            <%= link_to "Home", home_path%><br>
+            <%= link_to "My profile", developer_path(current_dev) %><br>
+            <%= link_to "Settings", edit_developer_path(current_dev) %><br>
+            <%= link_to "Create App", new_app_path%><br>
+            <%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+            <%= link_to "Log out", logoutdev_path, method: "get" %>
+          </div>
+        </div>
+       </div>
+    <%end%>  
+
 
 <%= form_for(@skill) do |f| %>
   <% if @skill.errors.any? %>
@@ -22,3 +39,6 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
+</div>

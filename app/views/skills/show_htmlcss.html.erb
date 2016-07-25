@@ -1,15 +1,39 @@
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+
+<%if logged_in_dev?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%=current_dev.name %> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "My profile", developer_path(current_dev) %><br>
+						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
+						<%= link_to "Create App", new_app_path%><br>
+						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+						<%= link_to "Log out", logoutdev_path, method: "get" %>
+					</div>
+				</div>
+		   </div>
+		<%end%> 
+
 <style>
 table, th, td {
     border: 1px solid black;
 }
+th, td {
+	padding: 10px;
+	text-align: left;
+}
 </style>
 
-<br><br><br>
 
-<p> Listing voters </p>
+<p> <strong>Listing voters </strong></p>
+
+<hr>
 
 <% if (Developer.find(params[:id]).id != current_dev.id) %>
-<table>
+<table align="center", style="width:20%">
 
 			<tr>
 				<th> Developer </th>
@@ -22,8 +46,8 @@ table, th, td {
 		<% if (v.voted == params[:id].to_i and v.skill == 'htmlcss') %>
 			
 			<tr>
-				<td> <%= Developer.find(v.voter).name %> </td>
-				<td> <%= link_to 'Profile', Developer.find(v.voter)  %> </td>
+				<td> <%= Developer.find(v.voter).name + " " + Developer.find(v.voter).surname %> </td>
+				<td> <%= link_to 'Go to developer profile', Developer.find(v.voter)  %> </td>
 			</tr>
 
 		<% end %>
@@ -36,7 +60,7 @@ table, th, td {
 
 <% if (Developer.find(params[:id]).id == current_dev.id) %>
 
-<table>
+<table align="center", style="width:20%">
 
 			<tr>
 				<th> Developer </th>
@@ -49,8 +73,8 @@ table, th, td {
 		
 		<tr>
 
-			<td> <%= Developer.find(v.voter).name %> </td>
-			<td> <%= link_to 'Profile', Developer.find(v.voter)  %> </td>
+			<td> <%= Developer.find(v.voter).name + " " + Developer.find(v.voter).surname%> </td>
+			<td> <%= link_to 'Go to developer profile', Developer.find(v.voter)  %> </td>
 		</tr>
 		<% end %>		
 	<% end %>

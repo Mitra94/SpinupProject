@@ -60,7 +60,7 @@
 
 			<% if !logged_in? %>
 
-			<% if !@app.developers.exists?(current_dev.id) %>
+			<% if !@app.developers.exists?(current_dev.id) and Invite.where("app = ? AND sender = ? AND receiver = ?", @app.name, current_dev.id, @app.developers.first.id).count == 0 %>
 
 				<p><%= link_to "Propose to work on app", controller: 'invites', action: 'create_invite' %></p>
 

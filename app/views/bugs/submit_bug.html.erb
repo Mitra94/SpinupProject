@@ -1,6 +1,24 @@
-<br><br><br>
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in_dev?%>
+      <div class="left">
+        <div class="dropdown">
+          <button class="dropbtn"> <%=current_dev.name %> </button>
+          <div class="dropdown-content">
+            <%= link_to "Home", home_path%><br>
+            <%= link_to "My profile", developer_path(current_dev) %><br>
+            <%= link_to "Settings", edit_developer_path(current_dev) %><br>
+            <%= link_to "Create App", new_app_path%><br>
+            <%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+            <%= link_to "Log out", logoutdev_path, method: "get" %>
+          </div>
+        </div>
+       </div>
+    <%end%>  
 
-<p> Describe the bug: </p>
+<p> <strong>Describe the bug: </strong></p>
+
+<hr>
 
 <%= form_for(@bug) do |f| %>
   <% if @bug.errors.any? %>
@@ -23,11 +41,14 @@
     <%= f.label :founder %><br>
     <%= f.text_field :founder, :value => current_dev.id %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, :maxlength => 256 %>
-  </div>
+  <p><div class="field">
+   <p> <%= f.label :description %><br>
+    <%= f.text_area :description, :maxlength => 256 %></p>
+  </div><p>
   <div class="actions">
-    <%= f.submit %>
+    <p><%= f.submit %></p>
   </div>
 <% end %>
+
+
+</div>

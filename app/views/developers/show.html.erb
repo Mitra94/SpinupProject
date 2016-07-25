@@ -1,6 +1,28 @@
 <%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in_dev?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%=current_dev.name %> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "My profile", developer_path(current_dev) %><br>
+						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
+						<%= link_to "Create App", new_app_path%><br>
+						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+						<%= link_to "Log out", logoutdev_path, method: "get" %>
+					</div>
+				</div>
+		   </div>
+		<%end%> 
 
-<br><br><br>
+<style>
+th, td {
+	padding: 20px;
+	padding-top: 0px;
+	text-align: left;
+}
+</style>
 
 <div id="information">
 <div id="anagraphics">
@@ -38,187 +60,133 @@
 
 <p><strong>Skills:</strong></p>
 
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "HTML+CSS: " %>
-	&ensp; &ensp; &ensp; &ensp;	
-	<%= @skill.html_css %>
-	&ensp; &ensp; &ensp; &ensp;	
-	<%= Approval.where("skill = ? AND voted = ?", "htmlcss", @developer).count %>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "htmlcss", @developer, current_dev.id).count == 0 %>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_htmlcss' %>
+<table align= "center">
+
+<tr>
+	<td> <h4> HTML+CSS: </h4></td>
+	<td> <h4> <%= @skill.html_css %> </h4> </td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "htmlcss", @developer).count %> <%= "developers approved" %> </h4> </td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "htmlcss", @developer, current_dev.id).count == 0 %>
+		<td> <h4> <%= link_to 'Approve', controller: 'skills', action: 'edit_htmlcss' %>  </h4> </td>
 	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_htmlcss' %>
-	</p>
+	<td> <h4> <%= link_to 'Who voted this?', controller: 'skills', action: 'show_htmlcss' %> </h4> </td>
+</tr>
+
+<tr>
+	<td> <h4> Java: </h4></td>
+	<td> <h4><%= @skill.java %> </h4></td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "java", @developer).count %> <%= "developers approved" %> </h4></td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "java", @developer, current_dev.id).count == 0 %>
+		<td><h4><%= link_to 'Approve', controller: 'skills', action: 'edit_java' %></h4> </td>
+	<% end %>
+	<td> <h4><%= link_to 'Who voted this?', controller: 'skills', action: 'show_java' %></h4> </td>
+</tr>
+
+<tr>
+	<td> <h4>Javascript: </h4></td>
+	<td> <h4><%= @skill.javascript %> </h4></td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "javascript", @developer).count %> <%= "developers approved" %> </h4></td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "javascript", @developer, current_dev.id).count == 0 %>
+		<td><h4><%= link_to 'Approve', controller: 'skills', action: 'edit_javascript' %> </h4></td>
+	<% end %>
+	<td> <h4><%= link_to 'Who voted this?', controller: 'skills', action: 'show_javascript' %> </h4></td>
+</tr>
+
+<tr>
+	<td> <h4>C: </h4></td>
+	<td> <h4><%= @skill.c %> </h4></td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "c", @developer).count %> <%= "developers approved" %> </h4></td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "c", @developer, current_dev.id).count == 0 %>
+		<td><h4><%= link_to 'Approve', controller: 'skills', action: 'edit_c' %> </h4></td>
+	<% end %>
+	<td><h4> <%= link_to 'Who voted this?', controller: 'skills', action: 'show_c' %></h4></td>
+</tr>
+
+<tr>
+	<td> <h4>C++: </h4></td>
+	<td> <h4><%= @skill.c_plus_plus %> </h4></td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "cplus", @developer).count %> <%= "developers approved" %> </h4></td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "cplus", @developer, current_dev.id).count == 0 %>
+		<td><h4><%= link_to 'Approve', controller: 'skills', action: 'edit_cplus' %></h4> </td>
+	<% end %>
+	<td> <h4><%= link_to 'Who voted this?', controller: 'skills', action: 'show_c_plus_plus' %> </h4></td>
+</tr>
+
+<tr>
+	<td> <h4>Nodejs: </h4></td>
+	<td> <h4><%= @skill.nodejs %> </h4></td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "nodejs", @developer).count %> <%= "developers approved" %> </h4></td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "nodejs", @developer, current_dev.id).count == 0 %>
+		<td><h4><%= link_to 'Approve', controller: 'skills', action: 'edit_nodejs' %> </h4></td>
+	<% end %>
+	<td> <h4><%= link_to 'Who voted this?', controller: 'skills', action: 'show_nodejs' %> </h4></td>
+</tr>
+
+<tr>
+	<td> <h4>Database: </h4></td>
+	<td> <h4><%= @skill.database %> </h4></td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "database", @developer).count %> <%= "developers approved" %> </h4></td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "database", @developer, current_dev.id).count == 0 %>
+		<td><h4><%= link_to 'Approve', controller: 'skills', action: 'edit_database' %></h4> </td>
+	<% end %>
+	<td><h4> <%= link_to 'Who voted this?', controller: 'skills', action: 'show_database' %></h4> </td>
+</tr>
+
+<tr>
+	<td> <h4>Algorithms: </h4></td>
+	<td> <h4><%= @skill.algorithms %> </h4></td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "algorithms", @developer).count %> <%= "developers approved" %> </h4></td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "algorithms", @developer, current_dev.id).count == 0 %>
+		<td><h4><%= link_to 'Approve', controller: 'skills', action: 'edit_algorithms' %> </h4></td>
+	<% end %>
+	<td> <h4><%= link_to 'Who voted this?', controller: 'skills', action: 'show_algorithms' %></h4> </td>
+</tr>
+
+<tr>
+	<td> <h4>Android: </h4></td>
+	<td> <h4><%= @skill.android %> </h4></td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "android", @developer).count %> <%= "developers approved" %> </h4></td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "android", @developer, current_dev.id).count == 0 %>
+		<td><h4><%= link_to 'Approve', controller: 'skills', action: 'edit_android' %></h4> </td>
+	<% end %>
+	<td> <h4><%= link_to 'Who voted this?', controller: 'skills', action: 'show_android' %></h4> </td>
+</tr>
+
+<tr>
+	<td> <h4>iOS: </h4></td>
+	<td> <h4><%= @skill.ios %> </h4></td>
+	<td> <h4><%= Approval.where("skill = ? AND voted = ?", "ios", @developer).count %> <%= "developers approved" %> </h4></td>
+	 <% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "ios", @developer, current_dev.id).count == 0 %>
+		<td><h4><%= link_to 'Approve', controller: 'skills', action: 'edit_ios' %> </h4></td>
+	<% end %>
+	<td> <h4><%= link_to 'Who voted this?', controller: 'skills', action: 'show_ios' %> </h4></td>
+</tr>
 
 
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "Java: " %>
-	&ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp; &ensp;
-	<%= @skill.java %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= Approval.where("skill = ? AND voted = ?", "java", @developer).count %>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "java", @developer, current_dev.id).count == 0%>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_java' %>
-	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_java' %>
-	</p>
-
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "Javascript: " %>
-	&nbsp; &ensp; &ensp; &ensp; &ensp;
-	<%= @skill.javascript %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= Approval.where("skill = ? AND voted = ?", "javascript", @developer).count %>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "javascript", @developer, current_dev.id).count == 0 %>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_javascript' %>
-	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_javascript' %>
-	</p>
-
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "C: " %>
-	&ensp; &ensp; &ensp; &ensp; &ensp; &nbsp; &ensp; &ensp; &ensp; &ensp;
-	<%= @skill.c %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= Approval.where("skill = ? AND voted = ?", "c", @developer).count%>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "c", @developer, current_dev.id).count == 0 %>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_c' %>
-	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_c' %>
-	</p>
-
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "C++: " %>
-	&ensp; &ensp; &ensp; &nbsp; &ensp; &ensp; &ensp; &ensp;
-	<%= @skill.c_plus_plus %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= Approval.where("skill = ? AND voted = ?", "cplus", @developer).count %>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "cplus", @developer, current_dev.id).count == 0 %>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_cplus' %>
-	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_c_plus_plus' %>
-	</p>
-
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "Nodejs: " %>
-	&ensp; &nbsp; &nbsp; &ensp; &ensp; &ensp; &ensp;
-	<%= @skill.nodejs %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= Approval.where("skill = ? AND voted = ?", "nodejs", @developer).count %>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "nodejs", @developer, current_dev.id).count == 0 %>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_nodejs' %>
-	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_nodejs' %>
-	</p>
-
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "Database: " %>
-	&nbsp; &nbsp; &nbsp; &nbsp; &ensp; &ensp;
-	<%= @skill.database %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= Approval.where("skill = ? AND voted = ?", "database", @developer).count %>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "database", @developer, current_dev.id).count == 0 %>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_database' %>
-	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_database' %>
-	</p>
-
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "Algorithms: " %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= @skill.algorithms %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= Approval.where("skill = ? AND voted = ?", "algorithms", @developer).count %>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "algorithms", @developer, current_dev.id).count == 0 %>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_algorithms' %>
-	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_algorithms' %>
-	</p>
-
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "Android: " %>
-	&ensp; &nbsp; &nbsp; &nbsp; &ensp; &ensp; &nbsp;
-	<%= @skill.android %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= Approval.where("skill = ? AND voted = ?", "android", @developer).count %>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "android", @developer, current_dev.id).count == 0 %>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_android' %>
-	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_android' %>
-	</p>
-
-	<p>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= "iOS: " %>
-	&ensp; &ensp; &ensp; &nbsp; &nbsp; &ensp; &ensp; &ensp; &ensp;
-	<%= @skill.ios %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= Approval.where("skill = ? AND voted = ?", "ios", @developer).count %>
-	<%= "developers approved" %>
-	&ensp; &ensp; &ensp; &ensp;
-	<% if current_dev.id != Developer.find(params[:id]).id and Approval.where("skill = ? AND voted = ? AND voter = ?", "ios", @developer, current_dev.id).count == 0 %>
-		<%= link_to 'Approve', controller: 'skills', action: 'edit_ios' %>
-	<% end %>
-	&ensp; &ensp; &ensp; &ensp;
-	<%= link_to 'Who voted this?', controller: 'skills', action: 'show_ios' %>
-	</p>
+</table>
 
 <hr>
 
 <p><strong>Apps:</strong></p>
 
-<% App.all.each do |app| %>
+<table align= "center">
 
+<% App.all.each do |app| %>
+	
 	<% if app.developers.exists?(params[:id]) %>
 
-			<p>
-			&ensp; &ensp; &ensp; &ensp;
-			<%= link_to "#{app.name}", controller: 'apps', action: 'show', :id => app.id %>
-			&ensp; &ensp; &ensp; &ensp;
-			<%= link_to "Modify App", controller: 'apps', action: 'edit', :id => app.id %>
-			<% if app.developers.first.id == current_dev.id %>
-			&ensp; &ensp; &ensp; &ensp;
-			<%= link_to "Delete App", app_path(app), method: :delete %>
-			<% end %>
-			</p>
+<tr>
+	<td> <h4> <%= link_to "#{app.name}", controller: 'apps', action: 'show', :id => app.id %> </h4></td>
+	<td> <h4> <%= link_to "Modify App", controller: 'apps', action: 'edit', :id => app.id %> </h4></td>
+	<% if app.developers.first.id == current_dev.id %>
+		<td> <h4> <%= link_to "Delete App", app_path(app), method: :delete %> </h4></td>
+	<% end %>
+</tr>
 
 	<% end %>
 
-
 <% end %>
+
+</table>
+
+</div>

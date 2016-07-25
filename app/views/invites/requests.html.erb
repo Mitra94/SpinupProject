@@ -1,17 +1,36 @@
-<br><br><br>
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in_dev?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%=current_dev.name %> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "My profile", developer_path(current_dev) %><br>
+						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
+						<%= link_to "Create App", new_app_path%><br>
+						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+						<%= link_to "Log out", logoutdev_path, method: "get" %>
+					</div>
+				</div>
+		   </div>
+		<%end%>  
 
-<p> Here you can find pending requests from developers to work on your app </p>
+<p> <strong>Here you can find pending requests from developers to work on your app </strong></p>
 
+<hr>
 
 <% Invite.all.each do |i| %>
 
 	<% if App.find_by(name: i.app).id == App.find(params[:id]).id and i.receiver.to_i == current_dev.id %>
 
-		<p><%= Developer.find(i.sender).name %>
+		<p><%= "The developer " + " " + Developer.find(i.sender).name + " " + Developer.find(i.sender).surname + " " + "wants to join your development team" + "  " %>
 		<%= link_to "Profile", developer_path(i.sender.to_i) %>
-		<%= link_to "Accept", controller: 'invites', action: 'accept' %>
-		<%= link_to "Refuse", controller: 'invites', action: 'refuse' %></p>
+		<%= link_to "Accept?", controller: 'invites', action: 'accept' %>
+		<%= link_to "Refuse?", controller: 'invites', action: 'refuse' %></p>
 
 	<% end %>
 
 <% end %>
+
+</div>

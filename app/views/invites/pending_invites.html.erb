@@ -1,17 +1,39 @@
-<br><br><br>
-<p> Here you can find your pending invites:  </p>
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in_dev?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%=current_dev.name %> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "My profile", developer_path(current_dev) %><br>
+						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
+						<%= link_to "Create App", new_app_path%><br>
+						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+						<%= link_to "Log out", logoutdev_path, method: "get" %>
+					</div>
+				</div>
+		   </div>
+		<%end%>  
+
+<p> <strong>Here you can find your pending invites:  </strong></p>
+
+<hr>
 
 <% Invite.all.each do |i| %>
 
 
 		<% if i.receiver.to_i == current_dev.id and !App.find_by(name: i.app).developers.exists?(current_dev.id) %>
 
-				<%= "The developer " + Developer.find(i.sender).name + " " + Developer.find(i.sender).surname + " wants you to join his development team for app: " + "'" + i.app + "' " %>
-				<%= link_to "View App", controller: 'apps', action: 'show', :id => App.find_by(name: i.app).id %>
-				<%= link_to "Accept", controller: 'invites', action: 'accept_invite', :id => App.find_by(name: i.app).id %>
-				<%= link_to "Refuse", controller: 'invites', action: 'refuse_invite', :id => App.find_by(name: i.app).id %>
+				<p><%= "The developer " + Developer.find(i.sender).name + " " + Developer.find(i.sender).surname + " wants you to join his development team for app: " + "'" + i.app + "' "%>
+				<%= link_to "View App?", controller: 'apps', action: 'show', :id => App.find_by(name: i.app).id %>
+				<%= link_to "Accept?", controller: 'invites', action: 'accept_invite', :id => App.find_by(name: i.app).id %>
+				<%= link_to "Refuse?", controller: 'invites', action: 'refuse_invite', :id => App.find_by(name: i.app).id %></p>
 
 
 		<% end %>
 
 <% end %>
+
+
+</div>

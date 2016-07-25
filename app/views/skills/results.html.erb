@@ -1,15 +1,36 @@
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in_dev?%>
+      <div class="left">
+        <div class="dropdown">
+          <button class="dropbtn"> <%=current_dev.name %> </button>
+          <div class="dropdown-content">
+            <%= link_to "Home", home_path%><br>
+            <%= link_to "My profile", developer_path(current_dev) %><br>
+            <%= link_to "Settings", edit_developer_path(current_dev) %><br>
+            <%= link_to "Create App", new_app_path%><br>
+            <%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+            <%= link_to "Log out", logoutdev_path, method: "get" %>
+          </div>
+        </div>
+       </div>
+    <%end%> 
+
 <style>
 table, th, td {
     border: 1px solid black;
 }
+th, td {
+	padding: 10px;
+	text-align: left;
+}
 </style>
 
-<br><br><br>
+<p> <strong>According to your search these are the developers we found: </strong></p>
 
+<hr>
 
-<p> According to your search these are the developers we found: </p>
-
-<table>
+<table align= "center", style="width:30%">
 
 	<tr>
 		<th> Developer </th>
@@ -24,7 +45,7 @@ table, th, td {
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
 		<td><%= Skill.find(s).html_css %></td>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
@@ -34,7 +55,7 @@ table, th, td {
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
 		<td><%= Skill.find(s).java %></td>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
@@ -44,7 +65,7 @@ table, th, td {
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
 		<td><%= Skill.find(s).javascript %></td>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
@@ -54,7 +75,7 @@ table, th, td {
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
 		<td><%= Skill.find(s).c %></td>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %><td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
@@ -64,7 +85,7 @@ table, th, td {
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
 		<td><%= Skill.find(s).c_plus_plus %></td>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
@@ -73,8 +94,8 @@ table, th, td {
 	
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
-		<td><%= Skill.find(s).nodejs %>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+		<td><%= Skill.find(s).nodejs %></td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
@@ -84,7 +105,7 @@ table, th, td {
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
 		<td><%= Skill.find(s).database %></td>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
@@ -94,7 +115,7 @@ table, th, td {
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
 		<td><%= Skill.find(s).algorithms %></td>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
@@ -104,7 +125,7 @@ table, th, td {
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
 		<td><%= Skill.find(s).android %></td>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
@@ -114,9 +135,13 @@ table, th, td {
 	<tr>		
 		<td><%= @dev = Developer.find(s).name %></td>
 		<td><%= Skill.find(s).ios %></td>
-		<td><%= link_to "Profile ", Developer.find_by(name: @dev) %></td>
+		<td><%= link_to "Go to developer profile", Developer.find_by(name: @dev) %></td>
 	</tr>	
 	
 	<% end %>
 
 <% end %>
+
+</table>
+
+</div>

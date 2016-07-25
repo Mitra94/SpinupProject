@@ -1,19 +1,48 @@
-<br><br><br>
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%= current_user.username%> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "Settings", edit_user_path(current_user) %><br>
+						<% if current_user.admin? %>
+							<%= link_to "Reports", controller: 'reports', action: 'list_reports' %><br>
+						<% end %>
+						<%= link_to "Log out", logout_path, method: "get" %>
+					</div>
+				</div>	
+			</div>
+			<div class="follow">
+				<% if !current_user.admin? %>
+					<%= render 'shared/statsuser' %>
+				<% end %>
+			</div>
+		<%end%>
 
 
 <style>
 table, th, td {
     border: 1px solid black;
 }
+th, td {
+	padding: 10px;
+	text-align: left;
+}
 </style>
 
-<h1> Welcome to the super secret admin page, special powers await in here...</h1>
+<p> <strong>Welcome to the super secret admin page, special powers await in here...</strong></p>
+
+<hr>
 
 <div style="float:left; width:50%;">
 
-<h3> Listing Users </h3>
+<p><strong> Listing Users </strong></p>
 
-<table>
+<br>
+
+<table align= "center">
 
 	<tr>
 		<th> Username </th>
@@ -36,9 +65,11 @@ table, th, td {
 
 <div style="float:right; width:50%;">
 
-<h3> Listing Developers </h3>
+<p> <strong> Listing Developers </strong></p>
 
-<table>
+<br>
+
+<table align= "center">
 
 	<tr>
 		<th> Developer name </th>
@@ -61,4 +92,6 @@ table, th, td {
 	<% end %>
 </table>
  
+</div>
+
 </div>

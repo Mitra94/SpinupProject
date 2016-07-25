@@ -1,6 +1,24 @@
-<br><br><br>
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in_dev?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%=current_dev.name %> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "My profile", developer_path(current_dev) %><br>
+						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
+						<%= link_to "Create App", new_app_path%><br>
+						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+						<%= link_to "Log out", logoutdev_path, method: "get" %>
+					</div>
+				</div>
+		   </div>
+		<%end%>  
 
-<p> Here you can find known bugs for the app you are looking at: </p>
+<p> <strong> Here you can find known bugs for the app you are looking at: </strong></p>
+
+<hr>
 
 <% Bug.all.each do |b| %>
 
@@ -21,6 +39,9 @@
 
 <% if @app.developers.exists?(current_dev.id) %>
 
-		<%= link_to "Submit bug", controller: 'bugs', action: 'submit_bug' %>
+		<p><%= link_to "Submit bug", controller: 'bugs', action: 'submit_bug' %><p>
 
 	<% end %>
+
+
+</div>
