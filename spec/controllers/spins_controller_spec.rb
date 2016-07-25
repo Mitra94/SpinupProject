@@ -34,16 +34,10 @@ RSpec.describe SpinsController, type: :controller do
 		end
 	end
 	
-	describe 'POST #destroy' do
-		before :each do
-			@spin = FactoryGirl.create(:spin)
-		end	
-		
-		#it 'destroy spin' do
-		#	spin = FactoryGirl.create(:spin)
-		#	post :destroy, :id => spin.id
-		#	assert_response :redirect
-		#end
+	it 'destroy spin' do
+        post :create, spin: {}, spiner_id: @user, spined_id: @opinion
+        post :destroy, :id => @opinion.id, spin: {}, spiner_id: @user, spined_id: @opinion
+        expect(response).to redirect_to('/apps/1')
 	end	
 	
 	private

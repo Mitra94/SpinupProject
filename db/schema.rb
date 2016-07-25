@@ -140,8 +140,9 @@ ActiveRecord::Schema.define(version: 20160718130602) do
     t.integer  "notified_id"
     t.integer  "opinion_id"
     t.string   "kind"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "read",        default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "notifications", ["notified_id"], name: "index_notifications_on_notified_id"

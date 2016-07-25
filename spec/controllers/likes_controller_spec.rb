@@ -34,16 +34,10 @@ RSpec.describe LikesController, type: :controller do
 		end
 	end
 	
-	describe 'DELETE #destroy' do
-		before :each do
-			@like = FactoryGirl.create(:like)
-			post :create, like: FactoryGirl.build(:like, liked: nil), liked_id: @micropost.id
-		end	
-		
-		#it 'destroy like' do
-		#	delete :destroy, :liked_id => @micropost.id
-		#	assert_response :redirect
-		#end
+	it 'destroy like' do
+        post :create, like: {}, liker_id: @user, liked_id: @micropost
+        post :destroy, :id => @micropost.id, like: {}, liker_id: @user, liked_id: @micropost
+        expect(response).to redirect_to('/apps/1')
 	end	
 	
 	private

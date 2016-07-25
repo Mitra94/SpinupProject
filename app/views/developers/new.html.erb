@@ -1,6 +1,16 @@
-<br><br><br><br><br><br>
-<h1>Spin up Developer</h1>
+<% provide(:title, 'Spin up') %>
 
-<%= render 'form' %>
+<div class="index">
+	<h1>Spin up Developer</h1>
+	
+	<div class="leftside">
+		<p>Already registered?</p> 
+		<span><%= link_to "Spin in as a user", login_path%></span><br>
+		<span><%= link_to "Spin in as a developer", logindev_path%></span><br><br>
+		<p>You are a developer?</p>
+		<span><%= link_to "Spin up as a user", signup_user_path%></span><br>
+	</div>
 
-<%= link_to 'Back', root_path %>
+	<%= render 'form' %>
+
+</div>

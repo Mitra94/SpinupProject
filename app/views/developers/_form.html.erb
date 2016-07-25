@@ -14,44 +14,45 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
-  
+  <br>
   <div class="field">
-    <%= f.label :surname %><br>
+    <%= f.label :surname %>
     <%= f.text_field :surname %>
   </div>
-  
+  <br>
   <div class="field">
     <%= f.label :city %><br>
     <%= f.text_field :city %>
   </div>
   
   <div class="field">
-    <%= f.label :age %><br>
+    <%= f.label :age %>
     <%= f.number_field :age %>
   </div>
-  
+  <br>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
-  
+  <br>
   <div class="field">
-    <%= f.label :password %><br>
+    <%= f.label :password %>
     <%= f.password_field :password, class: 'form-control'  %>
   </div>
-  
+  <br>
   <div class="field">
-    <%= f.label :password_confirmation, "Confirmation" %><br>
+    <%= f.label :password_confirmation, "Confirmation" %>
     <%= f.password_field :password_confirmation, class: 'form-control' %>
   </div>
-  
+  <br>
   <span class="picture">
+	<%= f.label :picture, "Upload Your Photo" %>
     <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
   </span>
-  
+  <br>
   <div class="actions">
     <%= f.submit "Create Developer", class: "btn btn-primary" %>
   </div>

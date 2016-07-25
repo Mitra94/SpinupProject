@@ -1,25 +1,35 @@
 <% provide(:title, "Log in Developer") %>
-<br><br><br><br><br><br><br>
-<h1>Log in Developer</h1>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:session, url: logindev_path) do |f| %>
+<div class="index">
+	<h1>Log in Developer</h1>
+	
+	<div class="leftside">
+		<p>You are a user?</p> 
+		<span><%= link_to "Spin in as a user", login_path%></span><br><br>
+		<p>New?</p>
+		<span><%= link_to "Spin up as a user", signup_user_path%></span><br>
+		<span><%= link_to "Spin up as a developer", signup_developer_path%></span><br>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<%= form_for(:session, url: logindev_path) do |f| %>
 
-      <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
+				<%= f.label :email %>
+				<%= f.email_field :email, class: 'form-control' %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
-      
-      <%= f.label :remember_me, class: "checkbox inline" do %>
-        <%= f.check_box :remember_me %>
-        <span>Remember me on this computer</span>
-      <% end %>
+				<%= f.label :password %>
+				<%= f.password_field :password, class: 'form-control' %>
+				  
+				<%= f.label :remember_me, class: "checkbox inline" do %>
+				<%= f.check_box :remember_me %>
+				
+				<span>Remember me on this computer</span>
+			<% end %>
 
 
-      <%= f.submit "Log in", class: "btn btn-primary" %>
-    <% end %>
-
-  </div>
+			<%= f.submit "Spin in", class: "btn btn-primary" %>
+			<% end %>
+		</div>
+	</div>
 </div>

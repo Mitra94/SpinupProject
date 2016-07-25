@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-	
+		
   <br>
   <div class="field">
     <%= f.label :name %>
@@ -36,6 +36,7 @@
   </div>
   <br>
   <span class="picture">
+	<%= f.label :picture, "Upload Your Photo" %>
     <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
   </span>
   <div class="actions"><br>

@@ -127,7 +127,7 @@ RSpec.describe "Developer management", :type => :request do
     visit "/logindev"
     fill_in "Email", :with => "melideo@gmail.com"
     fill_in "Password", :with => "muromuro"
-    click_button "Log in"
+    click_button "Spin in"
 
     expect(current_path).to eq(home_path)
   end

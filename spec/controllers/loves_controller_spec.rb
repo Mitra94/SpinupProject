@@ -34,16 +34,10 @@ RSpec.describe LovesController, type: :controller do
 		end
 	end
 	
-	describe 'POST #destroy' do
-		before :each do
-			@love = FactoryGirl.create(:love)
-		end	
-		
-		#it 'destroy spin' do
-		#	love = FactoryGirl.create(:love)
-		#	post :destroy, :id => love.id
-		#	assert_response :redirect
-		#end
+	it 'destroy like' do
+        post :create, love: {}, lover_id: @user, loved_id: @comment
+        post :destroy, :id => @comment.id, love: {}, lover_id: @user, loved_id: @comment
+        expect(response).to redirect_to('/apps/1')
 	end	
 	
 	private

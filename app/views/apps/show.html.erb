@@ -1,12 +1,43 @@
 <br><br><br><br>
-<p id="notice"><%= notice %></p>
+
 <%= stylesheet_link_tag "application.css" %>
+
+		<%if logged_in?%>
+			<div class="left-app"> 
+				<div class="dropdown">
+					<button class="dropbtn"> <%= current_user.username%> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "Settings", edit_user_path(current_user) %><br>
+						<% if current_user.admin? %>
+							<%= link_to "Reports", controller: 'reports', action: 'list_reports' %><br>
+						<% end %>
+						<%= link_to "Log out", logout_path, method: "get" %>
+					</div>
+				</div>	
+			</div>
+		<%end%>
+		<%if logged_in_dev?%>
+			<div class="left-app">
+				<div class="dropdown">
+					<button class="dropbtn"> <%=current_dev.name %> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "My profile", developer_path(current_dev) %><br>
+						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
+						<%= link_to "Create App", new_app_path%><br>
+						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+						<%= link_to "Log out", logoutdev_path, method: "get" %>
+					</div>
+				</div>
+		   </div>
+		<%end%> 
 
 <div id="container">
 		<div class="Realizers">
-			Lista dei realizzatori :
+			Realizers :
 			<% @app.developers.each do |developer| %>
-			<ul><%= developer.name + " " + developer.surname%></ul>
+			<ul><%=link_to developer.name + " " + developer.surname, developer_path%></ul>
 			<% end %>
 		</div>
 	<div class="general">
@@ -16,7 +47,7 @@
 		<div class="information">
 			<p>
 				<strong>Name:</strong>
-				<%= @app.name %>
+				<%= @app.name %> (Version : <%= @app.version %>)
 			</p>
             <p>
                 <strong>Platform:</stong>
@@ -25,10 +56,6 @@
             <p>
                 <strong>Category:</strong>
 				<%= @app.category %>
-			</p>
-			<p>
-				<strong>Current Version:</strong>
-				<%= @app.version %>
 			</p>
 
 			<% if !logged_in? %>
@@ -39,7 +66,8 @@
 
 			<% end %>
 
-
+			<div id="bugs">
+			
 			<% if @app.developers.first.id == current_dev.id %>
 
 				<p><%= link_to "Watch pending requests", controller: 'invites', action: 'requests' %></p>
@@ -48,8 +76,12 @@
 
 
 			<p><%= link_to "Known bugs", controller: 'bugs', action: 'show_app_bugs' %></p>
-
+			
+			</div>
+			
 			<% end %>
+            
+            <br>
             
             Vote : <%= rating_for @app, 'vote', cancel_place: 'right', cancel_hint: 'Cancel this vote!',
                    disable_after_rate: true , imdb_avg: true ,target: '#hintDiv' %>

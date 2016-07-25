@@ -42,7 +42,7 @@ RSpec.describe "User management", :type => :request do
     visit "/login"
     fill_in "Email", :with => "tonno@gmail.com"
     fill_in "Password", :with => "canecane"
-    click_button "Log in"
+    click_button "Spin in"
 
     expect(current_path).to eq(home_path)
   end
