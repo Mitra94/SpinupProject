@@ -20,7 +20,7 @@
     <%= f.text_field :email %>
   </div>
   <%= f.label :categories, "Your App's categories prefered" %>
-      <%= f.collection_check_boxes :categories, @categories || [], :first, :last do |b|
+      <%= f.collection_check_boxes :categories, [['Game', 'Game'], ['Photo', 'Photo'], ['Family', 'Family'], ['Music', 'Music'], ['Shopping', 'Shopping'], ['Social', 'Social'], ['Communication', 'Communication']], :first, :last do |b|
         b.label { b.check_box + b.text }
     end %>
     <br>
