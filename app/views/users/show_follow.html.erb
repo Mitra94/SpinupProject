@@ -1,7 +1,22 @@
-<% provide(:title, @title) %>
-	
+<div class= "center jumbotron" >
+
 	<div id="list">
 		<h1>YOUR FOLLOWED APPS: </h1>
+		<%if logged_in?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%= current_user.username%> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "Settings", edit_user_path(current_user) %><br>
+						<% if current_user.admin? %>
+							<%= link_to "Reports", controller: 'reports', action: 'list_reports' %><br>
+						<% end %>
+						<%= link_to "Log out", logout_path, method: "get" %>
+					</div>
+				</div>	
+			</div>
+		<%end%>
 		<%App.find_each do |app| %>
 			<%app.followers.each do |user|%>
 				<%if user.id == current_user.id%>
@@ -10,5 +25,6 @@
 			<%end%>
 		<%end%>
 		<br>
-		<%=link_to "Back", home_path%>
+		<%=link_to "Back", :back%>
 	</div>
+</div>

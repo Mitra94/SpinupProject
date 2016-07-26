@@ -1,11 +1,9 @@
-<<<<<<< HEAD
-<div class= "center jumbotron" >
-
-=======
-<p id="notice"><%= notice %></p>
-
 <%= stylesheet_link_tag "application.css" %>
 <div class= "center jumbotron" >
+
+
+<h1>Listing Apps</h1>
+
 <%if logged_in?%>
 			<div class="left">
 				<div class="dropdown">
@@ -36,25 +34,7 @@
 				</div>
 		   </div>
 <%end%> 
-<br><br><br>
->>>>>>> d90e76465065c5a2f8f0d8cdc8174b23436a5c40
-<h1>Listing Apps</h1>
 
-<%if logged_in_dev?%>
-			<div class="left">
-				<div class="dropdown">
-					<button class="dropbtn"> <%=current_dev.name %> </button>
-					<div class="dropdown-content">
-						<%= link_to "Home", home_path%><br>
-						<%= link_to "My profile", developer_path(current_dev) %><br>
-						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
-						<%= link_to "Create App", new_app_path%><br>
-						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
-						<%= link_to "Log out", logoutdev_path, method: "get" %>
-					</div>
-				</div>
-		   </div>
-		<%end%> 
 <div align="center">
 	<% if @apps.present? %>
 	<table>
