@@ -34,7 +34,7 @@ class InvitesController < ApplicationController
     @app.developers << @dev
     respond_to do |format|
       if @invite.destroy
-        format.html { redirect_to @app, notice: 'A new developer joined your team!' }
+        format.html { redirect_to @app, success: 'A new developer joined your team!' }
         format.json { render :show, status: :destroyed, location: @app }
       else
         format.html { render :back }
@@ -50,7 +50,7 @@ class InvitesController < ApplicationController
     @app.developers << current_dev
     respond_to do |format|
       if @invite.destroy
-        format.html { redirect_to @app, notice: 'You joined the development team!' }
+        format.html { redirect_to @app, success: 'You joined the development team!' }
         format.json { render :show, status: :destroyed, location: @app }
       else
         format.html { render :new }
@@ -64,7 +64,7 @@ class InvitesController < ApplicationController
     @invite = Invite.find_by(app: @app.name, receiver: current_dev.id)
     respond_to do |format|
       if @invite.destroy
-        format.html { redirect_to @app, notice: 'Invite deleted...' }
+        format.html { redirect_to @app, danger: 'Invite deleted...' }
         format.json { render :show, status: :destroyed, location: @app }
       else
         format.html { render :new }
@@ -78,7 +78,7 @@ class InvitesController < ApplicationController
     @invite = Invite.find_by(app: @app.name, receiver: current_dev.id)
     respond_to do |format|
       if @invite.destroy
-        format.html { redirect_to @app, notice: 'Invite deleted...' }
+        format.html { redirect_to @app, danger: 'Invite deleted...' }
         format.json { render :show, status: :destroyed, location: @app }
       else
         format.html { render :new }
@@ -96,7 +96,7 @@ class InvitesController < ApplicationController
 
     respond_to do |format|
       if @invite.save
-        format.html { redirect_to developer_path(current_dev), notice: 'Invite was successfully sent to the developer!' }
+        format.html { redirect_to developer_path(current_dev), success: 'Invite was successfully sent to the developer!' }
         format.json { render :show, status: :created, location: @invite }
       else
         format.html { render :new }
@@ -110,7 +110,7 @@ class InvitesController < ApplicationController
       @invite = Invite.new(app: @app.name, sender: current_dev.id, receiver: @app.developers.first.id)
       respond_to do |format|
         if @invite.save
-        format.html { redirect_to @app, notice: 'Invite was successfully sent to the creator of the app' }
+        format.html { redirect_to @app, success: 'Invite was successfully sent to the creator of the app' }
         format.json { render :show, status: :created, location: @app }
         else
         format.html { render :new }
