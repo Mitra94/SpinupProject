@@ -1,3 +1,4 @@
+<p id="notice"><%= notice %></p>
 <br><br><br><br>
 
 <%= stylesheet_link_tag "application.css" %>
@@ -37,7 +38,12 @@
 		<div class="Realizers">
 			Realizers :
 			<% @app.developers.each do |developer| %>
-			<ul><%=link_to developer.name + " " + developer.surname, developer_path%></ul>
+		                <%if logged_in_dev?%>
+		                <ul><%=link_to developer.name + " " + developer.surname, developer_path%></ul>
+		                <%end%> 
+		                <%if logged_in?%>
+		                    <%=developer.name + " " + developer.surname%>
+		                <%end%>
 			<% end %>
 		</div>
 	<div class="general">
