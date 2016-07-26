@@ -71,17 +71,6 @@ class App < ActiveRecord::Base
     
     def after_validation
         # Skip errors that won't be useful to the end user
-        filtered_errors = self.errors.reject{ |err| %w{app}.include?(err.first) }
-        logger.debug "Errors: #{filtered_errors.inspect}"
-        # this changes the field name from customer.user.person.first_name
-        # to: First name
-        count = filtered_errors.count
-        filtered_errors[0]=filtered_errors[count-1]
-        filtered_errors.shift
-        self.errors.clear
-        #logger.debug "Errors: #{filtered_errors.class}"
-        filtered_errors.each { |err| self.errors.add(*err) }
-        logger.debug "Errors: #{filtered_errors.inspect}"
       end
     
 end
