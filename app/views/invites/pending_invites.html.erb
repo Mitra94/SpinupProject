@@ -1,5 +1,13 @@
 <%= stylesheet_link_tag "application.css" %>
 <div class= "center jumbotron" >
+<div class="container">
+  <div align="center">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  </div>
+  <%= yield %>
+</div>
 <%if logged_in_dev?%>
 			<div class="left">
 				<div class="dropdown">
