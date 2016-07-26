@@ -1,5 +1,38 @@
 <p id="notice"><%= notice %></p>
-<br><br>
+
+<%= stylesheet_link_tag "application.css" %>
+<div class= "center jumbotron" >
+<%if logged_in?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%= current_user.username%> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "Settings", edit_user_path(current_user) %><br>
+						<% if current_user.admin? %>
+							<%= link_to "Reports", controller: 'reports', action: 'list_reports' %><br>
+						<% end %>
+						<%= link_to "Log out", logout_path, method: "get" %>
+					</div>
+				</div>	
+			</div>
+		<%end%>
+		<%if logged_in_dev?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%=current_dev.name %> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "My profile", developer_path(current_dev) %><br>
+						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
+						<%= link_to "Create App", new_app_path%><br>
+						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+						<%= link_to "Log out", logoutdev_path, method: "get" %>
+					</div>
+				</div>
+		   </div>
+<%end%> 
+<br><br><br>
 <h1>Listing Apps</h1>
 
 <% if @apps.present? %>
