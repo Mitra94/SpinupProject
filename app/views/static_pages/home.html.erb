@@ -64,7 +64,7 @@
 	  
 		<div id="pie">
 			<% if logged_in? %>
-				<span><%= image_tag "cake5.jpg", :usemap => "#shelfmap" %></span>
+				<p><%= image_tag "cake5.jpg", :usemap => "#shelfmap" %></p>
 				<map name="shelfmap">
 					<area shape="poly" coords="190,22,154,144,47,66,105,22" href="/musthave" alt="Must have apps" />
 					<area shape="poly" coords="42,71,148,149,43,225,16,142" href="/random" alt="Random app" />
@@ -74,7 +74,7 @@
 				</map>
 				<br><br>
 			<% else %>
-				<span><%= image_tag "cake4.jpg", :usemap => "#shelfmap" %></span>
+				<p><%= image_tag "cake4.jpg", :usemap => "#shelfmap" %></p>
 				<map name="shelfmap">
 					<area shape="poly" coords="145,15,143,140,9,142,48,50" href="/musthave" alt="Must have apps" />
 					<area shape="poly" coords="7,161,147,165,146,298,45,254" href="/random" alt="Random app" />
@@ -152,17 +152,19 @@
 											<span class="content"><%= comment.content %></span>
 										<%end%>
 									<%end%>
+									</ol>
 								<%end%>
 								<%if micropost.opinions.any?%>
 									<%micropost.opinions.order("created_at DESC").each do |opinion|%>
 										<%if opinion.created_at > 3.days.ago%>
 											<%if opinion.user != current_user%>
-												<p id="opinion-<%=opinion.id%>">
-												- <p class="user"><%= link_to opinion.user.username, opinion.user%></p> Comment a post of <%=link_to app.name, app%> : 
-												<p class="content"><%= opinion.content %></p>
+												<ol id="opinion-<%=opinion.id%>">
+												- <span class="user"><%= link_to opinion.user.username, opinion.user%></span> Comment a post of <%=link_to app.name, app%> : 
+												<span class="content"><%= opinion.content %></span>
 											<%end%>
 										<%end%>
 									<%end%>
+									</ol>
 								<%end%>						
 							<%end%>
 						<%end%>
@@ -184,11 +186,11 @@
 	 
 	  <%if logged_in_dev?%>
 		  <div id="apps">
+		  MY APPS : <br>
 			<%App.find_each do |app|%>
 				<%app.developers.each do |developer|%>
 					<%if developer.email == current_dev.email%>
-						MY APPS : <br>
-						- <%=link_to app.name, app%>
+						- <%=link_to app.name, app%><br>
 					<%end%>
 				<%end%>
 			<%end%>
@@ -1867,7 +1869,11 @@
 		<%end%>
 		
 	<script type="text/javascript">
-
+	
+		$(function() {
+			drawChart();
+		});
+		
 		  // Load the Visualization API and the piechart package.
 		  google.charts.load('current', {'packages':['corechart']});
 

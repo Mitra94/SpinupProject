@@ -35,10 +35,10 @@
   <%= f.text_field :version, :value => "1.0" %>
   </div>
   <br>
-  <span class="picture">
+  <div class="field">
 	<%= f.label :picture, "Upload Your Photo" %>
-    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-  </span>
+	<div align="center"><%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %></div>
+  </div>
   <div class="actions"><br>
     <%= f.submit "Post", class: "btn btn-primary" %>
   </div>

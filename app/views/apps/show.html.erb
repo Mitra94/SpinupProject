@@ -41,10 +41,14 @@
 			<% end %>
 		</div>
 	<div class="general">
-		<div class="photo">
-			<%= image_tag @app.picture.url if @app.picture? %>
-		</div>
-		<div class="information">
+			<div class="photo">
+				<%= image_tag @app.picture.url if @app.picture? %>
+			</div>
+		<%if @app.picture?%>
+			<div class="information">
+		<%else%>
+			<div class="information2">
+		<%end%>
 			<p>
 				<strong>Name:</strong>
 				<%= @app.name %> (Version : <%= @app.version %>)
@@ -55,19 +59,28 @@
             </p>
             <p>
                 <strong>Category:</strong>
-				<%= @app.category %>
+				<%= @app.category %><br>
+				
+            Vote : <%= rating_for @app, 'vote', cancel_place: 'right', cancel_hint: 'Cancel this vote!',
+                   disable_after_rate: true , imdb_avg: true ,target: '#hintDiv' %>
+            <div id="hintDiv"></div>
+            Votes: <%= @app.rates("vote").count %>
+
+            
+            <section class="stats">
+                <%= render 'shared/statsapp' %>
+            </section>				
 			</p>
-
-			<% if !logged_in? %>
-
-			<% if !@app.developers.exists?(current_dev.id) and Invite.where("app = ? AND sender = ? AND receiver = ?", @app.name, current_dev.id, @app.developers.first.id).count == 0 %>
-
-				<p><%= link_to "Propose to work on app", controller: 'invites', action: 'create_invite' %></p>
-
-			<% end %>
-
-			<div id="bugs">
 			
+			
+			<% if !logged_in? %>
+			
+			
+			<%if @app.picture?%>
+				<div id="bugs">
+			<%else%>
+				<div id="bugs2">
+			<%end%>
 			<% if @app.developers.first.id == current_dev.id %>
 
 				<p><%= link_to "Watch pending requests", controller: 'invites', action: 'requests' %></p>
@@ -77,21 +90,17 @@
 
 			<p><%= link_to "Known bugs", controller: 'bugs', action: 'show_app_bugs' %></p>
 			
+			<% if !@app.developers.exists?(current_dev.id) and Invite.where("app = ? AND sender = ? AND receiver = ?", @app.name, current_dev.id, @app.developers.first.id).count == 0 %>
+
+				<p><%= link_to "Propose to work on app", controller: 'invites', action: 'create_invite' %></p>
+
+			<% end %>
+			
 			</div>
 			
 			<% end %>
             
             <br>
-            
-            Vote : <%= rating_for @app, 'vote', cancel_place: 'right', cancel_hint: 'Cancel this vote!',
-                   disable_after_rate: true , imdb_avg: true ,target: '#hintDiv' %>
-            <div id="hintDiv"></div>
-            Votes: <%= @app.rates("vote").count %>
-
-            
-            <section class="stats">
-                <%= render 'shared/statsapp' %>
-            </section>
             
             
             <div id="follow_form">

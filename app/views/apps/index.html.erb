@@ -1,32 +1,54 @@
-<p id="notice"><%= notice %></p>
-<br><br>
+<div class= "center jumbotron" >
+
 <h1>Listing Apps</h1>
 
-<% if @apps.present? %>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Platform</th>
-      <th>Category</th>
-      <th>Vote</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%if logged_in_dev?%>
+			<div class="left">
+				<div class="dropdown">
+					<button class="dropbtn"> <%=current_dev.name %> </button>
+					<div class="dropdown-content">
+						<%= link_to "Home", home_path%><br>
+						<%= link_to "My profile", developer_path(current_dev) %><br>
+						<%= link_to "Settings", edit_developer_path(current_dev) %><br>
+						<%= link_to "Create App", new_app_path%><br>
+						<%= link_to "Pending invites", controller: 'invites', action: 'pending_invites', :id => current_dev.id %><br>
+						<%= link_to "Log out", logoutdev_path, method: "get" %>
+					</div>
+				</div>
+		   </div>
+		<%end%> 
+<div align="center">
+	<% if @apps.present? %>
+	<table>
+	  <thead>
+		<tr>
+		  <th>Name</th>
+		  <th>Platform</th>
+		  <th>Category</th>
+		  <th>Vote</th>
+		  <th colspan="3"></th>
+		</tr>
+	  </thead>
 
-  <tbody>
-    <% @apps.each do |app| %>
-      <tr>
-        <td><%= link_to app.name, app %></td>
-        <td><%= app.platform %></td>
-        <td><%= app.category %></td>
-        <td> <%= rating_for app, 'vote', cancel_place: 'right', cancel_hint: 'Cancel this vote!',
-                   disable_after_rate: true , imdb_avg: true %> </td> 
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<% else %>
-  <p>There are no apps containing the term(s) <%= params[:search] %>.</p>
-<% end %>
-<br>
+	  <tbody>
+		<% @apps.each do |app| %>
+		  <tr>
+			<td><%= link_to app.name, app %></td>
+			<td><%= app.platform %></td>
+			<td><%= app.category %></td>
+			<td> <%= rating_for app, 'vote', cancel_place: 'right', cancel_hint: 'Cancel this vote!',
+					   disable_after_rate: true , imdb_avg: true %> </td> 
+		  </tr>
+		<% end %>
+	  </tbody>
+	</table>
+	<% else %>
+	  <p>There are no apps containing the term(s) <%= params[:search] %>.</p>
+	<% end %>
+	<br>
+	
+</div>
+
+<%= link_to 'Back', :back %>
+
+</div>
